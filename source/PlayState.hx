@@ -5,6 +5,8 @@ import flixel.FlxState;
 
 class PlayState extends FlxState
 {
+  var isPaused = true;
+
 	override public function create():Void
 	{
     FlxG.mouse.useSystemCursor = true;
@@ -16,9 +18,21 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
-    GameData.data.elapsed += elapsed;
-    #if !flash
+
+    var totalElapsed = GameData.data.elapsed;
+    totalElapsed += elapsed;
+    GameData.data.elapsed = totalElapsed;
+
+    FlxG.log.add(getElapsedDays(totalElapsed));
+    FlxG.log.add(getElapsedToday(totalElapsed));
+
     GameData.save();
-    #end
 	}
+
+  function getElapsedToday(totalElapsed:Float):Float {
+    return totalElapsed % GameConfig.elapsedEachDay;
+  }
+  function getElapsedDays(totalElapsed:Float):Float {
+    return Math.floor(totalElapsed / GameConfig.elapsedEachDay);
+  }
 }
