@@ -2,23 +2,23 @@ package sprites;
 import flixel.group.FlxSpriteGroup;
 
 class Dashboard extends FlxSpriteGroup {
-  var foodTitle:PaperGenerator;
+  var foodTitle:LanguageGenerator;
   var foodStatus:StatusBar;
 
-  var tirednessTitle:PaperGenerator;
+  var tirednessTitle:LanguageGenerator;
   var tirednessStatus:StatusBar;
 
   public function new() {
     super();
 
-    foodTitle = new PaperGenerator(GameConfig.dashboardX, GameConfig.dashboardY, 1, GameConfig.foodTitleGeneratorSeed);
+    foodTitle = new LanguageGenerator(GameConfig.dashboardX, GameConfig.dashboardY, 1, GameConfig.foodTitleGeneratorSeed);
     add(foodTitle);
     foodStatus = new StatusBar(
       GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusTitleLineHeight, GameConfig.initialFood
     );
     add(foodStatus);
 
-    tirednessTitle = new PaperGenerator(
+    tirednessTitle = new LanguageGenerator(
       GameConfig.dashboardX,
       GameConfig.dashboardY + GameConfig.statusLineHeight * 1,
       1,

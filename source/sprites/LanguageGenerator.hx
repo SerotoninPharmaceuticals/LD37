@@ -5,7 +5,7 @@ import flixel.FlxSprite;
 import flixel.math.FlxRandom;
 import flixel.util.FlxSpriteUtil;
 
-class PaperGenerator extends FlxSprite {
+class LanguageGenerator extends FlxSprite {
 
   static var MAX_DOTS = 6;
   private var _color:Int;
