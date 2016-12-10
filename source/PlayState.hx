@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxState;
+import sprites.Player;
 
 class PlayState extends FlxState {
   var isPaused = true;

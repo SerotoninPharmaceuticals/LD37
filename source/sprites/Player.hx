@@ -1,6 +1,6 @@
 // From flixel demo.
 
-package;
+package sprites;
 
 import flixel.FlxG;
 import flixel.FlxObject;
