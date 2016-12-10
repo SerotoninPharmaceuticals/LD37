@@ -24,7 +24,7 @@ class GameData {
     gameSave.bind("Main");
 
     if (gameSave.data.gameData == null) {
-      reset();
+      gameSave.data.gameData = getDefaultData();
     }
     data = gameSave.data.gameData;
   }
@@ -37,6 +37,7 @@ class GameData {
 
   static public function reset() {
     gameSave.data.gameData = getDefaultData();
+    data = gameSave.data.gameData;
   }
 
   static function getDefaultData():Data {
