@@ -1,6 +1,14 @@
 package ;
 
 import flixel.util.FlxColor;
+
+typedef LifeObject = {
+  @optional var normal:String;
+  @optional var hitbox:String;
+  @optional var highlight:String;
+};
+
+
 class GameConfig {
   public static var debugMode:Bool = true;
 
@@ -43,4 +51,11 @@ class GameConfig {
   public static var initialTiredness:Float = 10;
   public static var tirednessReduceEachDay:Float = 1;
   public static var tirednessGainWhenSleepInDay:Float = 2;
+
+  public static var bed:LifeObject = {
+    normal: "assets/images/bed.png",
+    hitbox: "assets/images/bed_hitbox.png",
+    highlight: "assets/images/bed_highlight.png"
+  };
+
 }
