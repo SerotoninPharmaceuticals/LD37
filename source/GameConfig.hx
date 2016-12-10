@@ -70,4 +70,12 @@ class GameConfig {
     highlight: "assets/images/food_highlight.png"
   };
 
+  public static var water:LifeObjectConfig = {
+    x: 70,
+    y: 38,
+    hitboxOffsetX: -30,
+    normal: "assets/images/water.png",
+    hitbox: "assets/images/water_hitbox.png",
+    highlight: "assets/images/water_highlight.png"
+  };
 }

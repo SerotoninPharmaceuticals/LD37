@@ -1,5 +1,6 @@
 package;
 
+import sprites.Water;
 import sprites.LifeObject;
 import flixel.group.FlxGroup;
 import sprites.Food;
@@ -21,6 +22,7 @@ class PlayState extends FlxState {
   var wall:Wall;
   var bed:Bed;
   var food:Food;
+  var water:Water;
   var dashboard:Dashboard;
   var lifeObjects:FlxTypedGroup<LifeObject>;
 
@@ -44,9 +46,13 @@ class PlayState extends FlxState {
     food = new Food();
     add(food);
 
+    water = new Water();
+    add(water);
+
     lifeObjects = new FlxTypedGroup<LifeObject>();
     lifeObjects.add(food);
     lifeObjects.add(bed);
+    lifeObjects.add(water);
 
     loadPlayer();
   }
