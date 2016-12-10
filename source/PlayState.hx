@@ -6,12 +6,16 @@ import flixel.FlxState;
 class PlayState extends FlxState {
   var isPaused = true;
   var currentDay = 0;
+  var player:Player;
 
   override public function create():Void {
     FlxG.mouse.useSystemCursor = true;
     super.create();
     GameData.load();
     FlxG.log.add(GameData.data.elapsed);
+
+    player = new Player(FlxG.width/2, FlxG.height/2);
+    add(player);
   }
 
   override public function update(elapsed:Float):Void {
