@@ -1,5 +1,4 @@
 package sprites;
-import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 
@@ -7,12 +6,10 @@ class Wall extends FlxSpriteGroup {
   public function new() {
     super();
 
-    var centerX = FlxG.width / 2;
-    var centerY = FlxG.height / 2;
-    var left = centerX - GameConfig.roomWidth / 2 - 1;
-    var right = centerX + GameConfig.roomWidth / 2;
-    var top = centerY - GameConfig.roomWidth / 2 - 1;
-    var bottom = centerY + GameConfig.roomWidth / 2;
+    var left = GameConfig.roomX - 1;
+    var right = GameConfig.roomRight;
+    var top = GameConfig.roomY - 1;
+    var bottom = GameConfig.roomBottom;
 
     var topWall = new FlxSprite(left, top);
     topWall.makeGraphic(GameConfig.roomWidth + 2, 1);
