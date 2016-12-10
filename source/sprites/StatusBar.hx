@@ -11,15 +11,15 @@ class StatusBar extends FlxSprite {
   var white = GameConfig.textWhite;
   var gray = GameConfig.textGray;
 
-  var total:Int;
+  var total:Float;
 
-  public function new(X:Float = 0, Y:Float = 0, _total:Int = 100) {
+  public function new(X:Float = 0, Y:Float = 0, _total:Float = 10) {
     super(X, Y);
     total = _total;
     makeGraphic(
       statusDotCount * (statusDotWidth + statusDotSpace),
       statusDotHeight,
-      FlxColor.TRANSPARENT
+      FlxColor.TRANSPARENT, true // Pass true to Unique to prevent bitmap resuse.
     );
     pixelPerfectPosition = true;
     pixelPerfectRender = true;

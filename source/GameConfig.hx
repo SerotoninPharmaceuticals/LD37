@@ -11,7 +11,8 @@ class GameConfig {
   // Time
   public static var elapsedEachDay:Float = debugMode ? 5 : 60;
   public static var totalDays:Int = 3000;
-  public static var sleepDuration:Float = elapsedEachDay * 8 / 24;
+  static var _sleepHour:Float = 8;
+  public static var sleepDuration:Float = elapsedEachDay * _sleepHour / 24;
 
   // Size
   public static var roomWidth = 100;
@@ -36,9 +37,10 @@ class GameConfig {
   public static var bedY = roomY + 0;
 
   // Status
-  public static var initialFood:Float = 100;
-  public static var initialTiredness:Float = 100;
-
+  public static var initialFood:Float = 10;
   public static var foodReduceEachDay:Float = 1;
+
+  public static var initialTiredness:Float = 10;
   public static var tirednessReduceEachDay:Float = 1;
+  public static var tirednessGainWhenSleepInDay:Float = 2;
 }

@@ -23,7 +23,7 @@ class PaperGenerator extends FlxSprite {
     _lineHeight = lineHeight;
     _spacing = spacing;
     _color = color;
-    makeGraphic(width, lines * lineHeight, bg);
+    makeGraphic(width, lines * lineHeight, bg, true); // Pass true to Unique to prevent bitmap resuse.
     drawLines();
   }
 

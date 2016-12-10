@@ -39,40 +39,6 @@ class PlayState extends FlxState {
     loadPlayer();
   }
 
-  public function detectObjects() {
-    if (bed.checkHitbox(player.getPosition())) {
-      nearbyObject = bed;
-      bed.nearby(player);
-      if (FlxG.keys.anyJustPressed([X])) {
-        bed.action();
-      }
-    } else {
-      nearbyObject = null;
-      bed.alway();
-    }
-  }
-
-  override public function update(elapsed:Float):Void {
-    super.update(elapsed);
-    var totalElapsed = GameData.data.elapsed;
-    totalElapsed += elapsed;
-
-    FlxG.collide(player, wall);
-    FlxG.collide(player, bed);
-
-    detectObjects();
-
-    var _currentDay = getElapsedDays(totalElapsed);
-    if (_currentDay != currentDay) {
-      resetDayState();
-    }
-
-    GameData.data.elapsed = totalElapsed;
-    GameData.data.playerX = player.x;
-    GameData.data.playerY = player.y;
-    GameData.save();
-  }
-
   function loadPlayer() {
     player = new Player(GameData.data.playerX, GameData.data.playerY);
     add(player);
@@ -87,6 +53,54 @@ class PlayState extends FlxState {
     }
   }
 
+  override public function update(elapsed:Float):Void {
+    super.update(elapsed);
+    var totalElapsed = GameData.data.elapsed;
+    totalElapsed += elapsed;
+
+    FlxG.collide(player, wall);
+    FlxG.collide(player, bed);
+
+    detectObjects();
+    updateStatuses(elapsed);
+
+    var _currentDay = getElapsedDays(totalElapsed);
+    if (_currentDay != currentDay) {
+      resetDayState();
+    }
+
+    GameData.data.elapsed = totalElapsed;
+    GameData.data.playerX = player.x;
+    GameData.data.playerY = player.y;
+    GameData.save();
+  }
+
+  function detectObjects() {
+    if (bed.checkHitbox(player.getPosition())) {
+      nearbyObject = bed;
+      bed.nearby(player);
+      if (FlxG.keys.anyJustPressed([X])) {
+        bed.action();
+      }
+    } else {
+      nearbyObject = null;
+      bed.alway();
+    }
+  }
+
+  function updateStatuses(elapsed:Float) {
+    var elapsedInDay = elapsed / GameConfig.elapsedEachDay;
+
+    // Food
+    GameData.data.food -= elapsedInDay * GameConfig.foodReduceEachDay;
+
+    // Tiredness
+    if (player.isSleeping) {
+      GameData.data.tiredness += elapsedInDay * GameConfig.tirednessGainWhenSleepInDay;
+    } else {
+      GameData.data.tiredness -= elapsedInDay * GameConfig.tirednessReduceEachDay;
+    }
+  }
   function resetDayState() {
     sleptToday = false;
     GameData.data.sleptToday = sleptToday;
