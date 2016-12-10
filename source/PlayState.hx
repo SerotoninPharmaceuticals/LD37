@@ -11,6 +11,7 @@ class PlayState extends FlxState
 {
 	override public function create():Void
 	{
+    FlxG.mouse.useSystemCursor = true;
 		super.create();
 	}
 
