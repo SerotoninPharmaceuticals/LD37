@@ -15,8 +15,8 @@ class PaperGenerator extends FlxSprite {
   private var _spacing:Int;
   private var _width:Int;
 
-  public function new(lines=10, width=30, color=0xFFFFFFFF, fontSize=3, lineHeight=5, spacing=1, bg=0xFF000000) {
-    super();
+  public function new(X:Float=0, Y:Float=0, lines=1, width=30, color=0xFFFFFFFF, fontSize=3, lineHeight=5, spacing=1, bg=0xFF000000) {
+    super(X, Y);
     _lines = lines;
     _width = width;
     _fontSize = fontSize;
@@ -35,7 +35,7 @@ class PaperGenerator extends FlxSprite {
     for (dot in dots) {
       dotX = dot % _fontSize;
       dotY = Std.int(dot / _fontSize);
-      FlxSpriteUtil.drawRect(this, x + offsetX + dotX, y + offsetY + dotY + _lineHeight, 1, 1, _color);
+      FlxSpriteUtil.drawRect(this, offsetX + dotX, offsetY + dotY, 1, 1, _color);
     }
   }
 
