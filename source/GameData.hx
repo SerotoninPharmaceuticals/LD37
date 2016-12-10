@@ -8,7 +8,8 @@ typedef Data = {
   var playerX:Float;
   var playerY:Float;
 
-  var strength:Float;
+  var food:Float;
+  var tiredness:Float;
 
   var isSleeping:Bool;
   var sleepElapsed:Float;
@@ -25,7 +26,8 @@ class GameData {
       playerX: FlxG.width/2,
       playerY: FlxG.height/2,
 
-      strength: GameConfig.initialStrength,
+      food: GameConfig.initialFood,
+      tiredness: GameConfig.initialTiredness,
 
       isSleeping: false,
       sleepElapsed: 0,

@@ -1,5 +1,6 @@
 package;
 
+import sprites.Dashboard;
 import flixel.FlxSprite;
 import sprites.Bed;
 import sprites.Wall;
@@ -11,11 +12,12 @@ class PlayState extends FlxState {
   var isPaused = true;
   var currentDay = 0;
   var sleptToday = false;
+  var nearbyObject:FlxSprite;
 
   var player:Player;
   var wall:Wall;
   var bed:Bed;
-  var nearbyObject:FlxSprite;
+  var dashboard:Dashboard;
 
   override public function create():Void {
     FlxG.mouse.useSystemCursor = true;
@@ -25,24 +27,16 @@ class PlayState extends FlxState {
     if (GameConfig.debugMode) { GameData.reset(); }
     currentDay = getElapsedDays(GameData.data.elapsed);
 
+    dashboard = new Dashboard();
+    add(dashboard);
+
     wall = new Wall();
     add(wall);
 
-    FlxG.log.add(FlxG.width);
     bed = new Bed(GameConfig.bedX, GameConfig.bedY);
     add(bed);
 
-    player = new Player(GameData.data.playerX, GameData.data.playerY);
-    add(player);
-    player.onSleep = function() {
-      player.setPosition(bed.x + bed.width / 2, bed.y + bed.height / 2);
-      GameData.data.isSleeping = true;
-      GameData.data.sleptToday = true;
-    }
-    player.onWakeup = function() {
-      player.setPosition(bed.x + bed.width / 2 - player.width / 2, bed.y + bed.height + 5);
-      GameData.data.isSleeping = false;
-    }
+    loadPlayer();
   }
 
   public function detectObjects() {
@@ -77,6 +71,20 @@ class PlayState extends FlxState {
     GameData.data.playerX = player.x;
     GameData.data.playerY = player.y;
     GameData.save();
+  }
+
+  function loadPlayer() {
+    player = new Player(GameData.data.playerX, GameData.data.playerY);
+    add(player);
+    player.onSleep = function() {
+      player.setPosition(bed.x + bed.width / 2, bed.y + bed.height / 2);
+      GameData.data.isSleeping = true;
+      GameData.data.sleptToday = true;
+    }
+    player.onWakeup = function() {
+      player.setPosition(bed.x + bed.width / 2 - player.width / 2, bed.y + bed.height + 5);
+      GameData.data.isSleeping = false;
+    }
   }
 
   function resetDayState() {
