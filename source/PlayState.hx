@@ -1,22 +1,24 @@
 package;
 
 import flixel.FlxG;
-import flixel.FlxSprite;
 import flixel.FlxState;
-import flixel.text.FlxText;
-import flixel.ui.FlxButton;
-import flixel.math.FlxMath;
 
 class PlayState extends FlxState
 {
 	override public function create():Void
 	{
     FlxG.mouse.useSystemCursor = true;
-		super.create();
+    super.create();
+    GameData.load();
+    FlxG.log.add(GameData.data.elapsed);
 	}
 
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+    GameData.data.elapsed += elapsed;
+    #if !flash
+    GameData.save();
+    #end
 	}
 }
