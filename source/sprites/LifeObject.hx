@@ -1,4 +1,5 @@
 package sprites;
+import GameConfig.LifeObjectConfig;
 import flixel.math.FlxPoint;
 import flixel.FlxSprite;
 
@@ -10,16 +11,21 @@ class LifeObject extends FlxSprite {
   var hitboxImg:String;
   var highlightImg:String;
 
-  public function new(X:Float = 0, Y:Float = 0, _normalImg:String, _hitboxImg:String, _highlightImg:String) {
-    super(X, Y);
-    normalImg = _normalImg;
-    hitboxImg = _hitboxImg;
-    highlightImg = _highlightImg;
+  public function new(config:LifeObjectConfig) {
+    super(GameConfig.roomX + config.x, GameConfig.roomY + config.y);
+    normalImg = config.normal;
+    hitboxImg = config.hitbox;
+    highlightImg = config.highlight;
 
     loadGraphic(normalImg);
     immovable = true;
 
-    hitBox = new FlxSprite(X, Y);
+    var hitboxX = x;
+    var hitboxY = y;
+    if (config.hitboxOffsetX != null) { hitboxX += config.hitboxOffsetX; }
+    if (config.hitboxOffsetY != null) { hitboxX += config.hitboxOffsetY; }
+    hitBox = new FlxSprite(hitboxX, hitboxY);
+
     hitBox.loadGraphic(hitboxImg);
   }
   public function checkHitbox(point:FlxPoint):Bool {

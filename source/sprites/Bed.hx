@@ -1,9 +1,10 @@
 package sprites;
+import GameConfig;
 import flixel.FlxG;
 
 class Bed extends LifeObject {
-  public function new(X:Float, Y:Float) {
-    super(X, Y, GameConfig.bed.normal, GameConfig.bed.hitbox, GameConfig.bed.highlight);
+  public function new() {
+    super(GameConfig.bed);
   }
   override public function action():Void {
     FlxG.log.add("bed action");

@@ -2,10 +2,14 @@ package ;
 
 import flixel.util.FlxColor;
 
-typedef LifeObject = {
-  @optional var normal:String;
-  @optional var hitbox:String;
-  @optional var highlight:String;
+typedef LifeObjectConfig = {
+  @:optional var x:Float;
+  @:optional var y:Float;
+  @:optional var hitboxOffsetX:Float;
+  @:optional var hitboxOffsetY:Float;
+  @:optional var normal:String;
+  @:optional var hitbox:String;
+  @:optional var highlight:String;
 };
 
 
@@ -41,9 +45,6 @@ class GameConfig {
   public static var statusLineHeight = 16;
   public static var statusTitleLineHeight = 5;
 
-  public static var bedX = roomX + 0;
-  public static var bedY = roomY + 0;
-
   // Status
   public static var initialFood:Float = 10;
   public static var foodReduceEachDay:Float = 1;
@@ -52,10 +53,21 @@ class GameConfig {
   public static var tirednessReduceEachDay:Float = 1;
   public static var tirednessGainWhenSleepInDay:Float = 2;
 
-  public static var bed:LifeObject = {
+  public static var bed:LifeObjectConfig = {
+    x: 0,
+    y: 0,
     normal: "assets/images/bed.png",
     hitbox: "assets/images/bed_hitbox.png",
     highlight: "assets/images/bed_highlight.png"
+  };
+
+  public static var food:LifeObjectConfig = {
+    x: 70,
+    y: 70,
+    hitboxOffsetX: -30,
+    normal: "assets/images/food.png",
+    hitbox: "assets/images/food_hitbox.png",
+    highlight: "assets/images/food_highlight.png"
   };
 
 }

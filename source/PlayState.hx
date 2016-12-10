@@ -1,5 +1,8 @@
 package;
 
+import sprites.LifeObject;
+import flixel.group.FlxGroup;
+import sprites.Food;
 import sprites.Dashboard;
 import flixel.FlxSprite;
 import sprites.Bed;
@@ -17,7 +20,9 @@ class PlayState extends FlxState {
   var player:Player;
   var wall:Wall;
   var bed:Bed;
+  var food:Food;
   var dashboard:Dashboard;
+  var lifeObjects:FlxTypedGroup<LifeObject>;
 
   override public function create():Void {
     FlxG.mouse.useSystemCursor = true;
@@ -33,8 +38,15 @@ class PlayState extends FlxState {
     wall = new Wall();
     add(wall);
 
-    bed = new Bed(GameConfig.bedX, GameConfig.bedY);
+    bed = new Bed();
     add(bed);
+
+    food = new Food();
+    add(food);
+
+    lifeObjects = new FlxTypedGroup<LifeObject>();
+    lifeObjects.add(food);
+    lifeObjects.add(bed);
 
     loadPlayer();
   }
@@ -59,7 +71,9 @@ class PlayState extends FlxState {
     totalElapsed += elapsed;
 
     FlxG.collide(player, wall);
-    FlxG.collide(player, bed);
+    for(obj in lifeObjects) {
+      FlxG.collide(player, obj);
+    }
 
     detectObjects();
     updateStatuses(elapsed);
@@ -76,16 +90,23 @@ class PlayState extends FlxState {
   }
 
   function detectObjects() {
-    if (bed.checkHitbox(player.getPosition())) {
-      nearbyObject = bed;
-      bed.nearby(player);
-      if (FlxG.keys.anyJustPressed([X])) {
-        bed.action();
+    nearbyObject = null;
+    for(obj in lifeObjects) {
+      if (obj.checkHitbox(player.getPosition())) {
+        nearbyObject = obj;
+        obj.nearby(player);
+        if (FlxG.keys.anyJustPressed([X])) {
+          obj.action();
+        }
+        break;
       }
-    } else {
-      nearbyObject = null;
-      bed.alway();
     }
+    for(obj in lifeObjects) {
+      if (nearbyObject != obj) {
+        obj.alway();
+      }
+    }
+
   }
 
   function updateStatuses(elapsed:Float) {

@@ -11,8 +11,10 @@ import flixel.system.FlxSound;
 class Player extends FlxSprite {
   public var speed:Float = 200;
   private var _sndStep:FlxSound;
+
   public var isSleeping = false;
   public var sleepElapsed:Float = 0;
+  public var isEating = false;
 
   public var onSleep:Void->Void;
   public var onWakeup:Void->Void;
@@ -114,6 +116,8 @@ class Player extends FlxSprite {
       if (needWakeup()) {
         wakeup();
       }
+    } else if (isEating) {
+      // TODO
     } else {
       movement();
     }
@@ -136,5 +140,9 @@ class Player extends FlxSprite {
   }
   function needWakeup():Bool {
     return sleepElapsed > GameConfig.sleepDuration;
+  }
+
+  public function eat() {
+    isEating = true;
   }
 }
