@@ -5,16 +5,37 @@ import flixel.util.FlxSave;
 
 typedef Data = {
   var elapsed:Float;
-  var strength:Float;
   var playerX:Float;
   var playerY:Float;
+
+  var strength:Float;
+
   var isSleeping:Bool;
   var sleepElapsed:Float;
+  var sleptToday:Bool;
 
   @:optional var nothing:Bool;
 };
 
 class GameData {
+  static function getDefaultData():Data {
+    var defaultData:Data = {
+      elapsed: 0,
+
+      playerX: FlxG.width/2,
+      playerY: FlxG.height/2,
+
+      strength: GameConfig.initialStrength,
+
+      isSleeping: false,
+      sleepElapsed: 0,
+      sleptToday: false,
+
+      nothing: false
+    };
+    return defaultData;
+  }
+
   public static var data:Data;
 
   static var gameSave:FlxSave;
@@ -38,20 +59,6 @@ class GameData {
   static public function reset() {
     gameSave.data.gameData = getDefaultData();
     data = gameSave.data.gameData;
-  }
-
-  static function getDefaultData():Data {
-    var defaultData:Data = {
-      elapsed: 0,
-      strength: GameConfig.initialStrength,
-      playerX: FlxG.width/2,
-      playerY: FlxG.height/2,
-      isSleeping: false,
-      sleepElapsed: 0,
-
-      nothing: false
-    };
-    return defaultData;
   }
 
 }

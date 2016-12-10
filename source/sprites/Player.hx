@@ -11,8 +11,13 @@ import flixel.system.FlxSound;
 class Player extends FlxSprite {
   public var speed:Float = 200;
   private var _sndStep:FlxSound;
+  public var isSleeping = false;
+  public var sleepElapsed:Float = 0;
 
-  public function new(X:Float = 0, Y:Float = 0) {
+  public var onSleep:Void->Void;
+  public var onWakeup:Void->Void;
+
+  public function new(X:Float = 0, Y:Float = 0, _isSleeping = false, _sleepElapsed = 0) {
     super(X, Y);
 
     loadGraphic("assets/images/player.png", true, 16, 16);
@@ -26,6 +31,11 @@ class Player extends FlxSprite {
     offset.set(4, 2);
 
     _sndStep = FlxG.sound.load("assets/sounds/step.wav");
+
+    if (_isSleeping) {
+      sleep(_sleepElapsed);
+    }
+
   }
 
   private function movement():Void {
@@ -99,7 +109,32 @@ class Player extends FlxSprite {
   }
 
   override public function update(elapsed:Float):Void {
-    movement();
+    if (isSleeping) {
+      sleepElapsed += elapsed;
+      if (needWakeup()) {
+        wakeup();
+      }
+    } else {
+      movement();
+    }
     super.update(elapsed);
+  }
+
+  public function sleep(_sleepElapsed:Float = 0) {
+    isSleeping = true;
+    sleepElapsed = _sleepElapsed;
+    if (onSleep != null) {
+      onSleep();
+    }
+  }
+  public function wakeup() {
+    isSleeping = false;
+    sleepElapsed = 0;
+    if (onWakeup != null) {
+      onWakeup();
+    }
+  }
+  function needWakeup():Bool {
+    return sleepElapsed > GameConfig.sleepDuration;
   }
 }
