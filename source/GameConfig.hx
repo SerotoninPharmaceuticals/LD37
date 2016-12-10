@@ -48,10 +48,12 @@ class GameConfig {
   // Status
   public static var initialFood:Float = 10;
   public static var foodReduceEachDay:Float = 1;
+  public static var foodTitleGeneratorSeed:Int = 105;
 
   public static var initialTiredness:Float = 10;
   public static var tirednessReduceEachDay:Float = 1;
   public static var tirednessGainWhenSleepInDay:Float = 2;
+  public static var tirednessTitleGeneratorSeed:Int = 99;
 
   public static var bed:LifeObjectConfig = {
     x: 0,

@@ -11,14 +11,19 @@ class Dashboard extends FlxSpriteGroup {
   public function new() {
     super();
 
-    foodTitle = new PaperGenerator(GameConfig.dashboardX, GameConfig.dashboardY, 1);
+    foodTitle = new PaperGenerator(GameConfig.dashboardX, GameConfig.dashboardY, 1, GameConfig.foodTitleGeneratorSeed);
     add(foodTitle);
     foodStatus = new StatusBar(
       GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusTitleLineHeight, GameConfig.initialFood
     );
     add(foodStatus);
 
-    tirednessTitle = new PaperGenerator(GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusLineHeight * 1, 1);
+    tirednessTitle = new PaperGenerator(
+      GameConfig.dashboardX,
+      GameConfig.dashboardY + GameConfig.statusLineHeight * 1,
+      1,
+      GameConfig.tirednessTitleGeneratorSeed
+    );
     add(tirednessTitle);
     tirednessStatus = new StatusBar(
       GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusLineHeight * 1 + GameConfig.statusTitleLineHeight, GameConfig.initialTiredness

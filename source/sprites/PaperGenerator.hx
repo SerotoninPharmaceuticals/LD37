@@ -14,8 +14,10 @@ class PaperGenerator extends FlxSprite {
   private var _lineHeight:Int;
   private var _spacing:Int;
   private var _width:Int;
+  private var _seed:Int;
+  private var rand:FlxRandom;
 
-  public function new(X:Float=0, Y:Float=0, lines=1, width=30, color=0xFFFFFFFF, fontSize=3, lineHeight=5, spacing=1, bg=0xFF000000) {
+  public function new(X:Float=0, Y:Float=0, lines=1, seed=null, width=30, color=0xFFFFFFFF, fontSize=3, lineHeight=5, spacing=1, bg=0xFF000000) {
     super(X, Y);
     _lines = lines;
     _width = width;
@@ -24,12 +26,20 @@ class PaperGenerator extends FlxSprite {
     _spacing = spacing;
     _color = color;
     makeGraphic(width, lines * lineHeight, bg, true); // Pass true to Unique to prevent bitmap resuse.
+    initRandom(seed);
     drawLines();
   }
 
+  private function initRandom(seed) {
+    if (seed != null) {
+      rand = new FlxRandom(seed);
+    } else {
+      rand = new FlxRandom();
+    }
+  }
+
   private function drawChar(offsetX:Int, offsetY:Int) {
-    var rand = new FlxRandom();
-    var dots = rand.shuffleArray([0, 1, 2, 3, 4, 5, 6, 7, 8], 5).slice(0, rand.int(1, 7));
+    var dots = rand.shuffleArray([for (i in 0..._fontSize * _fontSize) i], 5).slice(0, rand.int(1, Std.int(_fontSize / 3 * 2 + 1)));
     var dotX:Int;
     var dotY:Int;
     for (dot in dots) {
