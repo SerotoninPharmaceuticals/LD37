@@ -68,14 +68,15 @@ class PlayState extends FlxState {
     add(toilet);
 
     newspaper = new Newspaper();
+    toilet.canAction = function():Bool { return !player.getIsBusy(); }
     add(newspaper);
 
     lifeObjects = new FlxTypedGroup<LifeObject>();
     lifeObjects.add(toilet);
     lifeObjects.add(water);
     lifeObjects.add(food);
-    lifeObjects.add(bed);
     lifeObjects.add(newspaper);
+    lifeObjects.add(bed);
 
     actionAnimation = new ActionAnimation();
     add(actionAnimation);
@@ -91,12 +92,10 @@ class PlayState extends FlxState {
       FlxG.watch.add(GameData.data, 'ateToday');
       FlxG.watch.add(GameData.data, 'drankToday');
 
-      FlxG.watch.add(newspaper, 'alpha');
-
-      for(obj in lifeObjects) {
-        obj.hitbox.alpha = 0.5;
-        add(obj.hitbox);
-      }
+//      for(obj in lifeObjects) {
+//        obj.hitbox.alpha = 0.5;
+//        add(obj.hitbox);
+//      }
     }
 
     loadPlayer();
@@ -173,6 +172,7 @@ class PlayState extends FlxState {
       if (obj.canAction() && obj.checkHitbox(player)) {
         nearbyObject = obj;
         obj.nearby(player);
+        FlxG.watch.addQuick("nearby", obj);
         if (FlxG.keys.anyJustPressed([X])) {
           obj.action();
         }

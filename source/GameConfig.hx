@@ -128,9 +128,9 @@ class GameConfig {
   public static var newspaper:LifeObjectConfig = {
     x: 73,
     y: 38,
-    hitboxOffsetX: -3,
+    hitboxOffsetX: -4,
     normal: "assets/images/newspaper_highlight.png",
-    hitbox: "assets/images/newspaper_highlight.png",
+    hitbox: "assets/images/newspaper_hitbox.png",
     highlight: "assets/images/newspaper_highlight.png"
   };
 }
