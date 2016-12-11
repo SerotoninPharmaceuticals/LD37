@@ -2,6 +2,7 @@
 
 package sprites;
 
+import flixel.util.FlxTimer;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -137,6 +138,10 @@ class Player extends FlxSprite {
     super.update(elapsed);
   }
 
+  public function getIsBusy() {
+    return isSleeping || isEating || isDrinking || isToileting || isReading;
+  }
+
   public function sleep(_sleepElapsed:Float = 0) {
     requestSleep(function() {
       isSleeping = true;
@@ -151,27 +156,43 @@ class Player extends FlxSprite {
     });
   }
   function needWakeup():Bool {
-    return sleepElapsed > GameConfig.sleepDuration;
+    return sleepElapsed > GameConfig.sleepingDuration;
   }
 
   public function eat() {
     requestToEat(function() {
       isEating = true;
+      var timer = new FlxTimer();
+      timer.start(GameConfig.eatingDuration, function(t) {
+        isEating = false;
+      });
     });
   }
   public function drink() {
     requestToDrink(function() {
       isDrinking = true;
+      var timer = new FlxTimer();
+      timer.start(GameConfig.drinkingDuration, function(t) {
+        isDrinking = false;
+      });
     });
   }
   public function toilet() {
     requestToToilet(function() {
       isToileting = true;
+      var timer = new FlxTimer();
+      timer.start(GameConfig.toiletingDuration, function(t) {
+        isToileting = false;
+      });
     });
   }
   public function read() {
     requestToRead(function() {
       isReading = true;
+      var timer = new FlxTimer();
+      timer.start(GameConfig.readingDuration, function(t) {
+        isReading = false;
+      });
     });
   }
 }

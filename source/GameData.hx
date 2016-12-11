@@ -9,6 +9,8 @@ typedef Data = {
   var playerY:Float;
 
   var food:Float;
+  var water:Float;
+  var toilet:Float;
   var tiredness:Float;
 
   var isSleeping:Bool;
@@ -30,6 +32,8 @@ class GameData {
       playerY: FlxG.height/2,
 
       food: GameConfig.initialFood,
+      water: GameConfig.initialWater,
+      toilet: GameConfig.initialToilet,
       tiredness: GameConfig.initialTiredness,
 
       isSleeping: false,

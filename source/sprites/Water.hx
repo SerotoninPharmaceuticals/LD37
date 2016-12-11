@@ -5,6 +5,6 @@ class Water extends LifeObject {
     super(GameConfig.water);
   }
   override public function action():Void {
-    nearbyPlayer.eat(); // TODO
+    nearbyPlayer.drink(); // TODO
   }
 }

@@ -1,5 +1,6 @@
 package;
 
+import GameData;
 import sprites.Newspaper;
 import sprites.Toilet;
 import sprites.Water;
@@ -18,11 +19,6 @@ class PlayState extends FlxState {
   var isPaused = true;
   var currentDay = 0;
   var nearbyObject:FlxSprite;
-
-  var sleptToday = false;
-  var ateToday = false;
-  var drankToday = false;
-  var toiletedToday = false;
 
   var player:Player;
   var wall:Wall;
@@ -54,19 +50,19 @@ class PlayState extends FlxState {
     add(dashboard);
 
     bed = new Bed();
-    bed.canAction = function():Bool { return !sleptToday; }
+    bed.canAction = function():Bool { return !GameData.data.sleptToday && !player.getIsBusy(); }
     add(bed);
 
     food = new Food();
-    food.canAction = function():Bool { return !ateToday; }
+    food.canAction = function():Bool { return !GameData.data.ateToday && !player.getIsBusy(); }
     add(food);
 
     water = new Water();
-    water.canAction = function():Bool { return !drankToday; }
+    water.canAction = function():Bool { return !GameData.data.drankToday && !player.getIsBusy(); }
     add(water);
 
     toilet = new Toilet();
-    toilet.canAction = function():Bool { return !toiletedToday; }
+    toilet.canAction = function():Bool { return !GameData.data.toiletedToday && !player.getIsBusy(); }
     add(toilet);
 
     newspaper = new Newspaper();
@@ -80,10 +76,22 @@ class PlayState extends FlxState {
     lifeObjects.add(bed);
     lifeObjects.add(newspaper);
 
+    if (GameConfig.debugMode) {
+      FlxG.watch.add(GameData.data, 'toilet');
+      FlxG.watch.add(GameData.data, 'tiredness');
+      FlxG.watch.add(GameData.data, 'food');
+      FlxG.watch.add(GameData.data, 'water');
+
+      FlxG.watch.add(GameData.data, 'toiletedToday');
+      FlxG.watch.add(GameData.data, 'sleptToday');
+      FlxG.watch.add(GameData.data, 'ateToday');
+      FlxG.watch.add(GameData.data, 'drankToday');
+
 //    for(obj in lifeObjects) {
 //      obj.hitbox.alpha = 0.5;
 //      add(obj.hitbox);
 //    }
+    }
 
     loadPlayer();
   }
@@ -94,7 +102,7 @@ class PlayState extends FlxState {
     player.requestSleep = function(callback:Void->Void) {
       player.setPosition(bed.x + bed.width / 2, bed.y + bed.height / 2);
       GameData.data.isSleeping = true;
-      GameData.data.sleptToday = sleptToday = true;
+      GameData.data.sleptToday = true;
       callback();
     }
     player.requestWakeup = function(callback:Void->Void) {
@@ -105,17 +113,17 @@ class PlayState extends FlxState {
     player.requestToDrink = function(callback:Void->Void) {
       // TODO: get water
       callback();
-      GameData.data.drankToday = drankToday = true;
+      GameData.data.drankToday = true;
     }
     player.requestToEat = function(callback:Void->Void) {
       // TODO: get food
       callback();
-      GameData.data.ateToday = ateToday = true;
+      GameData.data.ateToday = true;
     }
     player.requestToToilet = function(callback:Void->Void) {
       // TODO: get food
       callback();
-      GameData.data.toiletedToday = toiletedToday = true;
+      GameData.data.toiletedToday = true;
     }
     player.requestToRead = function(callback:Void->Void) {
       // TODO: get news
@@ -151,7 +159,7 @@ class PlayState extends FlxState {
   function detectObjects() {
     nearbyObject = null;
     for(obj in lifeObjects) {
-      if (obj.checkHitbox(player)) {
+      if (obj.canAction() && obj.checkHitbox(player)) {
         nearbyObject = obj;
         obj.nearby(player);
         if (FlxG.keys.anyJustPressed([X])) {
@@ -172,19 +180,25 @@ class PlayState extends FlxState {
 
     // Food
     GameData.data.food -= elapsedInDay * GameConfig.foodReduceEachDay;
+    GameData.data.tiredness -= elapsedInDay * GameConfig.tirednessReduceEachDay;
+    GameData.data.water -= elapsedInDay * GameConfig.waterReduceEachDay;
+    GameData.data.toilet -= elapsedInDay * GameConfig.toiletReduceEachDay;
 
-    // Tiredness
-    if (player.isSleeping) {
+    if (player.isEating) {
+      GameData.data.food += elapsedInDay * GameConfig.foodGainWhenEatingInDay;
+    } else if (player.isSleeping){
       GameData.data.tiredness += elapsedInDay * GameConfig.tirednessGainWhenSleepInDay;
-    } else {
-      GameData.data.tiredness -= elapsedInDay * GameConfig.tirednessReduceEachDay;
+    } else if (player.isDrinking){
+      GameData.data.water += elapsedInDay * GameConfig.waterGainWhenDrinkingInDay;
+    } else if (player.isToileting){
+      GameData.data.toilet += elapsedInDay * GameConfig.toiletGainWhenToiletingInDay;
     }
   }
   function resetDayState() {
-    GameData.data.sleptToday = sleptToday = false;
-    GameData.data.ateToday = ateToday = false;
-    GameData.data.drankToday = drankToday = false;
-    GameData.data.toiletedToday  = toiletedToday = false;
+    GameData.data.sleptToday = false;
+    GameData.data.ateToday = false;
+    GameData.data.drankToday = false;
+    GameData.data.toiletedToday = false;
     FlxG.log.add("Day:" + getElapsedDays(GameData.data.elapsed));
   }
 

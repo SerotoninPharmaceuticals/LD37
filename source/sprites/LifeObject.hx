@@ -40,10 +40,12 @@ class LifeObject extends FlxSprite {
   }
 
   dynamic public function action():Void {}
-  dynamic public function canAction():Bool { return true; }
+  dynamic public function canAction():Bool {
+    return nearbyPlayer != null && !nearbyPlayer.getIsBusy();
+  }
 
   public function nearby(player:Player):Void {
-    if (nearbyPlayer != null || !canAction()) { return; }
+    if (nearbyPlayer != null) { return; }
     alpha = 1;
     nearbyPlayer = player;
   }
