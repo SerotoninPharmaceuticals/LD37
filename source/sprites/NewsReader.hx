@@ -1,6 +1,7 @@
 package sprites;
 
 import flixel.FlxG;
+import utils.Glitch;
 import flixel.util.FlxSpriteUtil;
 import flixel.math.FlxRandom;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -30,6 +31,9 @@ class NewsReader extends FlxTypedGroup<LanguageGenerator> {
     add(body);
 
     paperSound.play();
+    Glitch.showUpGitch(title);
+    Glitch.showUpGitch(body);
+
     var timer = new FlxTimer();
     timer.start(5, function(t) {
       var fadeOutDuration = 1;
