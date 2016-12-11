@@ -1,5 +1,6 @@
 package;
 
+import sprites.TitleScreen;
 import sprites.NewsReader;
 import sprites.ShadowOverlay;
 import flixel.util.FlxTimer;
@@ -23,11 +24,14 @@ import sprites.Player;
 import flixel.system.FlxSound;
 
 class PlayState extends FlxState {
-  var isPaused = true;
+  var isPausing = true;
   var currentDay = 0;
   var nearbyObject:FlxSprite;
   var toiletSound:FlxSound;
   var ambientSound:FlxSound;
+
+  var blackScreen:FlxSprite;
+  var titleScreen:TitleScreen;
 
   var player:Player;
   var wall:Wall;
@@ -39,7 +43,6 @@ class PlayState extends FlxState {
   var dashboard:Dashboard;
   var lifeObjects:FlxTypedGroup<LifeObject>;
   var actionAnimation:ActionAnimation;
-  var blackScreen:FlxSprite;
   var newsReader:NewsReader;
 
   var colorOverlay:RoomOverlay;
@@ -57,7 +60,7 @@ class PlayState extends FlxState {
 
     blackScreen = new FlxSprite(GameConfig.roomImgX, GameConfig.roomImgY);
     blackScreen.makeGraphic(GameConfig.roomImgWidth, GameConfig.roomImgHeight, GameConfig.blackScreen);
-    blackScreen.kill();
+    titleScreen = new TitleScreen();
 
     wall = new Wall();
 
@@ -124,7 +127,7 @@ class PlayState extends FlxState {
     add(newsReader);
 
     add(blackScreen);
-
+    add(titleScreen);
   }
 
   function loadSound() {
@@ -185,6 +188,14 @@ class PlayState extends FlxState {
   }
 
   override public function update(elapsed:Float):Void {
+    if (isPausing) {
+      if (FlxG.keys.anyJustPressed([X])) {
+        blackScreen.kill();
+        titleScreen.kill();
+        isPausing = false;
+      }
+      return;
+    }
     super.update(elapsed);
     var totalElapsed = GameData.data.elapsed;
     totalElapsed += elapsed;

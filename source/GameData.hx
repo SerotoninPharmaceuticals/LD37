@@ -1,5 +1,6 @@
 package ;
 
+import GameConfig;
 import flixel.FlxG;
 import flixel.util.FlxSave;
 
@@ -76,8 +77,12 @@ class GameData {
   static public function getElapsedToday():Float {
     return data.elapsed % GameConfig.elapsedEachDay;
   }
-
   static public function getElapsedDays():Int {
     return Math.floor(data.elapsed / GameConfig.elapsedEachDay);
   }
+
+  static public function getLeftDays():Int {
+    return GameConfig.totalDays - getElapsedDays();
+  }
+
 }
