@@ -19,11 +19,14 @@ import sprites.Wall;
 import flixel.FlxG;
 import flixel.FlxState;
 import sprites.Player;
+import flixel.system.FlxSound;
 
 class PlayState extends FlxState {
   var isPaused = true;
   var currentDay = 0;
   var nearbyObject:FlxSprite;
+  var toiletSound:FlxSound;
+  var ambientSound:FlxSound;
 
   var player:Player;
   var wall:Wall;
@@ -46,6 +49,7 @@ class PlayState extends FlxState {
     super.create();
 
     GameData.load();
+    loadSound();
     if (GameConfig.debugMode) { GameData.reset(); }
     currentDay = getElapsedDays(GameData.data.elapsed);
 
@@ -121,6 +125,17 @@ class PlayState extends FlxState {
 
   }
 
+  function loadSound() {
+    #if flash
+    toiletSound = FlxG.sound.load("assets/sounds/toilet.mp3", 0.8);
+    ambientSound = FlxG.sound.load("assets/sounds/bg.mp3", 1, true);
+    #else
+    toiletSound = FlxG.sound.load("assets/sounds/toilet.ogg", 0.8);
+    ambientSound = FlxG.sound.load("assets/sounds/bg.ogg", 1, true);
+    #end
+    ambientSound.play();
+  }
+
   function loadPlayer() {
     player = new Player(GameData.data.playerX, GameData.data.playerY);
     player.requestSleep = function(callback:Void->Void) {
@@ -151,6 +166,7 @@ class PlayState extends FlxState {
     }
     player.requestToToilet = function(callback:Void->Void) {
       blackScreen.revive();
+      toiletSound.play();
       var timer = new FlxTimer();
       timer.start(0.3, function(t) {
         blackScreen.kill();
