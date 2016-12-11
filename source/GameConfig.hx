@@ -64,20 +64,38 @@ class GameConfig {
   };
 
   public static var food:LifeObjectConfig = {
-    x: 70,
-    y: 70,
-    hitboxOffsetX: -30,
+    x: 50,
+    y: 96,
+    hitboxOffsetY: -20,
     normal: "assets/images/food.png",
     hitbox: "assets/images/food_hitbox.png",
     highlight: "assets/images/food_highlight.png"
   };
 
   public static var water:LifeObjectConfig = {
-    x: 70,
+    x: 0,
     y: 38,
-    hitboxOffsetX: -30,
+    hitboxOffsetX: 20,
     normal: "assets/images/water.png",
     hitbox: "assets/images/water_hitbox.png",
     highlight: "assets/images/water_highlight.png"
+  };
+
+  public static var toilet:LifeObjectConfig = {
+    x: 0,
+    y: 70,
+    hitboxOffsetX: 20,
+    normal: "assets/images/toilet.png",
+    hitbox: "assets/images/toilet_hitbox.png",
+    highlight: "assets/images/toilet_highlight.png"
+  };
+
+  public static var newspaper:LifeObjectConfig = {
+    x: 97,
+    y: 50,
+    hitboxOffsetX: -10,
+    normal: "assets/images/toilet.png",
+    hitbox: "assets/images/toilet_hitbox.png",
+    highlight: "assets/images/toilet_highlight.png"
   };
 }

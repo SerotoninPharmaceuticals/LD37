@@ -4,7 +4,7 @@ import flixel.math.FlxPoint;
 import flixel.FlxSprite;
 
 class LifeObject extends FlxSprite {
-  public var hitBox:FlxSprite;
+  public var hitbox:FlxSprite;
   var nearbyPlayer:Player;
 
   var normalImg:String;
@@ -23,13 +23,13 @@ class LifeObject extends FlxSprite {
     var hitboxX = x;
     var hitboxY = y;
     if (config.hitboxOffsetX != null) { hitboxX += config.hitboxOffsetX; }
-    if (config.hitboxOffsetY != null) { hitboxX += config.hitboxOffsetY; }
-    hitBox = new FlxSprite(hitboxX, hitboxY);
+    if (config.hitboxOffsetY != null) { hitboxY += config.hitboxOffsetY; }
+    hitbox = new FlxSprite(hitboxX, hitboxY);
 
-    hitBox.loadGraphic(hitboxImg);
+    hitbox.loadGraphic(hitboxImg);
   }
   public function checkHitbox(point:FlxPoint):Bool {
-    return hitBox.overlapsPoint(point);
+    return hitbox.overlapsPoint(point);
   }
 
   public function action():Void {}

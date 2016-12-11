@@ -1,5 +1,7 @@
 package;
 
+import sprites.Newspaper;
+import sprites.Toilet;
 import sprites.Water;
 import sprites.LifeObject;
 import flixel.group.FlxGroup;
@@ -23,6 +25,8 @@ class PlayState extends FlxState {
   var bed:Bed;
   var food:Food;
   var water:Water;
+  var toilet:Toilet;
+  var newspaper:Newspaper;
   var dashboard:Dashboard;
   var lifeObjects:FlxTypedGroup<LifeObject>;
 
@@ -49,10 +53,27 @@ class PlayState extends FlxState {
     water = new Water();
     add(water);
 
+    water = new Water();
+    add(water);
+
+    toilet = new Toilet();
+    add(toilet);
+
+    newspaper = new Newspaper();
+    add(newspaper);
+
+
     lifeObjects = new FlxTypedGroup<LifeObject>();
+    lifeObjects.add(toilet);
+    lifeObjects.add(water);
     lifeObjects.add(food);
     lifeObjects.add(bed);
-    lifeObjects.add(water);
+    lifeObjects.add(newspaper);
+
+    for(obj in lifeObjects) {
+      obj.hitbox.alpha = 0.5;
+      add(obj.hitbox);
+    }
 
     loadPlayer();
   }

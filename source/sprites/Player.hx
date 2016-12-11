@@ -15,6 +15,8 @@ class Player extends FlxSprite {
   public var isSleeping = false;
   public var sleepElapsed:Float = 0;
   public var isEating = false;
+  public var isToileting = false;
+  public var isReading = false;
 
   public var onSleep:Void->Void;
   public var onWakeup:Void->Void;
@@ -118,6 +120,10 @@ class Player extends FlxSprite {
       }
     } else if (isEating) {
       // TODO
+    } else if (isToileting) {
+      // TODO
+    } else if (isReading) {
+      // TODO
     } else {
       movement();
     }
@@ -144,5 +150,11 @@ class Player extends FlxSprite {
 
   public function eat() {
     isEating = true;
+  }
+  public function toilet() {
+    isToileting = true;
+  }
+  public function read() {
+    isReading = true;
   }
 }
