@@ -21,10 +21,11 @@ class GameConfig {
   public static var textGray = FlxColor.GRAY;
 
   // Time
-  public static var elapsedEachDay:Float = debugMode ? 5 : 60;
+  public static var elapsedEachDay:Float = debugMode ? 10 : 60;
   public static var totalDays:Int = 3000;
 
   // Size
+  public static var roomImgWidth = 84;
   public static var roomWidth = 80;
   public static var roomHeight = 79;
   public static var statusDotHeight = 4;

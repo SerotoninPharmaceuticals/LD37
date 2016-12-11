@@ -1,5 +1,8 @@
 package;
 
+import openfl.display.BlendMode;
+import openfl.display.BlendMode;
+import sprites.RoomOverlay;
 import sprites.ActionAnimation;
 import GameData;
 import sprites.Newspaper;
@@ -32,6 +35,10 @@ class PlayState extends FlxState {
   var lifeObjects:FlxTypedGroup<LifeObject>;
   var actionAnimation:ActionAnimation;
 
+  var colorOverlay:RoomOverlay;
+  var shadowOverlay:RoomOverlay;
+  var lightOverlay:RoomOverlay;
+
   override public function create():Void {
     FlxG.mouse.useSystemCursor = true;
     super.create();
@@ -43,33 +50,25 @@ class PlayState extends FlxState {
     var bg = new FlxSprite();
     bg.loadGraphic("assets/images/room.png");
     bg.screenCenter();
-    add(bg);
 
     wall = new Wall();
-    add(wall);
 
     dashboard = new Dashboard();
-    add(dashboard);
 
     bed = new Bed();
     bed.canAction = function():Bool { return !GameData.data.sleptToday && !player.getIsBusy(); }
-    add(bed);
 
     food = new Food();
     food.canAction = function():Bool { return !GameData.data.ateToday && !player.getIsBusy(); }
-    add(food);
 
     water = new Water();
     water.canAction = function():Bool { return !GameData.data.drankToday && !player.getIsBusy(); }
-    add(water);
 
     toilet = new Toilet();
     toilet.canAction = function():Bool { return !GameData.data.toiletedToday && !player.getIsBusy(); }
-    add(toilet);
 
     newspaper = new Newspaper();
     toilet.canAction = function():Bool { return !player.getIsBusy(); }
-    add(newspaper);
 
     lifeObjects = new FlxTypedGroup<LifeObject>();
     lifeObjects.add(toilet);
@@ -79,31 +78,36 @@ class PlayState extends FlxState {
     lifeObjects.add(bed);
 
     actionAnimation = new ActionAnimation();
-    add(actionAnimation);
 
-    if (GameConfig.debugMode) {
-      FlxG.watch.add(GameData.data, 'toilet');
-      FlxG.watch.add(GameData.data, 'tiredness');
-      FlxG.watch.add(GameData.data, 'food');
-      FlxG.watch.add(GameData.data, 'water');
+    colorOverlay = new RoomOverlay("assets/images/roomAmbientColor.png");
+    shadowOverlay = new RoomOverlay("assets/images/roomAmbientColor.png", BlendMode.MULTIPLY);
+    lightOverlay = new RoomOverlay("assets/images/roomAmbientColor.png", BlendMode.OVERLAY);
 
-      FlxG.watch.add(GameData.data, 'toiletedToday');
-      FlxG.watch.add(GameData.data, 'sleptToday');
-      FlxG.watch.add(GameData.data, 'ateToday');
-      FlxG.watch.add(GameData.data, 'drankToday');
-
-//      for(obj in lifeObjects) {
-//        obj.hitbox.alpha = 0.5;
-//        add(obj.hitbox);
-//      }
-    }
+    setupWatch();
 
     loadPlayer();
+
+    add(wall);
+//    add(bg);
+    add(colorOverlay);
+
+    add(bed);
+    add(food);
+    add(water);
+    add(toilet);
+    add(newspaper);
+
+    add(player);
+
+//    add(shadowOverlay);
+//    add(lightOverlay);
+
+    add(dashboard);
+    add(actionAnimation);
   }
 
   function loadPlayer() {
     player = new Player(GameData.data.playerX, GameData.data.playerY);
-    add(player);
     player.requestSleep = function(callback:Void->Void) {
       player.setPosition(bed.x + bed.width / 2, bed.y + bed.height / 2);
       GameData.data.isSleeping = true;
@@ -220,4 +224,24 @@ class PlayState extends FlxState {
   function getElapsedDays(totalElapsed:Float):Int {
     return Math.floor(totalElapsed / GameConfig.elapsedEachDay);
   }
+
+  function setupWatch() {
+    if (GameConfig.debugMode) {
+      FlxG.watch.add(GameData.data, 'toilet');
+      FlxG.watch.add(GameData.data, 'tiredness');
+      FlxG.watch.add(GameData.data, 'food');
+      FlxG.watch.add(GameData.data, 'water');
+
+      FlxG.watch.add(GameData.data, 'toiletedToday');
+      FlxG.watch.add(GameData.data, 'sleptToday');
+      FlxG.watch.add(GameData.data, 'ateToday');
+      FlxG.watch.add(GameData.data, 'drankToday');
+
+//      for(obj in lifeObjects) {
+//        obj.hitbox.alpha = 0.5;
+//        add(obj.hitbox);
+//      }
+    }
+  }
+
 }

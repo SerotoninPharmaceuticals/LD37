@@ -73,4 +73,11 @@ class GameData {
     data = gameSave.data.gameData;
   }
 
+  static public function getElapsedToday():Float {
+    return data.elapsed % GameConfig.elapsedEachDay;
+  }
+
+  static public function getElapsedDays():Int {
+    return Math.floor(data.elapsed / GameConfig.elapsedEachDay);
+  }
 }

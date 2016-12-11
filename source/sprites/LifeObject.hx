@@ -1,9 +1,7 @@
 package sprites;
+import openfl.display.BlendMode;
 import GameConfig.LifeObjectConfig;
 import flixel.FlxSprite;
-#if flash
-import flash.display.BlendMode;
-#end
 
 class LifeObject extends FlxSprite {
   public var hitbox:FlxSprite;
@@ -23,9 +21,7 @@ class LifeObject extends FlxSprite {
     immovable = true;
     alpha = 0;
 
-    #if flash
     blend = BlendMode.HARDLIGHT;
-    #end
 
     var hitboxX = x;
     var hitboxY = y;
