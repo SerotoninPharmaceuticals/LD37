@@ -2,6 +2,9 @@ package sprites;
 import GameConfig.LifeObjectConfig;
 import flixel.math.FlxPoint;
 import flixel.FlxSprite;
+#if flash
+import flash.display.BlendMode;
+#end
 
 class LifeObject extends FlxSprite {
   public var hitbox:FlxSprite;
@@ -19,6 +22,10 @@ class LifeObject extends FlxSprite {
 
     loadGraphic(normalImg);
     immovable = true;
+    alpha = 0;
+    #if flash
+    blend = BlendMode.HARDLIGHT;
+    #end
 
     var hitboxX = x;
     var hitboxY = y;
@@ -28,20 +35,20 @@ class LifeObject extends FlxSprite {
 
     hitbox.loadGraphic(hitboxImg);
   }
-  public function checkHitbox(point:FlxPoint):Bool {
-    return hitbox.overlapsPoint(point);
+  public function checkHitbox(sprite:FlxSprite):Bool {
+    return hitbox.overlaps(sprite);
   }
 
   public function action():Void {}
 
   public function nearby(player:Player):Void {
     if (nearbyPlayer != null) { return; }
-    loadGraphic(highlightImg);
+    alpha = 1;
     nearbyPlayer = player;
   }
   public function alway() {
     if (nearbyPlayer == null) { return; }
-    loadGraphic(normalImg);
+    alpha = 0;
     nearbyPlayer = null;
   }
 }

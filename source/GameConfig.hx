@@ -27,8 +27,8 @@ class GameConfig {
   public static var sleepDuration:Float = elapsedEachDay * _sleepHour / 24;
 
   // Size
-  public static var roomWidth = 100;
-  public static var roomHeight = 100;
+  public static var roomWidth = 80;
+  public static var roomHeight = 79;
   public static var statusDotHeight = 4;
   public static var statusDotWidth = 2;
   public static var statusDotSpace = 2;
@@ -56,46 +56,48 @@ class GameConfig {
   public static var tirednessTitleGeneratorSeed:Int = 99;
 
   public static var bed:LifeObjectConfig = {
-    x: 0,
-    y: 0,
-    normal: "assets/images/bed.png",
-    hitbox: "assets/images/bed_hitbox.png",
+    x: 3,
+    y: 3,
+    hitboxOffsetX: 8,
+    hitboxOffsetY: 4,
+    normal: "assets/images/bed_highlight.png",
+    hitbox: "assets/images/bed_highlight.png",
     highlight: "assets/images/bed_highlight.png"
   };
 
   public static var food:LifeObjectConfig = {
-    x: 50,
-    y: 96,
-    hitboxOffsetY: -20,
-    normal: "assets/images/food.png",
-    hitbox: "assets/images/food_hitbox.png",
+    x: 28,
+    y: 73,
+    hitboxOffsetY: -4,
+    normal: "assets/images/food_highlight.png",
+    hitbox: "assets/images/food_highlight.png",
     highlight: "assets/images/food_highlight.png"
   };
 
   public static var water:LifeObjectConfig = {
-    x: 0,
-    y: 38,
-    hitboxOffsetX: 20,
-    normal: "assets/images/water.png",
-    hitbox: "assets/images/water_hitbox.png",
+    x: 3,
+    y: 40,
+    hitboxOffsetX: 4,
+    normal: "assets/images/water_highlight.png",
+    hitbox: "assets/images/water_highlight.png",
     highlight: "assets/images/water_highlight.png"
   };
 
   public static var toilet:LifeObjectConfig = {
-    x: 0,
-    y: 70,
-    hitboxOffsetX: 20,
-    normal: "assets/images/toilet.png",
-    hitbox: "assets/images/toilet_hitbox.png",
+    x: 3,
+    y: 58,
+    hitboxOffsetX: 4,
+    normal: "assets/images/toilet_highlight.png",
+    hitbox: "assets/images/toilet_highlight.png",
     highlight: "assets/images/toilet_highlight.png"
   };
 
   public static var newspaper:LifeObjectConfig = {
-    x: 97,
-    y: 50,
-    hitboxOffsetX: -10,
-    normal: "assets/images/toilet.png",
-    hitbox: "assets/images/toilet_hitbox.png",
-    highlight: "assets/images/toilet_highlight.png"
+    x: 74,
+    y: 38,
+    hitboxOffsetX: -3,
+    normal: "assets/images/newspaper_highlight.png",
+    hitbox: "assets/images/newspaper_highlight.png",
+    highlight: "assets/images/newspaper_highlight.png"
   };
 }

@@ -9,7 +9,7 @@ import flixel.math.FlxPoint;
 import flixel.system.FlxSound;
 
 class Player extends FlxSprite {
-  public var speed:Float = 200;
+  public var speed:Float = 100;
   private var _sndStep:FlxSound;
 
   public var isSleeping = false;

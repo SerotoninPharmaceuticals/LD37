@@ -38,11 +38,16 @@ class PlayState extends FlxState {
     if (GameConfig.debugMode) { GameData.reset(); }
     currentDay = getElapsedDays(GameData.data.elapsed);
 
-    dashboard = new Dashboard();
-    add(dashboard);
+    var bg = new FlxSprite();
+    bg.loadGraphic("assets/images/room.png");
+    bg.screenCenter();
+    add(bg);
 
     wall = new Wall();
     add(wall);
+
+    dashboard = new Dashboard();
+    add(dashboard);
 
     bed = new Bed();
     add(bed);
@@ -70,10 +75,10 @@ class PlayState extends FlxState {
     lifeObjects.add(bed);
     lifeObjects.add(newspaper);
 
-    for(obj in lifeObjects) {
-      obj.hitbox.alpha = 0.5;
-      add(obj.hitbox);
-    }
+//    for(obj in lifeObjects) {
+//      obj.hitbox.alpha = 0.5;
+//      add(obj.hitbox);
+//    }
 
     loadPlayer();
   }
@@ -119,7 +124,7 @@ class PlayState extends FlxState {
   function detectObjects() {
     nearbyObject = null;
     for(obj in lifeObjects) {
-      if (obj.checkHitbox(player.getPosition())) {
+      if (obj.checkHitbox(player)) {
         nearbyObject = obj;
         obj.nearby(player);
         if (FlxG.keys.anyJustPressed([X])) {
