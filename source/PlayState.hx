@@ -1,5 +1,6 @@
 package;
 
+import sprites.NewsReader;
 import sprites.ShadowOverlay;
 import flixel.util.FlxTimer;
 import openfl.display.BlendMode;
@@ -39,6 +40,7 @@ class PlayState extends FlxState {
   var lifeObjects:FlxTypedGroup<LifeObject>;
   var actionAnimation:ActionAnimation;
   var blackScreen:FlxSprite;
+  var newsReader:NewsReader;
 
   var colorOverlay:RoomOverlay;
   var shadowOverlay:ShadowOverlay;
@@ -53,10 +55,6 @@ class PlayState extends FlxState {
     if (GameConfig.debugMode) { GameData.reset(); }
     currentDay = getElapsedDays(GameData.data.elapsed);
 
-    var bg = new FlxSprite();
-    bg.loadGraphic("assets/images/room.png");
-    bg.screenCenter();
-
     blackScreen = new FlxSprite(GameConfig.roomImgX, GameConfig.roomImgY);
     blackScreen.makeGraphic(GameConfig.roomImgWidth, GameConfig.roomImgHeight, GameConfig.blackScreen);
     blackScreen.kill();
@@ -64,6 +62,7 @@ class PlayState extends FlxState {
     wall = new Wall();
 
     dashboard = new Dashboard();
+    newsReader = new NewsReader();
 
     bed = new Bed();
     bed.canAction = function():Bool { return !GameData.data.sleptToday && !player.getIsBusy(); }
@@ -104,22 +103,25 @@ class PlayState extends FlxState {
     loadPlayer();
 
     add(wall);
-//    add(bg); // useless
     add(colorOverlay);
-
-    add(bed);
-    add(food);
-    add(water);
-    add(toilet);
-    add(newspaper);
 
     add(player);
 
     add(shadowOverlay);
     add(lightOverlay);
 
+    add(food.luminosity);
+    add(water.luminosity);
+    add(newspaper.luminosity);
+    add(bed);
+    add(food);
+    add(water);
+    add(toilet);
+    add(newspaper);
+
     add(dashboard);
     add(actionAnimation);
+    add(newsReader);
 
     add(blackScreen);
 
@@ -152,6 +154,7 @@ class PlayState extends FlxState {
     player.requestToDrink = function(callback:Void->Void) {
       actionAnimation.animation.finishCallback = function(name:String) {
         actionAnimation.animation.finishCallback = null;
+        water.turnOffLuminosity();
         callback();
         GameData.data.drankToday = true;
       }
@@ -159,6 +162,7 @@ class PlayState extends FlxState {
     }
     player.requestToEat = function(callback:Void->Void) {
       actionAnimation.animation.finishCallback = function(name:String) {
+        food.turnOffLuminosity();
         callback();
         GameData.data.ateToday = true;
       }
@@ -175,7 +179,7 @@ class PlayState extends FlxState {
       });
     }
     player.requestToRead = function(callback:Void->Void) {
-      // TODO: get news
+      newsReader.showNews();
       callback();
     }
   }
@@ -249,6 +253,9 @@ class PlayState extends FlxState {
     GameData.data.ateToday = false;
     GameData.data.drankToday = false;
     GameData.data.toiletedToday = false;
+    for(obj in lifeObjects) {
+      obj.turnOnLuminosity();
+    }
     FlxG.log.add("Day:" + getElapsedDays(GameData.data.elapsed));
   }
 

@@ -1,6 +1,5 @@
 package sprites;
 
-import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.math.FlxRandom;
 import flixel.util.FlxSpriteUtil;

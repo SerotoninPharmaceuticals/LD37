@@ -7,9 +7,13 @@ typedef LifeObjectConfig = {
   @:optional var y:Float;
   @:optional var hitboxOffsetX:Float;
   @:optional var hitboxOffsetY:Float;
+  @:optional var luminosityOffsetX:Float;
+  @:optional var luminosityOffsetY:Float;
   @:optional var normal:String;
   @:optional var hitbox:String;
   @:optional var highlight:String;
+  @:optional var luminosity:String;
+  @:optional var playerFace:Int;
 };
 
 
@@ -35,6 +39,7 @@ class GameConfig {
   public static var statusDotWidth = 2;
   public static var statusDotSpace = 2;
   public static var statusDotCount = 10;
+  public static var newsReaderWidth = 160;
 
   // Position
   public static var roomImgX = 600 / 2 - roomImgWidth / 2;
@@ -45,12 +50,15 @@ class GameConfig {
   public static var roomBottom = 600 / 2 + roomHeight / 2;
 
   public static var dashboardX = roomRight + 6;
-  public static var dashboardY = roomX;
+  public static var dashboardY = roomImgY;
   public static var statusLineHeight = 16;
   public static var statusTitleLineHeight = 5;
 
   public static var animationX = dashboardX;
   public static var animationY = dashboardY + statusLineHeight * 3 + 5;
+
+  public static var newsReaderX = roomImgX;
+  public static var newsReaderY = roomBottom + 10;
 
   // Status
   // - food
@@ -99,6 +107,8 @@ class GameConfig {
     y: 3,
     hitboxOffsetX: 8,
     hitboxOffsetY: 4,
+    luminosityOffsetX: 8,
+    luminosityOffsetY: 4,
     normal: "assets/images/bed_highlight.png",
     hitbox: "assets/images/bed_highlight.png",
     highlight: "assets/images/bed_highlight.png"
@@ -108,18 +118,22 @@ class GameConfig {
     x: 28,
     y: 73,
     hitboxOffsetY: -4,
+    luminosityOffsetY: -4,
     normal: "assets/images/food_highlight.png",
     hitbox: "assets/images/food_highlight.png",
-    highlight: "assets/images/food_highlight.png"
+    highlight: "assets/images/food_highlight.png",
+    luminosity: "assets/images/food_luminosity.png"
   };
 
   public static var water:LifeObjectConfig = {
     x: 3,
     y: 40,
     hitboxOffsetX: 4,
+    luminosityOffsetY: -2,
     normal: "assets/images/water_highlight.png",
     hitbox: "assets/images/water_highlight.png",
-    highlight: "assets/images/water_highlight.png"
+    highlight: "assets/images/water_highlight.png",
+    luminosity: "assets/images/water_luminosity.png"
   };
 
   public static var toilet:LifeObjectConfig = {
@@ -128,15 +142,17 @@ class GameConfig {
     hitboxOffsetX: 4,
     normal: "assets/images/toilet_highlight.png",
     hitbox: "assets/images/toilet_highlight.png",
-    highlight: "assets/images/toilet_highlight.png"
+    highlight: "assets/images/toilet_highlight.png",
   };
 
   public static var newspaper:LifeObjectConfig = {
     x: 73,
-    y: 38,
+    y: 40,
     hitboxOffsetX: -4,
+    luminosityOffsetX: -13,
     normal: "assets/images/newspaper_highlight.png",
     hitbox: "assets/images/newspaper_hitbox.png",
-    highlight: "assets/images/newspaper_highlight.png"
+    highlight: "assets/images/newspaper_highlight.png",
+    luminosity: "assets/images/newspaper_luminosity.png"
   };
 }
