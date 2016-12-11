@@ -1,5 +1,6 @@
 package ;
 
+import flixel.FlxObject;
 import flixel.util.FlxColor;
 
 typedef LifeObjectConfig = {
@@ -13,7 +14,7 @@ typedef LifeObjectConfig = {
   @:optional var hitbox:String;
   @:optional var highlight:String;
   @:optional var luminosity:String;
-  @:optional var playerFace:Int;
+  @:optional var playerFacing:Int;
 };
 
 
@@ -112,7 +113,8 @@ class GameConfig {
     luminosityOffsetY: 4,
     normal: "assets/images/bed_highlight.png",
     hitbox: "assets/images/bed_highlight.png",
-    highlight: "assets/images/bed_highlight.png"
+    highlight: "assets/images/bed_highlight.png",
+    playerFacing: FlxObject.UP
   };
 
   public static var food:LifeObjectConfig = {
@@ -123,7 +125,8 @@ class GameConfig {
     normal: "assets/images/food_highlight.png",
     hitbox: "assets/images/food_highlight.png",
     highlight: "assets/images/food_highlight.png",
-    luminosity: "assets/images/food_luminosity.png"
+    luminosity: "assets/images/food_luminosity.png",
+    playerFacing: FlxObject.DOWN
   };
 
   public static var water:LifeObjectConfig = {
@@ -134,7 +137,8 @@ class GameConfig {
     normal: "assets/images/water_highlight.png",
     hitbox: "assets/images/water_highlight.png",
     highlight: "assets/images/water_highlight.png",
-    luminosity: "assets/images/water_luminosity.png"
+    luminosity: "assets/images/water_luminosity.png",
+    playerFacing: FlxObject.LEFT
   };
 
   public static var toilet:LifeObjectConfig = {
@@ -144,6 +148,7 @@ class GameConfig {
     normal: "assets/images/toilet_highlight.png",
     hitbox: "assets/images/toilet_highlight.png",
     highlight: "assets/images/toilet_highlight.png",
+    playerFacing: FlxObject.LEFT
   };
 
   public static var newspaper:LifeObjectConfig = {
@@ -154,6 +159,7 @@ class GameConfig {
     normal: "assets/images/newspaper_highlight.png",
     hitbox: "assets/images/newspaper_hitbox.png",
     highlight: "assets/images/newspaper_highlight.png",
-    luminosity: "assets/images/newspaper_luminosity.png"
+    luminosity: "assets/images/newspaper_luminosity.png",
+    playerFacing: FlxObject.RIGHT
   };
 }

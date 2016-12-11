@@ -65,19 +65,19 @@ class PlayState extends FlxState {
     newsReader = new NewsReader();
 
     bed = new Bed();
-    bed.canAction = function():Bool { return !GameData.data.sleptToday && !player.getIsBusy(); }
+    bed.canAction = function():Bool { return !GameData.data.sleptToday && bed.checkFacing(player) && !player.getIsBusy(); }
 
     food = new Food();
-    food.canAction = function():Bool { return !GameData.data.ateToday && !player.getIsBusy(); }
+    food.canAction = function():Bool { return !GameData.data.ateToday && food.checkFacing(player) && !player.getIsBusy(); }
 
     water = new Water();
-    water.canAction = function():Bool { return !GameData.data.drankToday && !player.getIsBusy(); }
+    water.canAction = function():Bool { return !GameData.data.drankToday && water.checkFacing(player) && !player.getIsBusy(); }
 
     toilet = new Toilet();
-    toilet.canAction = function():Bool { return !GameData.data.toiletedToday && !player.getIsBusy(); }
+    toilet.canAction = function():Bool { return !GameData.data.toiletedToday && toilet.checkFacing(player) && !player.getIsBusy(); }
 
     newspaper = new Newspaper();
-    toilet.canAction = function():Bool { return !player.getIsBusy(); }
+    newspaper.canAction = function():Bool { return !player.getIsBusy() && newspaper.checkFacing(player); }
 
     lifeObjects = new FlxTypedGroup<LifeObject>();
     lifeObjects.add(toilet);

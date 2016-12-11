@@ -1,5 +1,4 @@
 package sprites;
-import openfl.Assets;
 import openfl.display.BlendMode;
 import GameConfig.LifeObjectConfig;
 import flixel.FlxSprite;
@@ -8,13 +7,16 @@ class LifeObject extends FlxSprite {
   public var hitbox:FlxSprite;
   var nearbyPlayer:Player;
   public var luminosity:FlxSprite;
+  public var config:LifeObjectConfig;
 
   var normalImg:String;
   var hitboxImg:String;
   var highlightImg:String;
 
-  public function new(config:LifeObjectConfig) {
+  public function new(_config:LifeObjectConfig) {
+    config = _config;
     super(GameConfig.roomX + config.x, GameConfig.roomY + config.y);
+
     normalImg = config.normal;
     hitboxImg = config.hitbox;
     highlightImg = config.highlight;
@@ -44,6 +46,9 @@ class LifeObject extends FlxSprite {
   }
   public function checkHitbox(sprite:FlxSprite):Bool {
     return hitbox.overlaps(sprite);
+  }
+  public function checkFacing(sprite:FlxSprite):Bool {
+    return sprite.facing == config.playerFacing;
   }
 
   dynamic public function action():Void {}
