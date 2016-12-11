@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxSpriteUtil;
 import sprites.TitleScreen;
 import sprites.NewsReader;
 import sprites.ShadowOverlay;
@@ -190,12 +191,13 @@ class PlayState extends FlxState {
   override public function update(elapsed:Float):Void {
     if (isPausing) {
       if (FlxG.keys.anyJustPressed([X])) {
-        blackScreen.kill();
-        titleScreen.kill();
+        FlxSpriteUtil.fadeOut(blackScreen, 0.5);
+        titleScreen.fadeOut(0.5);
         isPausing = false;
       }
       return;
     }
+
     super.update(elapsed);
     var totalElapsed = GameData.data.elapsed;
     totalElapsed += elapsed;
@@ -267,6 +269,17 @@ class PlayState extends FlxState {
     for(obj in lifeObjects) {
       obj.turnOnLuminosity();
     }
+
+    FlxSpriteUtil.fadeIn(blackScreen, 0.5);
+    titleScreen.showDay();
+    titleScreen.fadeIn(0.5);
+    var timer = new FlxTimer();
+    timer.start(1, function(t) {
+      FlxSpriteUtil.fadeOut(blackScreen, 0.5);
+      titleScreen.fadeOut(0.5);
+    });
+
+
     FlxG.log.add("Day:" + getElapsedDays(GameData.data.elapsed));
   }
 
