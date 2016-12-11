@@ -1,5 +1,6 @@
 package;
 
+import sprites.ShadowOverlay;
 import flixel.util.FlxTimer;
 import openfl.display.BlendMode;
 import sprites.RoomOverlay;
@@ -37,7 +38,7 @@ class PlayState extends FlxState {
   var blackScreen:FlxSprite;
 
   var colorOverlay:RoomOverlay;
-  var shadowOverlay:RoomOverlay;
+  var shadowOverlay:ShadowOverlay;
   var lightOverlay:RoomOverlay;
 
   override public function create():Void {
@@ -85,7 +86,8 @@ class PlayState extends FlxState {
     actionAnimation = new ActionAnimation();
 
     colorOverlay = new RoomOverlay("assets/images/roomAmbientColor.png");
-    shadowOverlay = new RoomOverlay("assets/images/roomShadow.png", 82, 84, true, BlendMode.MULTIPLY);
+    shadowOverlay = new ShadowOverlay([0.5, 0], 84, 84);
+
     lightOverlay = new RoomOverlay("assets/images/roomLighting.png", 84, 84, true, BlendMode.OVERLAY);
 
     setupWatch();
@@ -104,7 +106,7 @@ class PlayState extends FlxState {
 
     add(player);
 
-//    add(shadowOverlay);
+    add(shadowOverlay);
     add(lightOverlay);
 
     add(dashboard);
