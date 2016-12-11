@@ -106,6 +106,9 @@ class PlayState extends FlxState {
     add(shadowOverlay);
     add(lightOverlay);
 
+    add(food.luminosity);
+    add(water.luminosity);
+    add(newspaper.luminosity);
     add(bed);
     add(food);
     add(water);
@@ -136,6 +139,7 @@ class PlayState extends FlxState {
     player.requestToDrink = function(callback:Void->Void) {
       actionAnimation.animation.finishCallback = function(name:String) {
         actionAnimation.animation.finishCallback = null;
+        water.turnOffLuminosity();
         callback();
         GameData.data.drankToday = true;
       }
@@ -143,6 +147,7 @@ class PlayState extends FlxState {
     }
     player.requestToEat = function(callback:Void->Void) {
       actionAnimation.animation.finishCallback = function(name:String) {
+        food.turnOffLuminosity();
         callback();
         GameData.data.ateToday = true;
       }
@@ -232,6 +237,9 @@ class PlayState extends FlxState {
     GameData.data.ateToday = false;
     GameData.data.drankToday = false;
     GameData.data.toiletedToday = false;
+    for(obj in lifeObjects) {
+      obj.turnOnLuminosity();
+    }
     FlxG.log.add("Day:" + getElapsedDays(GameData.data.elapsed));
   }
 
