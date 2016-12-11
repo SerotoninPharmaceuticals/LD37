@@ -12,9 +12,10 @@ class NewsReader extends FlxTypedGroup<LanguageGenerator> {
   public function showNews() {
     if (body != null) { return; }
 
-    title = new LanguageGenerator(GameConfig.newsReaderX, GameConfig.newsReaderY, 1, null, rand.int(10, 50));
+    var day = Std.int(GameData.getElapsedDays());
+    title = new LanguageGenerator(GameConfig.newsReaderX, GameConfig.newsReaderY, 1, day, rand.int(10, 50));
     var lines = rand.int(3, 8);
-    body = new LanguageGenerator(GameConfig.newsReaderX, GameConfig.newsReaderY + 10, lines, null, GameConfig.newsReaderWidth);
+    body = new LanguageGenerator(GameConfig.newsReaderX, GameConfig.newsReaderY + 10, lines, day, GameConfig.newsReaderWidth);
 
     add(title);
     add(body);
