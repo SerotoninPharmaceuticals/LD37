@@ -35,6 +35,7 @@ class GameConfig {
   public static var statusDotWidth = 2;
   public static var statusDotSpace = 2;
   public static var statusDotCount = 10;
+  public static var newsReaderWidth = 160;
 
   // Position
   public static var roomImgX = 600 / 2 - roomImgWidth / 2;
@@ -45,12 +46,15 @@ class GameConfig {
   public static var roomBottom = 600 / 2 + roomHeight / 2;
 
   public static var dashboardX = roomRight + 6;
-  public static var dashboardY = roomX;
+  public static var dashboardY = roomImgY;
   public static var statusLineHeight = 16;
   public static var statusTitleLineHeight = 5;
 
   public static var animationX = dashboardX;
   public static var animationY = dashboardY + statusLineHeight * 3 + 5;
+
+  public static var newsReaderX = roomImgX;
+  public static var newsReaderY = roomBottom + 10;
 
   // Status
   // - food

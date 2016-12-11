@@ -1,5 +1,6 @@
 package;
 
+import sprites.NewsReader;
 import sprites.ShadowOverlay;
 import flixel.util.FlxTimer;
 import openfl.display.BlendMode;
@@ -36,6 +37,7 @@ class PlayState extends FlxState {
   var lifeObjects:FlxTypedGroup<LifeObject>;
   var actionAnimation:ActionAnimation;
   var blackScreen:FlxSprite;
+  var newsReader:NewsReader;
 
   var colorOverlay:RoomOverlay;
   var shadowOverlay:ShadowOverlay;
@@ -60,6 +62,7 @@ class PlayState extends FlxState {
     wall = new Wall();
 
     dashboard = new Dashboard();
+    newsReader = new NewsReader();
 
     bed = new Bed();
     bed.canAction = function():Bool { return !GameData.data.sleptToday && !player.getIsBusy(); }
@@ -103,19 +106,20 @@ class PlayState extends FlxState {
 //    add(bg); // useless
     add(colorOverlay);
 
+    add(player);
+
+    add(shadowOverlay);
+    add(lightOverlay);
+
     add(bed);
     add(food);
     add(water);
     add(toilet);
     add(newspaper);
 
-    add(player);
-
-    add(shadowOverlay);
-    add(lightOverlay);
-
     add(dashboard);
     add(actionAnimation);
+    add(newsReader);
 
     add(blackScreen);
 
@@ -159,7 +163,7 @@ class PlayState extends FlxState {
       });
     }
     player.requestToRead = function(callback:Void->Void) {
-      // TODO: get news
+      newsReader.showNews();
       callback();
     }
   }
