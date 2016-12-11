@@ -35,8 +35,8 @@ class NewsReader extends FlxTypedGroup<LanguageGenerator> {
     Glitch.showUpGitch(body);
 
     var timer = new FlxTimer();
-    timer.start(5, function(t) {
-      var fadeOutDuration = 1;
+    var fadeOutDuration = 0.5;
+    timer.start(GameConfig.readingDuration - fadeOutDuration, function(t) {
       FlxSpriteUtil.fadeOut(body, fadeOutDuration, function(_) {
         remove(body);
         body.destroy();

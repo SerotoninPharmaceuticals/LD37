@@ -143,8 +143,8 @@ class Player extends FlxSprite {
   }
 
   public function sleep(_sleepElapsed:Float = 0) {
+    isSleeping = true;
     requestSleep(function() {
-      isSleeping = true;
       sleepElapsed = _sleepElapsed;
     });
   }
@@ -160,8 +160,8 @@ class Player extends FlxSprite {
   }
 
   public function eat() {
+    isEating = true;
     requestToEat(function() {
-      isEating = true;
       var timer = new FlxTimer();
       timer.start(GameConfig.eatingDuration, function(t) {
         isEating = false;
@@ -169,8 +169,8 @@ class Player extends FlxSprite {
     });
   }
   public function drink() {
+    isDrinking = true;
     requestToDrink(function() {
-      isDrinking = true;
       var timer = new FlxTimer();
       timer.start(GameConfig.drinkingDuration, function(t) {
         isDrinking = false;
@@ -178,8 +178,8 @@ class Player extends FlxSprite {
     });
   }
   public function toilet() {
+    isToileting = true;
     requestToToilet(function() {
-      isToileting = true;
       var timer = new FlxTimer();
       timer.start(GameConfig.toiletingDuration, function(t) {
         isToileting = false;
@@ -187,8 +187,8 @@ class Player extends FlxSprite {
     });
   }
   public function read() {
+    isReading = true;
     requestToRead(function() {
-      isReading = true;
       var timer = new FlxTimer();
       timer.start(GameConfig.readingDuration, function(t) {
         isReading = false;

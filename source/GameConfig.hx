@@ -99,8 +99,9 @@ class GameConfig {
 
 
   // - reading
-  static var _readingHour:Float = 0.3;
-  public static var readingDuration:Float = elapsedEachDay * _readingHour / 24;
+//  static var _readingHour:Float = 0.3;
+//  public static var readingDuration:Float = elapsedEachDay * _readingHour / 24;
+  public static var readingDuration:Float = 5;
 
   public static var bed:LifeObjectConfig = {
     x: 3,

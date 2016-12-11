@@ -179,8 +179,8 @@ class PlayState extends FlxState {
       });
     }
     player.requestToRead = function(callback:Void->Void) {
-      newsReader.showNews();
       callback();
+      newsReader.showNews();
     }
   }
 
