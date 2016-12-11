@@ -51,10 +51,6 @@ class PlayState extends FlxState {
     if (GameConfig.debugMode) { GameData.reset(); }
     currentDay = getElapsedDays(GameData.data.elapsed);
 
-    var bg = new FlxSprite();
-    bg.loadGraphic("assets/images/room.png");
-    bg.screenCenter();
-
     blackScreen = new FlxSprite(GameConfig.roomImgX, GameConfig.roomImgY);
     blackScreen.makeGraphic(GameConfig.roomImgWidth, GameConfig.roomImgHeight, GameConfig.blackScreen);
     blackScreen.kill();
@@ -103,7 +99,6 @@ class PlayState extends FlxState {
     loadPlayer();
 
     add(wall);
-//    add(bg); // useless
     add(colorOverlay);
 
     add(player);
