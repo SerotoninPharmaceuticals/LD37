@@ -35,7 +35,9 @@ class GameConfig {
   public static var roomImgHeight= 84;
   public static var roomWidth = 80;
   public static var roomHeight = 79;
-  public static var statusDotHeight = 4;
+  public static var statusLineHeight = 15;
+  public static var statusTitleLineHeight = 5;
+  public static var statusDotHeight = 5;
   public static var statusDotWidth = 2;
   public static var statusDotSpace = 2;
   public static var statusDotCount = 10;
@@ -51,11 +53,9 @@ class GameConfig {
 
   public static var dashboardX = roomRight + 6;
   public static var dashboardY = roomImgY;
-  public static var statusLineHeight = 16;
-  public static var statusTitleLineHeight = 5;
 
   public static var animationX = dashboardX;
-  public static var animationY = dashboardY + statusLineHeight * 3 + 5;
+  public static var animationY = dashboardY + statusLineHeight * 4 + 3;
 
   public static var newsReaderX = roomImgX;
   public static var newsReaderY = roomBottom + 10;
