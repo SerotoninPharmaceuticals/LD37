@@ -14,6 +14,9 @@ typedef Data = {
   var isSleeping:Bool;
   var sleepElapsed:Float;
   var sleptToday:Bool;
+  var ateToday:Bool;
+  var drankToday:Bool;
+  var toiletedToday:Bool;
 
   @:optional var nothing:Bool;
 };
@@ -32,6 +35,9 @@ class GameData {
       isSleeping: false,
       sleepElapsed: 0,
       sleptToday: false,
+      ateToday: false,
+      drankToday: false,
+      toiletedToday: false,
 
       nothing: false
     };

@@ -1,6 +1,5 @@
 package sprites;
 import GameConfig.LifeObjectConfig;
-import flixel.math.FlxPoint;
 import flixel.FlxSprite;
 #if flash
 import flash.display.BlendMode;
@@ -23,6 +22,7 @@ class LifeObject extends FlxSprite {
     loadGraphic(normalImg);
     immovable = true;
     alpha = 0;
+
     #if flash
     blend = BlendMode.HARDLIGHT;
     #end
@@ -39,10 +39,11 @@ class LifeObject extends FlxSprite {
     return hitbox.overlaps(sprite);
   }
 
-  public function action():Void {}
+  dynamic public function action():Void {}
+  dynamic public function canAction():Bool { return true; }
 
   public function nearby(player:Player):Void {
-    if (nearbyPlayer != null) { return; }
+    if (nearbyPlayer != null || !canAction()) { return; }
     alpha = 1;
     nearbyPlayer = player;
   }

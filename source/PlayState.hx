@@ -17,8 +17,12 @@ import sprites.Player;
 class PlayState extends FlxState {
   var isPaused = true;
   var currentDay = 0;
-  var sleptToday = false;
   var nearbyObject:FlxSprite;
+
+  var sleptToday = false;
+  var ateToday = false;
+  var drankToday = false;
+  var toiletedToday = false;
 
   var player:Player;
   var wall:Wall;
@@ -50,18 +54,19 @@ class PlayState extends FlxState {
     add(dashboard);
 
     bed = new Bed();
+    bed.canAction = function():Bool { return !sleptToday; }
     add(bed);
 
     food = new Food();
+    food.canAction = function():Bool { return !ateToday; }
     add(food);
 
     water = new Water();
-    add(water);
-
-    water = new Water();
+    water.canAction = function():Bool { return !drankToday; }
     add(water);
 
     toilet = new Toilet();
+    toilet.canAction = function():Bool { return !toiletedToday; }
     add(toilet);
 
     newspaper = new Newspaper();
@@ -86,14 +91,35 @@ class PlayState extends FlxState {
   function loadPlayer() {
     player = new Player(GameData.data.playerX, GameData.data.playerY);
     add(player);
-    player.onSleep = function() {
+    player.requestSleep = function(callback:Void->Void) {
       player.setPosition(bed.x + bed.width / 2, bed.y + bed.height / 2);
       GameData.data.isSleeping = true;
-      GameData.data.sleptToday = true;
+      GameData.data.sleptToday = sleptToday = true;
+      callback();
     }
-    player.onWakeup = function() {
+    player.requestWakeup = function(callback:Void->Void) {
       player.setPosition(bed.x + bed.width / 2 - player.width / 2, bed.y + bed.height + 5);
       GameData.data.isSleeping = false;
+      callback();
+    }
+    player.requestToDrink = function(callback:Void->Void) {
+      // TODO: get water
+      callback();
+      GameData.data.drankToday = drankToday = true;
+    }
+    player.requestToEat = function(callback:Void->Void) {
+      // TODO: get food
+      callback();
+      GameData.data.ateToday = ateToday = true;
+    }
+    player.requestToToilet = function(callback:Void->Void) {
+      // TODO: get food
+      callback();
+      GameData.data.toiletedToday = toiletedToday = true;
+    }
+    player.requestToRead = function(callback:Void->Void) {
+      // TODO: get news
+      callback();
     }
   }
 
@@ -113,6 +139,7 @@ class PlayState extends FlxState {
     var _currentDay = getElapsedDays(totalElapsed);
     if (_currentDay != currentDay) {
       resetDayState();
+      currentDay = _currentDay;
     }
 
     GameData.data.elapsed = totalElapsed;
@@ -138,7 +165,6 @@ class PlayState extends FlxState {
         obj.alway();
       }
     }
-
   }
 
   function updateStatuses(elapsed:Float) {
@@ -155,8 +181,11 @@ class PlayState extends FlxState {
     }
   }
   function resetDayState() {
-    sleptToday = false;
-    GameData.data.sleptToday = sleptToday;
+    GameData.data.sleptToday = sleptToday = false;
+    GameData.data.ateToday = ateToday = false;
+    GameData.data.drankToday = drankToday = false;
+    GameData.data.toiletedToday  = toiletedToday = false;
+    FlxG.log.add("Day:" + getElapsedDays(GameData.data.elapsed));
   }
 
   function getElapsedToday(totalElapsed:Float):Float {

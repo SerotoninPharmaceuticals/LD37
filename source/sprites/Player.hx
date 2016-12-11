@@ -15,11 +15,16 @@ class Player extends FlxSprite {
   public var isSleeping = false;
   public var sleepElapsed:Float = 0;
   public var isEating = false;
+  public var isDrinking = false;
   public var isToileting = false;
   public var isReading = false;
 
-  public var onSleep:Void->Void;
-  public var onWakeup:Void->Void;
+  public var requestSleep:(Void->Void)->Void;
+  public var requestWakeup:(Void->Void)->Void;
+  public var requestToEat:(Void->Void)->Void;
+  public var requestToDrink:(Void->Void)->Void;
+  public var requestToRead:(Void->Void)->Void;
+  public var requestToToilet:(Void->Void)->Void;
 
   public function new(X:Float = 0, Y:Float = 0, _isSleeping = false, _sleepElapsed = 0) {
     super(X, Y);
@@ -120,6 +125,8 @@ class Player extends FlxSprite {
       }
     } else if (isEating) {
       // TODO
+    } else if (isDrinking) {
+      // TODO
     } else if (isToileting) {
       // TODO
     } else if (isReading) {
@@ -131,30 +138,40 @@ class Player extends FlxSprite {
   }
 
   public function sleep(_sleepElapsed:Float = 0) {
-    isSleeping = true;
-    sleepElapsed = _sleepElapsed;
-    if (onSleep != null) {
-      onSleep();
-    }
+    requestSleep(function() {
+      isSleeping = true;
+      sleepElapsed = _sleepElapsed;
+    });
   }
+
   public function wakeup() {
-    isSleeping = false;
-    sleepElapsed = 0;
-    if (onWakeup != null) {
-      onWakeup();
-    }
+    requestWakeup(function() {
+      isSleeping = false;
+      sleepElapsed = 0;
+    });
   }
   function needWakeup():Bool {
     return sleepElapsed > GameConfig.sleepDuration;
   }
 
   public function eat() {
-    isEating = true;
+    requestToEat(function() {
+      isEating = true;
+    });
+  }
+  public function drink() {
+    requestToDrink(function() {
+      isDrinking = true;
+    });
   }
   public function toilet() {
-    isToileting = true;
+    requestToToilet(function() {
+      isToileting = true;
+    });
   }
   public function read() {
-    isReading = true;
+    requestToRead(function() {
+      isReading = true;
+    });
   }
 }

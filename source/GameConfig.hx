@@ -23,7 +23,7 @@ class GameConfig {
   // Time
   public static var elapsedEachDay:Float = debugMode ? 5 : 60;
   public static var totalDays:Int = 3000;
-  static var _sleepHour:Float = 8;
+  static var _sleepHour:Float = 3;
   public static var sleepDuration:Float = elapsedEachDay * _sleepHour / 24;
 
   // Size
