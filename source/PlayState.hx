@@ -1,6 +1,6 @@
 package;
 
-import openfl.display.BlendMode;
+import flixel.util.FlxTimer;
 import openfl.display.BlendMode;
 import sprites.RoomOverlay;
 import sprites.ActionAnimation;
@@ -34,6 +34,7 @@ class PlayState extends FlxState {
   var dashboard:Dashboard;
   var lifeObjects:FlxTypedGroup<LifeObject>;
   var actionAnimation:ActionAnimation;
+  var blackScreen:FlxSprite;
 
   var colorOverlay:RoomOverlay;
   var shadowOverlay:RoomOverlay;
@@ -50,6 +51,10 @@ class PlayState extends FlxState {
     var bg = new FlxSprite();
     bg.loadGraphic("assets/images/room.png");
     bg.screenCenter();
+
+    blackScreen = new FlxSprite(GameConfig.roomImgX, GameConfig.roomImgY);
+    blackScreen.makeGraphic(GameConfig.roomImgWidth, GameConfig.roomImgHeight, GameConfig.blackScreen);
+    blackScreen.kill();
 
     wall = new Wall();
 
@@ -80,15 +85,15 @@ class PlayState extends FlxState {
     actionAnimation = new ActionAnimation();
 
     colorOverlay = new RoomOverlay("assets/images/roomAmbientColor.png");
-    shadowOverlay = new RoomOverlay("assets/images/roomAmbientColor.png", BlendMode.MULTIPLY);
-    lightOverlay = new RoomOverlay("assets/images/roomAmbientColor.png", BlendMode.OVERLAY);
+    shadowOverlay = new RoomOverlay("assets/images/roomShadow.png", 82, 84, BlendMode.MULTIPLY);
+    lightOverlay = new RoomOverlay("assets/images/roomAmbientColor.png", 82, 84, BlendMode.OVERLAY);
 
     setupWatch();
 
     loadPlayer();
 
     add(wall);
-//    add(bg);
+//    add(bg); // useless
     add(colorOverlay);
 
     add(bed);
@@ -104,6 +109,9 @@ class PlayState extends FlxState {
 
     add(dashboard);
     add(actionAnimation);
+
+    add(blackScreen);
+
   }
 
   function loadPlayer() {
@@ -135,9 +143,13 @@ class PlayState extends FlxState {
       actionAnimation.playEat();
     }
     player.requestToToilet = function(callback:Void->Void) {
-      // TODO: get food
-      callback();
-      GameData.data.toiletedToday = true;
+      blackScreen.revive();
+      var timer = new FlxTimer();
+      timer.start(0.3, function(t) {
+        blackScreen.kill();
+        callback();
+        GameData.data.toiletedToday = true;
+      });
     }
     player.requestToRead = function(callback:Void->Void) {
       // TODO: get news

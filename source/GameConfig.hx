@@ -19,6 +19,7 @@ class GameConfig {
   // Color
   public static var textWhite = FlxColor.WHITE;
   public static var textGray = FlxColor.GRAY;
+  public static var blackScreen:FlxColor = 0xFF131313;
 
   // Time
   public static var elapsedEachDay:Float = debugMode ? 10 : 60;
@@ -26,6 +27,7 @@ class GameConfig {
 
   // Size
   public static var roomImgWidth = 84;
+  public static var roomImgHeight= 84;
   public static var roomWidth = 80;
   public static var roomHeight = 79;
   public static var statusDotHeight = 4;
@@ -34,6 +36,8 @@ class GameConfig {
   public static var statusDotCount = 10;
 
   // Position
+  public static var roomImgX = 600 / 2 - roomImgWidth / 2;
+  public static var roomImgY = 600 / 2 - roomImgHeight / 2;
   public static var roomX = 600 / 2 - roomWidth / 2;
   public static var roomY = 600 / 2 - roomHeight / 2;
   public static var roomRight = 600 / 2 + roomWidth / 2;

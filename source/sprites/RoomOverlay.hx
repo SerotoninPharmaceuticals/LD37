@@ -10,10 +10,11 @@ class RoomOverlay extends FlxSpriteGroup {
   var currFrame:Int = 0;
   var frameCount:Int = 0;
   var percentToday:Float = 0;
-  public function new(img:String, blend:BlendMode=null) {
+  var bothFa:Bool = false;
+  public function new(img:String, w=84, h=84, blend:BlendMode=null) {
     super();
     currSprite = new FlxSprite();
-    currSprite.loadGraphic(img, true, 84, 84);
+    currSprite.loadGraphic(img, true, w, h);
     currSprite.screenCenter();
     currSprite.blend = blend;
 
@@ -30,6 +31,7 @@ class RoomOverlay extends FlxSpriteGroup {
 
     frameCount = currSprite.animation.frames;
     currSprite.animation.frameIndex = getFrameIndex();
+    FlxG.log.add(frameCount);
   }
 
   override public function update(elapsed:Float) {
