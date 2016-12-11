@@ -43,6 +43,9 @@ class GameConfig {
   public static var statusLineHeight = 16;
   public static var statusTitleLineHeight = 5;
 
+  public static var animationX = dashboardX;
+  public static var animationY = dashboardY + statusLineHeight * 3 + 5;
+
   // Status
   // - food
   public static var foodTitleGeneratorSeed:Int = 105;
@@ -123,7 +126,7 @@ class GameConfig {
   };
 
   public static var newspaper:LifeObjectConfig = {
-    x: 74,
+    x: 73,
     y: 38,
     hitboxOffsetX: -3,
     normal: "assets/images/newspaper_highlight.png",

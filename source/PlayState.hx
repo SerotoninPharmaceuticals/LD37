@@ -1,5 +1,6 @@
 package;
 
+import sprites.ActionAnimation;
 import GameData;
 import sprites.Newspaper;
 import sprites.Toilet;
@@ -29,6 +30,7 @@ class PlayState extends FlxState {
   var newspaper:Newspaper;
   var dashboard:Dashboard;
   var lifeObjects:FlxTypedGroup<LifeObject>;
+  var actionAnimation:ActionAnimation;
 
   override public function create():Void {
     FlxG.mouse.useSystemCursor = true;
@@ -68,13 +70,15 @@ class PlayState extends FlxState {
     newspaper = new Newspaper();
     add(newspaper);
 
-
     lifeObjects = new FlxTypedGroup<LifeObject>();
     lifeObjects.add(toilet);
     lifeObjects.add(water);
     lifeObjects.add(food);
     lifeObjects.add(bed);
     lifeObjects.add(newspaper);
+
+    actionAnimation = new ActionAnimation();
+    add(actionAnimation);
 
     if (GameConfig.debugMode) {
       FlxG.watch.add(GameData.data, 'toilet');
@@ -87,10 +91,12 @@ class PlayState extends FlxState {
       FlxG.watch.add(GameData.data, 'ateToday');
       FlxG.watch.add(GameData.data, 'drankToday');
 
-//    for(obj in lifeObjects) {
-//      obj.hitbox.alpha = 0.5;
-//      add(obj.hitbox);
-//    }
+      FlxG.watch.add(newspaper, 'alpha');
+
+      for(obj in lifeObjects) {
+        obj.hitbox.alpha = 0.5;
+        add(obj.hitbox);
+      }
     }
 
     loadPlayer();
@@ -111,14 +117,19 @@ class PlayState extends FlxState {
       callback();
     }
     player.requestToDrink = function(callback:Void->Void) {
-      // TODO: get water
-      callback();
-      GameData.data.drankToday = true;
+      actionAnimation.animation.finishCallback = function(name:String) {
+        actionAnimation.animation.finishCallback = null;
+        callback();
+        GameData.data.drankToday = true;
+      }
+      actionAnimation.playDrink();
     }
     player.requestToEat = function(callback:Void->Void) {
-      // TODO: get food
-      callback();
-      GameData.data.ateToday = true;
+      actionAnimation.animation.finishCallback = function(name:String) {
+        callback();
+        GameData.data.ateToday = true;
+      }
+      actionAnimation.playEat();
     }
     player.requestToToilet = function(callback:Void->Void) {
       // TODO: get food
