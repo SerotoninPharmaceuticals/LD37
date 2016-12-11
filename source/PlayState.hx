@@ -86,7 +86,12 @@ class PlayState extends FlxState {
     actionAnimation = new ActionAnimation();
 
     colorOverlay = new RoomOverlay("assets/images/roomAmbientColor.png");
-    shadowOverlay = new ShadowOverlay([0.5, 0], 84, 84);
+    shadowOverlay = new ShadowOverlay([
+      0.80, 0.80, 0.78, 0.78, 0.75, 0.70,
+      0.72, 0.65, 0.60, 0.60, 0.55, 0.48,
+      0.48, 0.48, 0.55, 0.58, 0.62, 0.66,
+      0.70, 0.75, 0.80, 0.78, 0.81, 0.83
+    ], 84, 84);
 
     lightOverlay = new RoomOverlay("assets/images/roomLighting.png", 84, 84, true, BlendMode.OVERLAY);
 

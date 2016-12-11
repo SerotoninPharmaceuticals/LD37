@@ -11,7 +11,7 @@ class ShadowOverlay extends FlxSprite {
   var bothFade:Bool = false;
   public function new(_alphaList:Array<Float>, w=84, h=84) {
     super();
-    makeGraphic(w, h, FlxColor.BLACK);
+    makeGraphic(w, h, GameConfig.shadowOverlay);
     screenCenter();
     blend = BlendMode.MULTIPLY;
     alphaList = _alphaList;

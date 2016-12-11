@@ -20,6 +20,7 @@ class GameConfig {
   public static var textWhite = FlxColor.WHITE;
   public static var textGray = FlxColor.GRAY;
   public static var blackScreen:FlxColor = 0xFF131313;
+  public static var shadowOverlay:FlxColor = 0xFF1E1F20;
 
   // Time
   public static var elapsedEachDay:Float = debugMode ? 10 : 60;
