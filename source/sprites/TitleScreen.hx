@@ -8,7 +8,8 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 class TitleScreen extends FlxTypedGroup<FlxText> {
   var title:FlxText;
   var subtitle:FlxText;
-  var titleY = GameConfig.roomImgY + 28;
+  var subtitle1:FlxText;
+  var titleY = GameConfig.roomImgY + 26;
   var subtitleY = GameConfig.roomImgY + 44;
 
   public function new() {
@@ -20,21 +21,29 @@ class TitleScreen extends FlxTypedGroup<FlxText> {
     title.y = titleY;
     add(title);
 
-    subtitle = new FlxText(0, 0, GameConfig.roomImgWidth, "press x to start");
+    subtitle = new FlxText(0, 0, GameConfig.roomImgWidth, "PRESS X TO");
     subtitle.setFormat("assets/font.ttf", 6, GameConfig.textWhite, FlxTextAlign.CENTER);
     subtitle.screenCenter();
     subtitle.y = subtitleY;
     add(subtitle);
+
+    subtitle1 = new FlxText(0, 0, GameConfig.roomImgWidth, "START");
+    subtitle1.setFormat("assets/font.ttf", 6, GameConfig.textWhite, FlxTextAlign.CENTER);
+    subtitle1.screenCenter();
+    subtitle1.y = subtitleY + 9;
+    add(subtitle1);
   }
 
   public function showDay() {
     subtitle.kill();
+    subtitle1.kill();
     title.screenCenter();
     title.text = GameData.getLeftDays() + "";
   }
   public function fadeOut(duration:Float) {
     FlxSpriteUtil.fadeOut(title, duration);
     FlxSpriteUtil.fadeOut(subtitle, duration);
+    FlxSpriteUtil.fadeOut(subtitle1, duration);
   }
   public function fadeIn(duration:Float) {
     FlxSpriteUtil.fadeIn(title, duration);
