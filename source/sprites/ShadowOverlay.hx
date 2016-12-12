@@ -9,7 +9,8 @@ class ShadowOverlay extends FlxSprite {
   var alphaCount = 0;
   var percentToday:Float = 0;
   var bothFade:Bool = false;
-  public function new(_alphaList:Array<Float>, w=84, h=84) {
+
+  public function new(_alphaList:Array<Float>, w = 84, h = 84) {
     super();
     makeGraphic(w, h, GameConfig.shadowOverlay);
     screenCenter();

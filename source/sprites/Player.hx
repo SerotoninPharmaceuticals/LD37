@@ -21,12 +21,12 @@ class Player extends FlxSprite {
   public var isReading = false;
   public var isRequesting = false;
 
-  public var requestSleep:(Void->Void)->Void;
-  public var requestWakeup:(Void->Void)->Void;
-  public var requestToEat:(Void->Void)->Void;
-  public var requestToDrink:(Void->Void)->Void;
-  public var requestToRead:(Void->Void)->Void;
-  public var requestToToilet:(Void->Void)->Void;
+  public var requestSleep:(Void -> Void) -> Void;
+  public var requestWakeup:(Void -> Void) -> Void;
+  public var requestToEat:(Void -> Void) -> Void;
+  public var requestToDrink:(Void -> Void) -> Void;
+  public var requestToRead:(Void -> Void) -> Void;
+  public var requestToToilet:(Void -> Void) -> Void;
 
   public function new(X:Float = 0, Y:Float = 0, _isSleeping = false, _sleepElapsed = 0) {
     super(X, Y);
@@ -143,6 +143,7 @@ class Player extends FlxSprite {
       sleepElapsed = 0;
     });
   }
+
   function needWakeup():Bool {
     return sleepElapsed > GameConfig.sleepingDuration;
   }
@@ -152,12 +153,12 @@ class Player extends FlxSprite {
     requestToEat(function() {
       isEating = true;
       var timer = new FlxTimer();
-      FlxG.log.add(GameConfig.eatingDuration);
       timer.start(GameConfig.eatingDuration, function(t) {
         isRequesting = isEating = false;
       });
     });
   }
+
   public function drink() {
     isRequesting = true;
     requestToDrink(function() {
@@ -168,6 +169,7 @@ class Player extends FlxSprite {
       });
     });
   }
+
   public function toilet() {
     isRequesting = true;
     requestToToilet(function() {
@@ -178,6 +180,7 @@ class Player extends FlxSprite {
       });
     });
   }
+
   public function read() {
     isRequesting = true;
     requestToRead(function() {

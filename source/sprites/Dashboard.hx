@@ -21,24 +21,24 @@ class Dashboard extends FlxSpriteGroup {
 
     // bed
     tirednessTitle = new LanguageGenerator(
-      GameConfig.dashboardX,
-      GameConfig.dashboardY + GameConfig.statusLineHeight * lines,
-      1,
-      GameConfig.tirednessTitleGeneratorSeed
+    GameConfig.dashboardX,
+    GameConfig.dashboardY + GameConfig.statusLineHeight * lines,
+    1,
+    GameConfig.tirednessTitleGeneratorSeed
     );
     add(tirednessTitle);
     tirednessStatus = new StatusBar(
-      GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusLineHeight * lines + GameConfig.statusTitleLineHeight, GameConfig.initialTiredness
+    GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusLineHeight * lines + GameConfig.statusTitleLineHeight, GameConfig.initialTiredness
     );
     add(tirednessStatus);
     lines ++;
 
     // water
     waterTitle = new LanguageGenerator(
-      GameConfig.dashboardX,
-      GameConfig.dashboardY + GameConfig.statusLineHeight * lines,
-      1,
-      GameConfig.waterTitleGeneratorSeed
+    GameConfig.dashboardX,
+    GameConfig.dashboardY + GameConfig.statusLineHeight * lines,
+    1,
+    GameConfig.waterTitleGeneratorSeed
     );
     add(waterTitle);
 
@@ -50,29 +50,29 @@ class Dashboard extends FlxSpriteGroup {
 
     // Toilet
     toiletTitle = new LanguageGenerator(
-      GameConfig.dashboardX,
-      GameConfig.dashboardY + GameConfig.statusLineHeight * lines,
-      1,
-      GameConfig.toiletTitleGeneratorSeed
+    GameConfig.dashboardX,
+    GameConfig.dashboardY + GameConfig.statusLineHeight * lines,
+    1,
+    GameConfig.toiletTitleGeneratorSeed
     );
     add(toiletTitle);
 
     toiletStatus = new StatusBar(
-      GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusLineHeight * lines + GameConfig.statusTitleLineHeight, GameConfig.initialToilet
+    GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusLineHeight * lines + GameConfig.statusTitleLineHeight, GameConfig.initialToilet
     );
     add(toiletStatus);
     lines ++;
 
     // food
     foodTitle = new LanguageGenerator(
-      GameConfig.dashboardX,
-      GameConfig.dashboardY + GameConfig.statusLineHeight * lines,
-      1,
-      GameConfig.foodTitleGeneratorSeed
+    GameConfig.dashboardX,
+    GameConfig.dashboardY + GameConfig.statusLineHeight * lines,
+    1,
+    GameConfig.foodTitleGeneratorSeed
     );
     add(foodTitle);
     foodStatus = new StatusBar(
-      GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusLineHeight * lines + GameConfig.statusTitleLineHeight, GameConfig.initialFood
+    GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusLineHeight * lines + GameConfig.statusTitleLineHeight, GameConfig.initialFood
     );
     add(foodStatus);
     lines ++;

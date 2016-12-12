@@ -16,7 +16,7 @@ class LanguageGenerator extends FlxSprite {
   private var _seed:Int;
   private var rand:FlxRandom;
 
-  public function new(X:Float=0, Y:Float=0, lines=1, seed=null, width=30, color=0xFFFFFFFF, fontSize=3, lineHeight=5, spacing=1, bg=0xFF000000) {
+  public function new(X:Float = 0, Y:Float = 0, lines = 1, seed = null, width = 30, color = 0xFFFFFFFF, fontSize = 3, lineHeight = 5, spacing = 1, bg = 0xFF000000) {
     super(X, Y);
     _lines = lines;
     _width = width;

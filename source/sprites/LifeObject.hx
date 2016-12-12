@@ -52,22 +52,26 @@ class LifeObject extends FlxSprite {
       Glitch.continuousGlitch(luminosity);
     }
   }
+
   public function checkHitbox(sprite:FlxSprite):Bool {
     return hitbox.overlaps(sprite);
   }
+
   public function checkFacing(sprite:FlxSprite):Bool {
     return sprite.facing == config.playerFacing;
   }
 
   dynamic public function action():Void {}
+
   dynamic public function canAction():Bool { return true; }
 
   public function turnOffLuminosity() {
-    if (luminosity == null)  { return; }
+    if (luminosity == null) { return; }
     luminosity.kill();
   }
+
   public function turnOnLuminosity() {
-    if (luminosity == null)  { return; }
+    if (luminosity == null) { return; }
     luminosity.revive();
   }
 
@@ -76,6 +80,7 @@ class LifeObject extends FlxSprite {
     alpha = 1;
     nearbyPlayer = player;
   }
+
   public function alway() {
     if (nearbyPlayer == null) { return; }
     alpha = 0;
