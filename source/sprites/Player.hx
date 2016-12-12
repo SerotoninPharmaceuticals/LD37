@@ -39,11 +39,20 @@ class Player extends FlxSprite {
     drag.x = drag.y = 1600;
     setSize(14, 14);
     offset.set(4, 4);
-    _bedSound = FlxG.sound.load("assets/sounds/bed.wav");
-    _drinkSound = FlxG.sound.load("assets/sounds/drink.wav");
-    _eatSound  = FlxG.sound.load("assets/sounds/eat.wav");
+    loadSound();
   }
 
+  private function loadSound() {
+    #if flash
+    _bedSound = FlxG.sound.load("assets/sounds/bed.mp3");
+    _drinkSound = FlxG.sound.load("assets/sounds/drink.mp3");
+    _eatSound  = FlxG.sound.load("assets/sounds/eat.mp3");
+    #else
+    _bedSound = FlxG.sound.load("assets/sounds/bed.ogg");
+    _drinkSound = FlxG.sound.load("assets/sounds/drink.ogg");
+    _eatSound  = FlxG.sound.load("assets/sounds/eat.ogg");
+    #end
+  }
   private function movement():Void {
     var _up:Bool = false;
     var _down:Bool = false;
