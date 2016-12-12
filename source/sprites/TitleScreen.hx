@@ -43,6 +43,12 @@ class TitleScreen extends FlxTypedGroup<FlxText> {
     subtitle1.alpha = a;
   }
 
+  public function hideInStartScreen() {
+    title.alpha = 0;
+    subtitle.kill();
+    subtitle1.kill();
+  }
+
   public function showDay() {
     subtitle.kill();
     subtitle1.kill();

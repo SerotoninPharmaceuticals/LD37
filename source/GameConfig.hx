@@ -52,6 +52,9 @@ class GameConfig {
   public static var roomRight = 600 / 2 + roomWidth / 2;
   public static var roomBottom = 600 / 2 + roomHeight / 2;
 
+  public static var playerX = roomX + roomWidth / 2 + 4;
+  public static var playerY = roomY + roomHeight / 2 + 4;
+
   public static var dashboardX = roomRight + 6;
   public static var dashboardY = roomImgY;
 

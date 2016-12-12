@@ -25,7 +25,8 @@ import sprites.Player;
 import flixel.system.FlxSound;
 
 class PlayState extends FlxState {
-  var isPausing = true;
+  var isStarting = true;
+  var isPausing = false;
   var isGameOver = false;
   var currentDay = 0;
   var nearbyObject:FlxSprite;
@@ -144,16 +145,14 @@ class PlayState extends FlxState {
   }
 
   function loadPlayer() {
-    player = new Player(GameData.data.playerX, GameData.data.playerY);
+    player = new Player(GameConfig.playerX, GameConfig.playerY);
     player.requestSleep = function(callback:Void->Void) {
       player.setPosition(bed.x + bed.width / 2, bed.y + bed.height / 2);
-      GameData.data.isSleeping = true;
       GameData.data.sleptToday = true;
       callback();
     }
     player.requestWakeup = function(callback:Void->Void) {
       player.setPosition(bed.x + bed.width / 2 - player.width / 2, bed.y + bed.height + 5);
-      GameData.data.isSleeping = false;
       callback();
     }
     player.requestToDrink = function(callback:Void->Void) {
@@ -190,12 +189,13 @@ class PlayState extends FlxState {
   }
 
   override public function update(elapsed:Float):Void {
-    if (isPausing) {
+    if (isPausing) { return; }
+    if (isStarting) {
       titleScreen.updateWhenPause(elapsed);
       if (FlxG.keys.anyJustPressed([X])) {
-        FlxSpriteUtil.fadeOut(blackScreen, 0.5);
-        titleScreen.fadeOut(0.5);
-        isPausing = false;
+        blackScreen.alpha = 0;
+        titleScreen.hideInStartScreen();
+        isStarting = false;
       }
       return;
     }
@@ -226,8 +226,6 @@ class PlayState extends FlxState {
     }
 
     GameData.data.elapsed = totalElapsed;
-    GameData.data.playerX = player.x;
-    GameData.data.playerY = player.y;
     GameData.save();
   }
 
@@ -301,7 +299,9 @@ class PlayState extends FlxState {
     titleScreen.showDay();
     titleScreen.fadeIn(0.5);
     var timer = new FlxTimer();
+    isPausing = true;
     timer.start(1, function(t) {
+      isPausing = false;
       FlxSpriteUtil.fadeOut(blackScreen, 0.5);
       titleScreen.fadeOut(0.5);
     });
