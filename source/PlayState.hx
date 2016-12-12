@@ -33,7 +33,7 @@ class PlayState extends FlxState {
   var hasShownFinishedTitle = false;
 
   var currentDay = 0;
-  var nearbyObject:FlxSprite;
+  var readyObject:FlxSprite;
   var toiletSound:FlxSound;
   var ambientSound:FlxSound;
   var pressSound: FlxSound;
@@ -80,19 +80,19 @@ class PlayState extends FlxState {
     door = new Door();
 
     bed = new Bed();
-    bed.canAction = function():Bool { return bed.checkFacing(player) && !player.getIsBusy(); }
+    bed.canAction = function():Bool { return bed.checkFacing(player) && !player.getIsBusy() && bed.isFresh; }
 
     food = new Food();
-    food.canAction = function():Bool { return !GameData.data.ateToday && food.checkFacing(player) && !player.getIsBusy(); }
+    food.canAction = function():Bool { return !GameData.data.ateToday && food.checkFacing(player) && !player.getIsBusy() && food.isFresh; }
 
     water = new Water();
-    water.canAction = function():Bool { return !GameData.data.drankToday && water.checkFacing(player) && !player.getIsBusy(); }
+    water.canAction = function():Bool { return !GameData.data.drankToday && water.checkFacing(player) && !player.getIsBusy() && water.isFresh; }
 
     toilet = new Toilet();
-    toilet.canAction = function():Bool { return toilet.checkFacing(player) && !player.getIsBusy(); }
+    toilet.canAction = function():Bool { return toilet.checkFacing(player) && !player.getIsBusy() && toilet.isFresh; }
 
     newspaper = new Newspaper();
-    newspaper.canAction = function():Bool { return !player.getIsBusy() && newspaper.checkFacing(player); }
+    newspaper.canAction = function():Bool { return !player.getIsBusy() && newspaper.checkFacing(player) && newspaper.isFresh; }
 
     lifeObjects = new FlxTypedGroup<LifeObject>();
     lifeObjects.add(toilet);
@@ -273,23 +273,29 @@ class PlayState extends FlxState {
   }
 
   function detectObjects() {
-    nearbyObject = null;
-    for(obj in lifeObjects) {
-      if (obj.canAction() && obj.checkHitbox(player)) {
+    readyObject = null;
+    var nearbyObject:LifeObject = null;
+    lifeObjects.forEach(function(obj:LifeObject) {
+      if (obj.checkHitbox(player)) {
         nearbyObject = obj;
-        obj.nearby(player);
-        FlxG.watch.addQuick("nearby", obj);
-        if (FlxG.keys.anyJustPressed([X])) {
-          obj.action();
+        if (obj.canAction()) {
+          readyObject = obj;
+          obj.readyForAction(player);
+          FlxG.watch.addQuick("nearby", obj);
+          if (FlxG.keys.anyJustPressed([X])) {
+            obj.action();
+          }
         }
-        break;
       }
-    }
-    for(obj in lifeObjects) {
+    });
+    lifeObjects.forEach(function(obj:LifeObject) {
+      if (readyObject != obj) {
+        obj.notReadyForAction();
+      }
       if (nearbyObject != obj) {
-        obj.alway();
+        obj.isFresh = true;
       }
-    }
+    });
   }
 
   function updateStatuses(elapsed:Float) {

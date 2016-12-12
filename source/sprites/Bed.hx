@@ -13,8 +13,8 @@ class Bed extends LifeObject {
   }
 
   override public function action():Void {
-    FlxG.log.add("bed action");
-    nearbyPlayer.sleep();
+    super.action();
+    readyPlayer.sleep();
   }
 
   public function goBed(player:FlxSprite) {

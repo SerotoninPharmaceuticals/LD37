@@ -6,6 +6,7 @@ class Newspaper extends LifeObject {
   }
 
   override public function action():Void {
-    nearbyPlayer.read();
+    super.action();
+    readyPlayer.read();
   }
 }

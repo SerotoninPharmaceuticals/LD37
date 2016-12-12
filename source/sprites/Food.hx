@@ -6,6 +6,7 @@ class Food extends LifeObject {
   }
 
   override public function action():Void {
-    nearbyPlayer.eat();
+    super.action();
+    readyPlayer.eat();
   }
 }

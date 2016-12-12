@@ -6,6 +6,7 @@ class Water extends LifeObject {
   }
 
   override public function action():Void {
-    nearbyPlayer.drink(); // TODO
+    super.action();
+    readyPlayer.drink(); // TODO
   }
 }

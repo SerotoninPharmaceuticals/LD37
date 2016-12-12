@@ -6,6 +6,7 @@ class Toilet extends LifeObject {
   }
 
   override public function action():Void {
-    nearbyPlayer.toilet();
+    super.action();
+    readyPlayer.toilet();
   }
 }

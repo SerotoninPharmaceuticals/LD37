@@ -6,9 +6,10 @@ import flixel.FlxSprite;
 
 class LifeObject extends FlxSprite {
   public var hitbox:FlxSprite;
-  var nearbyPlayer:Player;
+  var readyPlayer:Player;
   public var luminosity:FlxSprite;
   public var config:LifeObjectConfig;
+  public var isFresh = true;
 
   var normalImg:String;
   var hitboxImg:String;
@@ -61,7 +62,9 @@ class LifeObject extends FlxSprite {
     return sprite.facing == config.playerFacing;
   }
 
-  dynamic public function action():Void {}
+  public function action():Void {
+    isFresh = false;
+  }
 
   dynamic public function canAction():Bool { return true; }
 
@@ -75,15 +78,15 @@ class LifeObject extends FlxSprite {
     luminosity.revive();
   }
 
-  public function nearby(player:Player):Void {
-    if (nearbyPlayer != null) { return; }
+  public function readyForAction(player:Player):Void {
+    if (readyPlayer != null) { return; }
     alpha = 1;
-    nearbyPlayer = player;
+    readyPlayer = player;
   }
 
-  public function alway() {
-    if (nearbyPlayer == null) { return; }
+  public function notReadyForAction() {
+    if (readyPlayer == null) { return; }
     alpha = 0;
-    nearbyPlayer = null;
+    readyPlayer = null;
   }
 }
