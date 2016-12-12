@@ -1,4 +1,5 @@
 package sprites;
+import utils.Glitch;
 import openfl.display.BlendMode;
 import GameConfig.LifeObjectConfig;
 import flixel.FlxSprite;
@@ -42,6 +43,13 @@ class LifeObject extends FlxSprite {
       luminosity = new FlxSprite(luminosityX, luminosityY);
       luminosity.loadGraphic(config.luminosity);
       luminosity.blend = BlendMode.HARDLIGHT;
+    }
+  }
+
+  override public function update(elapsed:Float) {
+    super.update(elapsed);
+    if (luminosity != null) {
+      Glitch.continuousGlitch(luminosity);
     }
   }
   public function checkHitbox(sprite:FlxSprite):Bool {

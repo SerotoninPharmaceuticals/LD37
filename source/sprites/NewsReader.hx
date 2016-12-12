@@ -31,8 +31,8 @@ class NewsReader extends FlxTypedGroup<LanguageGenerator> {
     add(body);
 
     buttonSound.play();
-    Glitch.showUpGitch(title);
-    Glitch.showUpGitch(body);
+    Glitch.showUpGlitch(title);
+    Glitch.showUpGlitch(body);
 
     var timer = new FlxTimer();
     var fadeOutDuration = 0.5;

@@ -3,7 +3,13 @@ import flixel.util.FlxTimer;
 import flixel.FlxSprite;
 
 class Glitch {
-  static public function showUpGitch(sprite:FlxSprite, times:Int=3, onFinished:Void->Void=null) {
+  // Used in update.
+  static public function continuousGlitch(sprite:FlxSprite) {
+    var maskDice = Math.random();
+    sprite.alpha = (maskDice > 0.99) ? 1 : (Math.random() + 0.4);
+  }
+
+  static public function showUpGlitch(sprite:FlxSprite, times:Int=3, onFinished:Void->Void=null) {
     var timer = new FlxTimer();
     var showHide:Void->Void = null;
     sprite.alpha = 1;
@@ -25,7 +31,7 @@ class Glitch {
     }
     showHide();
   }
-  static public function leaveGitch(sprite:FlxSprite, times:Int=3, onFinished:Void->Void=null) {
+  static public function leaveGlitch(sprite:FlxSprite, times:Int=3, onFinished:Void->Void=null) {
     var timer = new FlxTimer();
     var showHide:Void->Void = null;
 
