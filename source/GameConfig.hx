@@ -57,7 +57,7 @@ class GameConfig {
   public static var playerY = roomY + roomHeight / 2 + 4;
 
   public static var dashboardX = roomRight + 8;
-  public static var dashboardY = roomImgY + 3;
+  public static var dashboardY = roomImgY + 4;
 
   public static var animationX = dashboardX;
   public static var animationY = dashboardY + statusLineHeight * 4 + 3;
@@ -69,25 +69,24 @@ class GameConfig {
   // - food
   public static var foodTitleGeneratorSeed:Int = 105;
   public static var initialFood:Float = 10;
-  public static var foodReduceEachDay:Float = 3;
-  static var _foodGainEachEating:Float = 3;
-  static var _eatingHour:Float = 0.3;
+  public static var foodReduceEachDay:Float = 3s;
+  static var _foodGainEachEating:Float = 6;
   public static var eatingDuration:Float = 2.4;
   public static var foodGainWhenEatingInElapsed:Float = _foodGainEachEating / eatingDuration;
 
   // - bed
   public static var tirednessTitleGeneratorSeed:Int = 99;
   public static var initialTiredness:Float = 10;
-  public static var tirednessReduceEachDay:Float = 2;
-  static var _tirednessGainEachSleep:Float = 2;
+  public static var tirednessReduceEachDay:Float = 4;
+  static var _tirednessGainEachSleep:Float = 8;
   static var _sleepHour:Float = 8;
   public static var sleepingDuration:Float = elapsedEachDay * _sleepHour / 24;
   public static var tirednessGainWhenSleepInElapsed:Float = _tirednessGainEachSleep / sleepingDuration;
 
   // - water
   public static var initialWater:Float = 10;
-  public static var waterReduceEachDay:Float = 2;
-  static var _waterGainEachDrinking:Float = 2;
+  public static var waterReduceEachDay:Float = 5;
+  static var _waterGainEachDrinking:Float = 7;
   static var _drinkHour:Float = 0.3;
   public static var waterTitleGeneratorSeed:Int = 80;
   public static var drinkingDuration:Float = 2.4;
@@ -96,8 +95,8 @@ class GameConfig {
   // - toilet
   public static var toiletTitleGeneratorSeed:Int = 120;
   public static var initialToilet:Float = 10;
-  public static var toiletReduceEachDay:Float = 2;
-  static var _toiletGainEachToilting:Float = 3;
+  public static var toiletReduceEachDay:Float = 12;
+  static var _toiletGainEachToilting:Float = 10;
   static var _toiletHour:Float = 0.3;
   public static var toiletingDuration:Float = 1.2;
   public static var toiletGainWhenToiletingInElapsed:Float = _toiletGainEachToilting / toiletingDuration;

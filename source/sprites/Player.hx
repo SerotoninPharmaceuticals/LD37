@@ -10,7 +10,7 @@ import flixel.math.FlxPoint;
 import flixel.system.FlxSound;
 
 class Player extends FlxSprite {
-  public var speed:Float = 65;
+  public var speed:Float = 57;
   private var _bedSound:FlxSound;
   private var _drinkSound:FlxSound;
   private var _eatSound:FlxSound;
