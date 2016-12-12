@@ -107,7 +107,7 @@ class Player extends FlxSprite {
       animation.play("read_and_toilet");
     } else if (isReading) {
       animation.play("read_and_toilet");
-    } else {
+    } else if (!isRequesting) {
       movement();
     }
     super.update(elapsed);
