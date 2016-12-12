@@ -66,10 +66,13 @@ class FinishedScreen extends FlxSpriteGroup {
     }
 
 
-    FlxSpriteUtil.fadeIn(blackBg, 3);
-    FlxSpriteUtil.fadeIn(title, 3);
+    FlxSpriteUtil.fadeIn(blackBg, 1.2);
     var timer = new FlxTimer();
-    timer.start(4, function(t) {
+    timer.start(5, function(t){
+      FlxSpriteUtil.fadeIn(title, 4);
+    });
+    var timer2 = new FlxTimer();
+    timer2.start(10, function(t) {
       FlxSpriteUtil.fadeIn(subtitle, 3);
       FlxSpriteUtil.fadeIn(subtitle1, 3);
       FlxSpriteUtil.fadeIn(subtitle2, 3);
