@@ -26,9 +26,10 @@ class GameConfig {
   public static var textGray:FlxColor = 0xFF313131;
   public static var blackScreen:FlxColor = 0xFF101010;
   public static var shadowOverlay:FlxColor = 0xFF1E1F20;
+  public static var statusRed:FlxColor = 0xFF9C2A46;
 
   // Time
-  public static var elapsedEachDay:Float = debugMode ? 10 : 60;
+  public static var elapsedEachDay:Float = debugMode ? 2 : 60;
   public static var totalDays:Int = 36523;
 
   // Size

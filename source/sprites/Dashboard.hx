@@ -1,4 +1,6 @@
 package sprites;
+import flash.display.BlendMode;
+import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 
 class Dashboard extends FlxSpriteGroup {
@@ -85,5 +87,30 @@ class Dashboard extends FlxSpriteGroup {
     tirednessStatus.updateValue(GameData.data.tiredness);
     waterStatus.updateValue(GameData.data.water);
     toiletStatus.updateValue(GameData.data.toilet);
+  }
+
+  public function gameover() {
+    if (GameData.data.food <= 0) {
+      turnRed(foodTitle);
+    }
+    if (GameData.data.water <= 0) {
+      turnRed(waterTitle);
+    }
+    if (GameData.data.toilet <= 0) {
+      turnRed(toiletTitle);
+    }
+    if (GameData.data.tiredness <= 0) {
+      turnRed(tirednessTitle);
+    }
+  }
+  function turnRed(sprite:FlxSprite) {
+    var redOverlay = new FlxSprite(sprite.x, sprite.y);
+    redOverlay.makeGraphic(
+      (GameConfig.statusDotWidth + GameConfig.statusDotWidth) * GameConfig.statusDotCount,
+      GameConfig.statusLineHeight,
+      GameConfig.statusRed);
+    redOverlay.alpha = 0.5;
+    redOverlay.blend = BlendMode.DARKEN;
+    add(redOverlay);
   }
 }

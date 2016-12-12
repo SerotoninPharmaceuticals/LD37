@@ -334,6 +334,7 @@ class PlayState extends FlxState {
     gameoverScreen.screenCenter();
     add(gameoverScreen);
     FlxSpriteUtil.fadeIn(gameoverScreen, 0.3, true, function(t) {
+      dashboard.gameover();
       isGameOver = true;
     });
   }
