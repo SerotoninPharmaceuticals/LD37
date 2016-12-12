@@ -19,6 +19,7 @@ class Player extends FlxSprite {
   public var isDrinking = false;
   public var isToileting = false;
   public var isReading = false;
+  public var isRequesting = false;
 
   public var requestSleep:(Void->Void)->Void;
   public var requestWakeup:(Void->Void)->Void;
@@ -127,7 +128,7 @@ class Player extends FlxSprite {
   }
 
   public function getIsBusy() {
-    return isSleeping || isEating || isDrinking || isToileting || isReading;
+    return isSleeping || isEating || isDrinking || isToileting || isReading || isRequesting;
   }
 
   public function sleep(_sleepElapsed:Float = 0) {
@@ -148,38 +149,43 @@ class Player extends FlxSprite {
   }
 
   public function eat() {
-    isEating = true;
+    isRequesting = true;
     requestToEat(function() {
+      isEating = true;
       var timer = new FlxTimer();
+      FlxG.log.add(GameConfig.eatingDuration);
       timer.start(GameConfig.eatingDuration, function(t) {
-        isEating = false;
+        isRequesting = isEating = false;
       });
     });
   }
   public function drink() {
-    isDrinking = true;
+    isRequesting = true;
     requestToDrink(function() {
+      isDrinking = true;
       var timer = new FlxTimer();
       timer.start(GameConfig.drinkingDuration, function(t) {
-        isDrinking = false;
+        isRequesting = isDrinking = false;
       });
     });
   }
   public function toilet() {
-    isToileting = true;
+    isRequesting = true;
     requestToToilet(function() {
+      isToileting = true;
       var timer = new FlxTimer();
       timer.start(GameConfig.toiletingDuration, function(t) {
-        isToileting = false;
+        isRequesting = isToileting = false;
       });
     });
   }
   public function read() {
-    isReading = true;
+    isRequesting = true;
     requestToRead(function() {
+      isReading = true;
       var timer = new FlxTimer();
       timer.start(GameConfig.readingDuration, function(t) {
-        isReading = false;
+        isRequesting = isReading = false;
       });
     });
   }

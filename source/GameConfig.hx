@@ -69,25 +69,25 @@ class GameConfig {
   static var _foodGainEachEating:Float = 2;
   static var _eatingHour:Float = 0.3;
   public static var eatingDuration:Float = elapsedEachDay * _eatingHour / 24;
-  public static var foodGainWhenEatingInDay:Float = _foodGainEachEating / eatingDuration * elapsedEachDay;
+  public static var foodGainWhenEatingInElapsed:Float = _foodGainEachEating / eatingDuration;
 
   // - bed
   public static var tirednessTitleGeneratorSeed:Int = 99;
   public static var initialTiredness:Float = 10;
-  public static var tirednessReduceEachDay:Float = 6;
+  public static var tirednessReduceEachDay:Float = 2;
   static var _tirednessGainEachSleep:Float = 2;
   static var _sleepHour:Float = 3;
   public static var sleepingDuration:Float = elapsedEachDay * _sleepHour / 24;
-  public static var tirednessGainWhenSleepInDay:Float = _tirednessGainEachSleep / sleepingDuration * elapsedEachDay;
+  public static var tirednessGainWhenSleepInElapsed:Float = _tirednessGainEachSleep / sleepingDuration;
 
   // - water
   public static var initialWater:Float = 10;
-  public static var waterReduceEachDay:Float = 7;
+  public static var waterReduceEachDay:Float = 2;
   static var _waterGainEachDrinking:Float = 2;
   static var _drinkHour:Float = 0.3;
   public static var waterTitleGeneratorSeed:Int = 80;
   public static var drinkingDuration:Float = elapsedEachDay * _sleepHour / 24;
-  public static var waterGainWhenDrinkingInDay:Float = _waterGainEachDrinking / drinkingDuration * elapsedEachDay;
+  public static var waterGainWhenDrinkingInElapsed:Float = _waterGainEachDrinking / drinkingDuration;
 
   // - toilet
   public static var toiletTitleGeneratorSeed:Int = 120;
@@ -96,7 +96,7 @@ class GameConfig {
   static var _toiletGainEachToilting:Float = 2;
   static var _toiletHour:Float = 0.3;
   public static var toiletingDuration:Float = elapsedEachDay * _sleepHour / 24;
-  public static var toiletGainWhenToiletingInDay:Float = _toiletGainEachToilting / toiletingDuration * elapsedEachDay;
+  public static var toiletGainWhenToiletingInElapsed:Float = _toiletGainEachToilting / toiletingDuration;
 
 
   // - reading

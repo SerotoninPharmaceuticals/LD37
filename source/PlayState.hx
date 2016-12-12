@@ -264,13 +264,13 @@ class PlayState extends FlxState {
      toilet -= elapsedInDay * GameConfig.toiletReduceEachDay;
 
     if (player.isEating) {
-      food += elapsedInDay * GameConfig.foodGainWhenEatingInDay;
+      food += elapsed * GameConfig.foodGainWhenEatingInElapsed;
     } else if (player.isSleeping){
-      tiredness += elapsedInDay * GameConfig.tirednessGainWhenSleepInDay;
+      tiredness += elapsed * GameConfig.tirednessGainWhenSleepInElapsed;
     } else if (player.isDrinking){
-      water += elapsedInDay * GameConfig.waterGainWhenDrinkingInDay;
+      water += elapsed * GameConfig.waterGainWhenDrinkingInElapsed;
     } else if (player.isToileting){
-      toilet += elapsedInDay * GameConfig.toiletGainWhenToiletingInDay;
+      toilet += elapsed * GameConfig.toiletGainWhenToiletingInElapsed;
     }
 
     food = Math.max(-1, Math.min(GameConfig.initialFood, food));
