@@ -41,6 +41,7 @@ class PlayState extends FlxState {
   
   var blackScreen:FlxSprite;
   var titleScreen:TitleScreen;
+  var gameoverScreen:FlxSprite;
 
   var player:Player;
   var wall:Wall;
@@ -234,8 +235,13 @@ class PlayState extends FlxState {
     if (isGameOver) {
       if (FlxG.keys.anyJustPressed([R])) {
         pressSound.play();
-        GameData.reset();
-        FlxG.resetGame();
+        titleScreen.fadeIn(0.3);
+        blackScreen.revive();
+        FlxSpriteUtil.fadeIn(blackScreen, 0.3, true);
+        FlxSpriteUtil.fadeOut(gameoverScreen, 0.3, function(t) {
+          GameData.reset();
+          FlxG.resetGame();
+        });
       }
       return;
     }
@@ -373,8 +379,14 @@ class PlayState extends FlxState {
 
   function gameover() {
     blackScreen.kill();
-    titleScreen.kill();
-    var gameoverScreen = new FlxSprite();
+
+    remove(titleScreen);
+    GameData.reset();
+    titleScreen = new TitleScreen();
+    titleScreen.fadeOut(0.01);
+    add(titleScreen);
+
+    gameoverScreen = new FlxSprite();
     gameoverScreen.loadGraphic("assets/images/gameover.png");
     gameoverScreen.screenCenter();
     add(gameoverScreen);
