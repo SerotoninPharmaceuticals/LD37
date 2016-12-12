@@ -285,7 +285,7 @@ class PlayState extends FlxState {
     readyObject = null;
     var nearbyObject:LifeObject = null;
     lifeObjects.forEach(function(obj:LifeObject) {
-      if (obj.checkHitbox(player)) {
+      if (obj.checkHitbox(player) && obj.config.playerFacing == player.facing) {
         nearbyObject = obj;
         if (obj.canAction()) {
           readyObject = obj;
