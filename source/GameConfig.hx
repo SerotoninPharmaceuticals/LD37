@@ -24,7 +24,7 @@ class GameConfig {
   // Color
   public static var textWhite = FlxColor.WHITE;
   public static var textGray = FlxColor.GRAY;
-  public static var blackScreen:FlxColor = 0xFF131313;
+  public static var blackScreen:FlxColor = 0xFF101010;
   public static var shadowOverlay:FlxColor = 0xFF1E1F20;
 
   // Time
@@ -98,7 +98,7 @@ class GameConfig {
   public static var toiletReduceEachDay:Float = 2;
   static var _toiletGainEachToilting:Float = 3;
   static var _toiletHour:Float = 0.3;
-  public static var toiletingDuration:Float = elapsedEachDay * _sleepHour / 24;
+  public static var toiletingDuration:Float = 1.2;
   public static var toiletGainWhenToiletingInElapsed:Float = _toiletGainEachToilting / toiletingDuration;
 
   public static var statusValueToDie = -0.1;
@@ -128,7 +128,7 @@ class GameConfig {
     hitboxOffsetX: -2,
     hitboxOffsetY: -2,
 	luminosityOffsetX: -1,
-    luminosityOffsetY: -3,
+    luminosityOffsetY: -5,
     normal: "assets/images/food_highlight.png",
     hitbox: "assets/images/food_highlight.png",
     highlight: "assets/images/food_highlight.png",
