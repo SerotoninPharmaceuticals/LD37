@@ -12,6 +12,13 @@ class Glitch {
     a = Math.max(minAlpha, a);
     sprite.alpha = a;
   }
+  static public function continuousGlitchAlpha(a:Float, minAlpha = 0.5):Float {
+    var maskDice = Math.random();
+    if (a == 0) { return a; }
+    a *= (maskDice < 0.9) ? 1 : (Math.random() + 0.5);
+    a = Math.max(minAlpha, a);
+    return a;
+  }
 
   static public function showUpGlitch(sprite:FlxSprite, times:Int=3, onFinished:Void->Void=null) {
     var timer = new FlxTimer();

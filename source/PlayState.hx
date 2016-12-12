@@ -191,6 +191,7 @@ class PlayState extends FlxState {
 
   override public function update(elapsed:Float):Void {
     if (isPausing) {
+      titleScreen.updateWhenPause(elapsed);
       if (FlxG.keys.anyJustPressed([X])) {
         FlxSpriteUtil.fadeOut(blackScreen, 0.5);
         titleScreen.fadeOut(0.5);

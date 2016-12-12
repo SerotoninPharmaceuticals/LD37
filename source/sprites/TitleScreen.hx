@@ -36,9 +36,19 @@ class TitleScreen extends FlxTypedGroup<FlxText> {
   }
 
   override public function update(elspsed) {
-    Glitch.continuousGlitch(title, 0);
-    Glitch.continuousGlitch(subtitle, 0);
-    Glitch.continuousGlitch(subtitle1, 0);
+    var a = title.alpha;
+    a = Glitch.continuousGlitchAlpha(a, 0);
+    title.alpha = a;
+    subtitle.alpha = a;
+    subtitle1.alpha = a;
+  }
+
+  public function updateWhenPause(elspsed) {
+    var a = title.alpha;
+    a = Glitch.continuousGlitchAlpha(a);
+    title.alpha = a;
+    subtitle.alpha = a;
+    subtitle1.alpha = a;
   }
 
   public function showDay() {
