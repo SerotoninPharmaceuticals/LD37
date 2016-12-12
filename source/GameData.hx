@@ -5,16 +5,12 @@ import flixel.util.FlxSave;
 
 typedef Data = {
   var elapsed:Float;
-//  var playerX:Float;
-//  var playerY:Float;
 
   var food:Float;
   var water:Float;
   var toilet:Float;
   var tiredness:Float;
 
-//  var isSleeping:Bool;
-//  var sleepElapsed:Float;
   var sleptToday:Bool;
   var ateToday:Bool;
   var drankToday:Bool;
@@ -28,16 +24,11 @@ class GameData {
     var defaultData:Data = {
       elapsed: 0,
 
-//      playerX: FlxG.width/2,
-//      playerY: FlxG.height/2,
-
       food: GameConfig.initialFood,
       water: GameConfig.initialWater,
       toilet: GameConfig.initialToilet,
       tiredness: GameConfig.initialTiredness,
 
-//      isSleeping: false,
-//      sleepElapsed: 0,
       sleptToday: false,
       ateToday: false,
       drankToday: false,
@@ -57,12 +48,42 @@ class GameData {
     gameSave.bind("Main");
 
     if (gameSave.data.gameData == null) {
-      gameSave.data.gameData = getDefaultData();
+      data = getDefaultData();
+//      gameSave.data.gameData = getDefaultData();
+    } else {
+      loadData();
     }
-    data = gameSave.data.gameData;
+  }
+
+  static public function loadData() {
+    data.elapsed = gameSave.data.elapsed;
+
+    data.food = gameSave.data.food;
+    data.water = gameSave.data.water;
+    data.toilet = gameSave.data.toilet;
+    data.tiredness = gameSave.data.tiredness;
+
+    data.sleptToday = gameSave.data.sleptToday;
+    data.ateToday = gameSave.data.ateToday;
+    data.drankToday = gameSave.data.drankToday;
+    data.toiletedToday = gameSave.data.toiletedToday;
+  }
+  static function saveData() {
+    gameSave.data.elapsed = data.elapsed;
+
+    gameSave.data.food = data.food;
+    gameSave.data.water = data.water;
+    gameSave.data.toilet = data.toilet;
+    gameSave.data.tiredness = data.tiredness;
+
+    gameSave.data.sleptToday = data.sleptToday;
+    gameSave.data.ateToday = data.ateToday;
+    gameSave.data.drankToday = data.drankToday;
+    gameSave.data.toiletedToday = data.toiletedToday;
   }
 
   static public function save() {
+    saveData();
     #if !flash
     gameSave.flush();
     #end
@@ -70,7 +91,7 @@ class GameData {
 
   static public function reset() {
     gameSave.data.gameData = getDefaultData();
-    data = gameSave.data.gameData;
+    loadData();
   }
 
   static public function getElapsedToday():Float {
