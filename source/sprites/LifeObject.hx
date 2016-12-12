@@ -48,7 +48,7 @@ class LifeObject extends FlxSprite {
 
   override public function update(elapsed:Float) {
     super.update(elapsed);
-    if (luminosity != null) {
+    if (luminosity != null && luminosity.alive) {
       Glitch.continuousGlitch(luminosity);
     }
   }

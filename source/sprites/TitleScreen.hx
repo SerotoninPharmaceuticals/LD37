@@ -1,5 +1,6 @@
 package sprites;
 
+import utils.Glitch;
 import flixel.util.FlxSpriteUtil;
 import flixel.FlxG;
 import flixel.text.FlxText;
@@ -32,6 +33,12 @@ class TitleScreen extends FlxTypedGroup<FlxText> {
     subtitle1.screenCenter();
     subtitle1.y = subtitleY + 9;
     add(subtitle1);
+  }
+
+  override public function update(elspsed) {
+    Glitch.continuousGlitch(title, 0);
+    Glitch.continuousGlitch(subtitle, 0);
+    Glitch.continuousGlitch(subtitle1, 0);
   }
 
   public function showDay() {

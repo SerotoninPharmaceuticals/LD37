@@ -4,9 +4,13 @@ import flixel.FlxSprite;
 
 class Glitch {
   // Used in update.
-  static public function continuousGlitch(sprite:FlxSprite) {
+  static public function continuousGlitch(sprite:FlxSprite, minAlpha = 0.5) {
     var maskDice = Math.random();
-    sprite.alpha = (maskDice > 0.99) ? 1 : (Math.random() + 0.4);
+    var a = sprite.alpha;
+    if (a == 0) { return; }
+    a *= (maskDice < 0.9) ? 1 : (Math.random() + 0.5);
+    a = Math.max(minAlpha, a);
+    sprite.alpha = a;
   }
 
   static public function showUpGlitch(sprite:FlxSprite, times:Int=3, onFinished:Void->Void=null) {
