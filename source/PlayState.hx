@@ -271,7 +271,7 @@ class PlayState extends FlxState {
 
       if (_currentDay != currentDay) {
         currentDay = _currentDay;
-        if (currentDay == GameConfig.totalDays) {
+        if (currentDay == GameConfig.totalDays + 1) {
           finishGame();
           FlxG.log.add("Game finished");
         } else {
