@@ -17,54 +17,65 @@ class Dashboard extends FlxSpriteGroup {
   public function new() {
     super();
 
-    // food
-    foodTitle = new LanguageGenerator(GameConfig.dashboardX, GameConfig.dashboardY, 1, GameConfig.foodTitleGeneratorSeed);
-    add(foodTitle);
-    foodStatus = new StatusBar(
-      GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusTitleLineHeight, GameConfig.initialFood
-    );
-    add(foodStatus);
+    var lines = 0;
 
     // bed
     tirednessTitle = new LanguageGenerator(
       GameConfig.dashboardX,
-      GameConfig.dashboardY + GameConfig.statusLineHeight * 1,
+      GameConfig.dashboardY + GameConfig.statusLineHeight * lines,
       1,
       GameConfig.tirednessTitleGeneratorSeed
     );
     add(tirednessTitle);
     tirednessStatus = new StatusBar(
-      GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusLineHeight * 1 + GameConfig.statusTitleLineHeight, GameConfig.initialTiredness
+      GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusLineHeight * lines + GameConfig.statusTitleLineHeight, GameConfig.initialTiredness
     );
     add(tirednessStatus);
-
-    // Toilet
-    toiletTitle = new LanguageGenerator(
-      GameConfig.dashboardX,
-      GameConfig.dashboardY + GameConfig.statusLineHeight * 2,
-      1,
-      GameConfig.toiletTitleGeneratorSeed
-    );
-    add(toiletTitle);
-
-    toiletStatus = new StatusBar(
-      GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusLineHeight * 2 + GameConfig.statusTitleLineHeight, GameConfig.initialToilet
-    );
-    add(toiletStatus);
+    lines ++;
 
     // water
     waterTitle = new LanguageGenerator(
       GameConfig.dashboardX,
-      GameConfig.dashboardY + GameConfig.statusLineHeight * 3,
+      GameConfig.dashboardY + GameConfig.statusLineHeight * lines,
       1,
       GameConfig.waterTitleGeneratorSeed
     );
     add(waterTitle);
 
     waterStatus = new StatusBar(
-      GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusLineHeight * 3 + GameConfig.statusTitleLineHeight, GameConfig.initialWater
+    GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusLineHeight * lines + GameConfig.statusTitleLineHeight, GameConfig.initialWater
     );
     add(waterStatus);
+    lines ++;
+
+    // Toilet
+    toiletTitle = new LanguageGenerator(
+      GameConfig.dashboardX,
+      GameConfig.dashboardY + GameConfig.statusLineHeight * lines,
+      1,
+      GameConfig.toiletTitleGeneratorSeed
+    );
+    add(toiletTitle);
+
+    toiletStatus = new StatusBar(
+      GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusLineHeight * lines + GameConfig.statusTitleLineHeight, GameConfig.initialToilet
+    );
+    add(toiletStatus);
+    lines ++;
+
+    // food
+    foodTitle = new LanguageGenerator(
+      GameConfig.dashboardX,
+      GameConfig.dashboardY + GameConfig.statusLineHeight * lines,
+      1,
+      GameConfig.foodTitleGeneratorSeed
+    );
+    add(foodTitle);
+    foodStatus = new StatusBar(
+      GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusLineHeight * lines + GameConfig.statusTitleLineHeight, GameConfig.initialFood
+    );
+    add(foodStatus);
+    lines ++;
   }
 
   override public function update(elapsed:Float) {
