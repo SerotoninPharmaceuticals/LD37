@@ -165,7 +165,7 @@ class PlayState extends FlxState {
   function loadPlayer() {
     player = new Player(GameConfig.playerX, GameConfig.playerY);
     player.requestSleep = function(callback:Void->Void) {
-      fadeBlackScreen(0.3, 1, function() {
+      fadeBlackScreen(0.2, 0.6, function() {
         callback();
         GameData.data.sleptToday = true;
       }, function() {
@@ -173,7 +173,7 @@ class PlayState extends FlxState {
       });
     }
     player.requestWakeup = function(callback:Void->Void) {
-      fadeBlackScreen(0.3, 1, function() {
+      fadeBlackScreen(0.2, 0.8, function() {
         callback();
       }, function() {
         bed.leaveBed(player);
@@ -190,7 +190,7 @@ class PlayState extends FlxState {
       GameData.data.ateToday = true;
     }
     player.requestToToilet = function(callback:Void->Void) {
-      fadeBlackScreen(0.3, 1, function() {
+      fadeBlackScreen(0.3, 0.6, function() {
         toiletSound.play();
         callback();
         GameData.data.toiletedToday = true;

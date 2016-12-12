@@ -24,7 +24,7 @@ class GameConfig {
   // Color
   public static var textWhite = FlxColor.WHITE;
   public static var textGray:FlxColor = 0xFF313131;
-  public static var blackScreen:FlxColor = 0xFF050505;
+  public static var blackScreen:FlxColor = 0xFF080808;
   public static var shadowOverlay:FlxColor = 0xFF1E1F20;
   public static var statusRed:FlxColor = 0xFFFF0000;
 
