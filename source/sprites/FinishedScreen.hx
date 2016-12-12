@@ -60,19 +60,11 @@ class FinishedScreen extends FlxSpriteGroup {
     add(subtitle2);
     add(subtitle3);
 
-    texts = [title, subtitle, subtitle1, subtitle2, subtitle3];
-    for(obj in texts) {
-      var c = new FlxSprite(obj.x, obj.y);
-      FlxG.log.add(Std.int(obj.width));
-      FlxG.log.add(Std.int(obj.height));
-      c.makeGraphic(Std.int(obj.width), Std.int(obj.height), FlxColor.WHITE);
-      colliders.push(c);
-      add(c);
-    }
 
     for(sprite in this) {
       sprite.alpha = 0;
     }
+
 
     FlxSpriteUtil.fadeIn(blackBg, 3);
     FlxSpriteUtil.fadeIn(title, 3);
@@ -83,5 +75,13 @@ class FinishedScreen extends FlxSpriteGroup {
       FlxSpriteUtil.fadeIn(subtitle2, 3);
       FlxSpriteUtil.fadeIn(subtitle3, 3);
     });
+
+    texts = [title, subtitle, subtitle1, subtitle2, subtitle3];
+    for(obj in texts) {
+      var c = new FlxSprite(obj.x, obj.y);
+      c.makeGraphic(Std.int(obj.width), Std.int(obj.height), FlxColor.WHITE);
+      c.immovable = true;
+      colliders.push(c);
+    }
   }
 }
