@@ -235,14 +235,12 @@ class PlayState extends FlxState {
     if (isGameOver) {
       if (FlxG.keys.anyJustPressed([R])) {
         pressSound.play();
-        titleScreen.fadeIn(0.3);
-        blackScreen.revive();
-        FlxSpriteUtil.fadeIn(blackScreen, 0.3, true);
-        FlxSpriteUtil.fadeOut(gameoverScreen, 0.3, function(t) {
+        var timer = new FlxTimer();
+        timer.start(1, function(t){
           GameData.reset();
           FlxG.resetGame();
-        });
-      }
+          });
+        }
       return;
     }
     if (isGameFinished) {
@@ -379,15 +377,8 @@ class PlayState extends FlxState {
 
   function gameover() {
     blackScreen.kill();
-
-    remove(titleScreen);
-    GameData.reset();
-//    GameData.save();
-    titleScreen = new TitleScreen();
-    titleScreen.fadeOut(0.01);
-    add(titleScreen);
-
-    gameoverScreen = new FlxSprite();
+    titleScreen.kill();
+    var gameoverScreen = new FlxSprite();
     gameoverScreen.loadGraphic("assets/images/gameover.png");
     gameoverScreen.screenCenter();
     add(gameoverScreen);

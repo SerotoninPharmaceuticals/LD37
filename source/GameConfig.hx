@@ -69,7 +69,7 @@ class GameConfig {
   // - food
   public static var foodTitleGeneratorSeed:Int = 105;
   public static var initialFood:Float = 10;
-  public static var foodReduceEachDay:Float = 3s;
+  public static var foodReduceEachDay:Float = 3;
   static var _foodGainEachEating:Float = 6;
   public static var eatingDuration:Float = 2.4;
   public static var foodGainWhenEatingInElapsed:Float = _foodGainEachEating / eatingDuration;
