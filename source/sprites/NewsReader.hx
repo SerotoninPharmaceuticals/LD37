@@ -23,9 +23,9 @@ class NewsReader extends FlxTypedGroup<LanguageGenerator> {
     if (body != null) { return; }
 
     var day = Std.int(GameData.getElapsedDays());
-    title = new LanguageGenerator(GameConfig.newsReaderX, GameConfig.newsReaderY, 1, day, rand.int(10, 50));
+    title = new LanguageGenerator(GameConfig.newsReaderX + 12, GameConfig.newsReaderY, 1, day, rand.int(45, 85));
     var lines = rand.int(3, 8);
-    body = new LanguageGenerator(GameConfig.newsReaderX, GameConfig.newsReaderY + 10, lines, day, GameConfig.newsReaderWidth);
+    body = new LanguageGenerator(GameConfig.newsReaderX, GameConfig.newsReaderY + 8, lines, day, GameConfig.newsReaderWidth);
 
     add(title);
     add(body);

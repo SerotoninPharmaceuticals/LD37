@@ -62,7 +62,7 @@ class GameConfig {
   public static var animationX = dashboardX;
   public static var animationY = dashboardY + statusLineHeight * 4 + 3;
 
-  public static var newsReaderX = roomImgX;
+  public static var newsReaderX = roomImgX - 9;
   public static var newsReaderY = roomBottom + 10;
 
   // Status
