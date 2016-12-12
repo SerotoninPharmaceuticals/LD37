@@ -15,7 +15,7 @@ class NewsReader extends FlxTypedGroup<LanguageGenerator> {
 
   public function new() {
     super();
-    buttonSound = FlxG.sound.load("assets/sounds/button.wav");
+    buttonSound = FlxG.sound.load("assets/sounds/button.mp3");
   }
 
   public function showNews() {
