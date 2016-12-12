@@ -108,9 +108,7 @@ class Player extends FlxSprite {
     } else if (isEating) {
     } else if (isDrinking) {
     } else if (isToileting) {
-      animation.play("read_and_toilet");
     } else if (isReading) {
-      animation.play("read_and_toilet");
     } else if (!isRequesting) {
       movement();
     }
@@ -169,6 +167,7 @@ class Player extends FlxSprite {
     isRequesting = true;
     requestToToilet(function() {
       isToileting = true;
+      animation.play("read_and_toilet");
       var timer = new FlxTimer();
       timer.start(GameConfig.toiletingDuration, function(t) {
         isRequesting = isToileting = false;
@@ -180,6 +179,7 @@ class Player extends FlxSprite {
     isRequesting = true;
     requestToRead(function() {
       isReading = true;
+      animation.play("read_and_toilet");
       var timer = new FlxTimer();
       timer.start(GameConfig.readingDuration, function(t) {
         isRequesting = isReading = false;
