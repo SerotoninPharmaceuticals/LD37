@@ -125,7 +125,7 @@ class GameConfig {
   public static var food:LifeObjectConfig = {
     x: 28,
     y: 73,
-    hitboxOffsetY: -4,
+    hitboxOffsetY: 0,
 	luminosityOffsetX: -1,
     luminosityOffsetY: -3,
     normal: "assets/images/food_highlight.png",
@@ -160,7 +160,7 @@ class GameConfig {
   public static var newspaper:LifeObjectConfig = {
     x: 73,
     y: 40,
-    hitboxOffsetX: -4,
+    hitboxOffsetX: -2,
     luminosityOffsetX: -13,
     normal: "assets/images/newspaper_highlight.png",
     hitbox: "assets/images/newspaper_hitbox.png",

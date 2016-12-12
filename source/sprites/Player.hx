@@ -10,7 +10,7 @@ import flixel.math.FlxPoint;
 import flixel.system.FlxSound;
 
 class Player extends FlxSprite {
-  public var speed:Float = 100;
+  public var speed:Float = 65;
   private var _sndStep:FlxSound;
 
   public var isSleeping = false;
@@ -36,8 +36,8 @@ class Player extends FlxSprite {
     animation.add("eat_and_drink", [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 5, false);
     animation.add("read_and_toilet", [6, 7, 8, 15, 16, 17], 5, false);
     drag.x = drag.y = 1600;
-    setSize(18, 18);
-    offset.set(0, 0);
+    setSize(15, 15);
+    offset.set(5, 5);
 
     _sndStep = FlxG.sound.load("assets/sounds/step.wav");
 
@@ -97,7 +97,7 @@ class Player extends FlxSprite {
       angle = mA + 90;
 
       if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE) {
-        _sndStep.play();
+        //_sndStep.play();
         animation.play("walk");
       }
     }
