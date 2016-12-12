@@ -1,6 +1,6 @@
 package;
 
-import flash.ui.GameInputFinger;
+import sprites.FinishedScreen;
 import sprites.Door;
 import flixel.util.FlxSpriteUtil;
 import sprites.TitleScreen;
@@ -30,6 +30,8 @@ class PlayState extends FlxState {
   var isPausing = false;
   var isGameOver = false;
   var isGameFinished = false;
+  var hasShownFinishedTitle = false;
+
   var currentDay = 0;
   var nearbyObject:FlxSprite;
   var toiletSound:FlxSound;
@@ -54,6 +56,7 @@ class PlayState extends FlxState {
   var colorOverlay:RoomOverlay;
   var shadowOverlay:ShadowOverlay;
   var lightOverlay:RoomOverlay;
+  var colliders: Array<FlxSprite>;
 
   override public function create():Void {
     FlxG.mouse.useSystemCursor = true;
@@ -137,6 +140,13 @@ class PlayState extends FlxState {
     add(titleScreen);
 
     setupWatch();
+
+    FlxG.watch.add(this, 'colliders');
+
+    colliders = [wall];
+    for(obj in lifeObjects) {
+      colliders.push(obj);
+    }
   }
 
   function loadSound() {
@@ -226,13 +236,18 @@ class PlayState extends FlxState {
       }
       return;
     }
+    if (isGameFinished) {
+      if (!hasShownFinishedTitle && !player.overlaps(colorOverlay)) {
+        hasShownFinishedTitle = true;
+        showFinishedTitle();
+      }
+    }
 
     super.update(elapsed);
     var totalElapsed = GameData.data.elapsed;
     totalElapsed += elapsed;
 
-    FlxG.collide(player, wall);
-    for(obj in lifeObjects) {
+    for(obj in colliders) {
       FlxG.collide(player, obj);
     }
 
@@ -370,6 +385,13 @@ class PlayState extends FlxState {
       lightOverlay.open();
     });
   }
+  function showFinishedTitle() {
+    var screen = new FinishedScreen();
+    add(screen);
+    remove(player);
+    screen.add(player);
+    colliders = screen.colliders;
+  }
 
   function getElapsedToday(totalElapsed:Float):Float {
     return totalElapsed % GameConfig.elapsedEachDay;
@@ -380,15 +402,15 @@ class PlayState extends FlxState {
   }
 
   function setupWatch() {
-    FlxG.watch.add(GameData.data, 'toilet');
-    FlxG.watch.add(GameData.data, 'tiredness');
-    FlxG.watch.add(GameData.data, 'food');
-    FlxG.watch.add(GameData.data, 'water');
-
-    FlxG.watch.add(GameData.data, 'toiletedToday');
-    FlxG.watch.add(GameData.data, 'sleptToday');
-    FlxG.watch.add(GameData.data, 'ateToday');
-    FlxG.watch.add(GameData.data, 'drankToday');
+//    FlxG.watch.add(GameData.data, 'toilet');
+//    FlxG.watch.add(GameData.data, 'tiredness');
+//    FlxG.watch.add(GameData.data, 'food');
+//    FlxG.watch.add(GameData.data, 'water');
+//
+//    FlxG.watch.add(GameData.data, 'toiletedToday');
+//    FlxG.watch.add(GameData.data, 'sleptToday');
+//    FlxG.watch.add(GameData.data, 'ateToday');
+//    FlxG.watch.add(GameData.data, 'drankToday');
 
 //      for(obj in lifeObjects) {
 //        obj.hitbox.alpha = 0.5;
