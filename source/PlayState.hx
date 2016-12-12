@@ -242,7 +242,7 @@ class PlayState extends FlxState {
       if (_currentDay != currentDay) {
         currentDay = _currentDay;
         if (currentDay == GameConfig.totalDays) {
-          finishedGame();
+          finishGame();
           FlxG.log.add("Game finished");
         } else {
           resetDayState();
@@ -354,7 +354,7 @@ class PlayState extends FlxState {
     });
   }
 
-  function finishedGame() {
+  function finishGame() {
     isGameFinished = true;
     door.open();
   }
