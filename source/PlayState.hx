@@ -57,8 +57,10 @@ class PlayState extends FlxState {
     super.create();
 
     GameData.load();
-    loadSound();
     if (GameConfig.debugMode) { GameData.reset(); }
+
+    loadSound();
+
     currentDay = getElapsedDays(GameData.data.elapsed);
 
     blackScreen = new FlxSprite(GameConfig.roomImgX, GameConfig.roomImgY);
@@ -226,13 +228,13 @@ class PlayState extends FlxState {
     updateStatuses(elapsed);
 
     var _currentDay = getElapsedDays(totalElapsed);
-    if (_currentDay != currentDay) {
-      resetDayState();
-      currentDay = _currentDay;
-    }
 
     GameData.data.elapsed = totalElapsed;
-    GameData.save();
+
+    if (_currentDay != currentDay) {
+      currentDay = _currentDay;
+      resetDayState();
+    }
   }
 
   function detectObjects() {
@@ -321,8 +323,8 @@ class PlayState extends FlxState {
       titleScreen.fadeOut(0.5);
     });
 
-
     FlxG.log.add("Day:" + getElapsedDays(GameData.data.elapsed));
+    GameData.save();
   }
 
   function gameover() {
@@ -344,22 +346,20 @@ class PlayState extends FlxState {
   }
 
   function setupWatch() {
-    if (GameConfig.debugMode) {
-      FlxG.watch.add(GameData.data, 'toilet');
-      FlxG.watch.add(GameData.data, 'tiredness');
-      FlxG.watch.add(GameData.data, 'food');
-      FlxG.watch.add(GameData.data, 'water');
+    FlxG.watch.add(GameData.data, 'toilet');
+    FlxG.watch.add(GameData.data, 'tiredness');
+    FlxG.watch.add(GameData.data, 'food');
+    FlxG.watch.add(GameData.data, 'water');
 
-      FlxG.watch.add(GameData.data, 'toiletedToday');
-      FlxG.watch.add(GameData.data, 'sleptToday');
-      FlxG.watch.add(GameData.data, 'ateToday');
-      FlxG.watch.add(GameData.data, 'drankToday');
+    FlxG.watch.add(GameData.data, 'toiletedToday');
+    FlxG.watch.add(GameData.data, 'sleptToday');
+    FlxG.watch.add(GameData.data, 'ateToday');
+    FlxG.watch.add(GameData.data, 'drankToday');
 
 //      for(obj in lifeObjects) {
 //        obj.hitbox.alpha = 0.5;
 //        add(obj.hitbox);
 //      }
-    }
   }
 
 }

@@ -1,5 +1,6 @@
 package ;
 
+import flixel.FlxG;
 import GameConfig;
 import flixel.util.FlxSave;
 
@@ -56,30 +57,32 @@ class GameData {
   }
 
   static public function loadData() {
-    data.elapsed = gameSave.data.elapsed;
+    data = {
+      elapsed: gameSave.data.gameData.elapsed,
 
-    data.food = gameSave.data.food;
-    data.water = gameSave.data.water;
-    data.toilet = gameSave.data.toilet;
-    data.tiredness = gameSave.data.tiredness;
+      food: gameSave.data.gameData.food,
+      water: gameSave.data.gameData.water,
+      toilet: gameSave.data.gameData.toilet,
+      tiredness: gameSave.data.gameData.tiredness,
 
-    data.sleptToday = gameSave.data.sleptToday;
-    data.ateToday = gameSave.data.ateToday;
-    data.drankToday = gameSave.data.drankToday;
-    data.toiletedToday = gameSave.data.toiletedToday;
+      sleptToday: gameSave.data.gameData.sleptToday,
+      ateToday: gameSave.data.gameData.ateToday,
+      drankToday: gameSave.data.gameData.drankToday,
+      toiletedToday: gameSave.data.gameData.toiletedToday
+    };
   }
   static function saveData() {
-    gameSave.data.elapsed = data.elapsed;
+    gameSave.data.gameData.elapsed = data.elapsed;
 
-    gameSave.data.food = data.food;
-    gameSave.data.water = data.water;
-    gameSave.data.toilet = data.toilet;
-    gameSave.data.tiredness = data.tiredness;
+    gameSave.data.gameData.food = data.food;
+    gameSave.data.gameData.water = data.water;
+    gameSave.data.gameData.toilet = data.toilet;
+    gameSave.data.gameData.tiredness = data.tiredness;
 
-    gameSave.data.sleptToday = data.sleptToday;
-    gameSave.data.ateToday = data.ateToday;
-    gameSave.data.drankToday = data.drankToday;
-    gameSave.data.toiletedToday = data.toiletedToday;
+    gameSave.data.gameData.sleptToday = data.sleptToday;
+    gameSave.data.gameData.ateToday = data.ateToday;
+    gameSave.data.gameData.drankToday = data.drankToday;
+    gameSave.data.gameData.toiletedToday = data.toiletedToday;
   }
 
   static public function save() {
