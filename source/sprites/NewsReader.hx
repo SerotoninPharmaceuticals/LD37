@@ -11,7 +11,6 @@ import flixel.system.FlxSound;
 class NewsReader extends FlxTypedGroup<LanguageGenerator> {
   var title:LanguageGenerator;
   var body:LanguageGenerator;
-  var rand = new FlxRandom();
   var buttonSound:FlxSound;
 
   public function new() {
@@ -23,6 +22,7 @@ class NewsReader extends FlxTypedGroup<LanguageGenerator> {
     if (body != null) { return; }
 
     var day = Std.int(GameData.getElapsedDays());
+    var rand = new FlxRandom(day);
     title = new LanguageGenerator(GameConfig.newsReaderX + 12, GameConfig.newsReaderY, 1, day, rand.int(45, 85));
     var lines = rand.int(3, 8);
     body = new LanguageGenerator(GameConfig.newsReaderX, GameConfig.newsReaderY + 8, lines, day, GameConfig.newsReaderWidth);
