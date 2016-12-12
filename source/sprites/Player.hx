@@ -11,27 +11,25 @@ import flixel.system.FlxSound;
 
 class Player extends FlxSprite {
   public var speed:Float = 65;
-  private var _sndStep:FlxSound;
   private var _bedSound:FlxSound;
   private var _drinkSound:FlxSound;
   private var _eatSound:FlxSound;
 
   public var isSleeping = false;
-  public var sleepElapsed:Float = 0;
   public var isEating = false;
   public var isDrinking = false;
   public var isToileting = false;
   public var isReading = false;
   public var isRequesting = false;
 
-  public var requestSleep:(Void->Void)->Void;
-  public var requestWakeup:(Void->Void)->Void;
-  public var requestToEat:(Void->Void)->Void;
-  public var requestToDrink:(Void->Void)->Void;
-  public var requestToRead:(Void->Void)->Void;
-  public var requestToToilet:(Void->Void)->Void;
+  public var requestSleep:(Void -> Void) -> Void;
+  public var requestWakeup:(Void -> Void) -> Void;
+  public var requestToEat:(Void -> Void) -> Void;
+  public var requestToDrink:(Void -> Void) -> Void;
+  public var requestToRead:(Void -> Void) -> Void;
+  public var requestToToilet:(Void -> Void) -> Void;
 
-  public function new(X:Float = 0, Y:Float = 0, _isSleeping = false, _sleepElapsed = 0) {
+  public function new(X:Float = 0, Y:Float = 0) {
     super(X, Y);
 
     loadGraphic("assets/images/animation_player.png", true, 22, 22);
@@ -41,15 +39,9 @@ class Player extends FlxSprite {
     drag.x = drag.y = 1600;
     setSize(14, 14);
     offset.set(4, 4);
-    _sndStep = FlxG.sound.load("assets/sounds/step.wav");
     _bedSound = FlxG.sound.load("assets/sounds/bed.wav");
     _drinkSound = FlxG.sound.load("assets/sounds/drink.wav");
     _eatSound  = FlxG.sound.load("assets/sounds/eat.wav");
-
-    if (_isSleeping) {
-      sleep(_sleepElapsed);
-    }
-
   }
 
   private function movement():Void {
@@ -102,7 +94,6 @@ class Player extends FlxSprite {
       angle = mA + 90;
 
       if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE) {
-        //_sndStep.play();
         animation.play("walk");
       }
     }
@@ -114,17 +105,13 @@ class Player extends FlxSprite {
 
   override public function update(elapsed:Float):Void {
     if (isSleeping) {
-      sleepElapsed += elapsed;
-      if (needWakeup()) {
-        wakeup();
-      }
     } else if (isEating) {
     } else if (isDrinking) {
     } else if (isToileting) {
       animation.play("read_and_toilet");
     } else if (isReading) {
       animation.play("read_and_toilet");
-    } else {
+    } else if (!isRequesting) {
       movement();
     }
     super.update(elapsed);
@@ -134,11 +121,14 @@ class Player extends FlxSprite {
     return isSleeping || isEating || isDrinking || isToileting || isReading || isRequesting;
   }
 
-  public function sleep(_sleepElapsed:Float = 0) {
+  public function sleep() {
     isSleeping = true;
     _bedSound.play();
     requestSleep(function() {
-      sleepElapsed = _sleepElapsed;
+      var timer = new FlxTimer();
+      timer.start(GameConfig.sleepingDuration, function(t) {
+        wakeup();
+      });
     });
   }
 
@@ -146,11 +136,7 @@ class Player extends FlxSprite {
     _bedSound.play();
     requestWakeup(function() {
       isSleeping = false;
-      sleepElapsed = 0;
     });
-  }
-  function needWakeup():Bool {
-    return sleepElapsed > GameConfig.sleepingDuration;
   }
 
   public function eat() {
@@ -160,12 +146,12 @@ class Player extends FlxSprite {
       _eatSound.play();
       animation.play("eat_and_drink");
       var timer = new FlxTimer();
-      FlxG.log.add(GameConfig.eatingDuration);
       timer.start(GameConfig.eatingDuration, function(t) {
         isRequesting = isEating = false;
       });
     });
   }
+
   public function drink() {
     isRequesting = true;
     requestToDrink(function() {
@@ -178,6 +164,7 @@ class Player extends FlxSprite {
       });
     });
   }
+
   public function toilet() {
     isRequesting = true;
     requestToToilet(function() {
@@ -188,6 +175,7 @@ class Player extends FlxSprite {
       });
     });
   }
+
   public function read() {
     isRequesting = true;
     requestToRead(function() {

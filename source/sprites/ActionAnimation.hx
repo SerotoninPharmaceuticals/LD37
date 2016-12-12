@@ -13,9 +13,11 @@ class ActionAnimation extends FlxSprite {
   public function playEat() {
     animation.play("eat");
   }
+
   public function playDrink() {
     animation.play("drink");
   }
+
   public function playToilet() {
     animation.play("toilet");
   }

@@ -57,8 +57,10 @@ class PlayState extends FlxState {
     super.create();
 
     GameData.load();
-    loadSound();
     if (GameConfig.debugMode) { GameData.reset(); }
+
+    loadSound();
+
     currentDay = getElapsedDays(GameData.data.elapsed);
 
     blackScreen = new FlxSprite(GameConfig.roomImgX, GameConfig.roomImgY);
@@ -71,7 +73,7 @@ class PlayState extends FlxState {
     newsReader = new NewsReader();
 
     bed = new Bed();
-    bed.canAction = function():Bool { return !GameData.data.sleptToday && bed.checkFacing(player) && !player.getIsBusy(); }
+    bed.canAction = function():Bool { return bed.checkFacing(player) && !player.getIsBusy(); }
 
     food = new Food();
     food.canAction = function():Bool { return !GameData.data.ateToday && food.checkFacing(player) && !player.getIsBusy(); }
@@ -80,7 +82,7 @@ class PlayState extends FlxState {
     water.canAction = function():Bool { return !GameData.data.drankToday && water.checkFacing(player) && !player.getIsBusy(); }
 
     toilet = new Toilet();
-    toilet.canAction = function():Bool { return !GameData.data.toiletedToday && toilet.checkFacing(player) && !player.getIsBusy(); }
+    toilet.canAction = function():Bool { return toilet.checkFacing(player) && !player.getIsBusy(); }
 
     newspaper = new Newspaper();
     newspaper.canAction = function():Bool { return !player.getIsBusy() && newspaper.checkFacing(player); }
@@ -109,6 +111,7 @@ class PlayState extends FlxState {
     add(colorOverlay);
 
     add(player);
+    add(bed.bedHead);
 
     add(shadowOverlay);
     add(lightOverlay);
@@ -147,18 +150,15 @@ class PlayState extends FlxState {
   function loadPlayer() {
     player = new Player(GameConfig.playerX, GameConfig.playerY);
     player.requestSleep = function(callback:Void->Void) {
-      blackScreen.revive();
-      var timer = new FlxTimer();
-
-      timer.start(0.3, function(t) {
-        blackScreen.kill();
+      fadeBlackScreen(0.3, 1, function() {
         callback();
-        player.setPosition(bed.x + bed.width / 2, bed.y + bed.height / 2);
+        GameData.data.sleptToday = true;
+      }, function() {
+        bed.goBed(player);
       });
-      GameData.data.sleptToday = true;
     }
     player.requestWakeup = function(callback:Void->Void) {
-      player.setPosition(bed.x + bed.width / 2 - player.width / 2, bed.y + bed.height + 5);
+      bed.leaveBed(player);
       callback();
     }
     player.requestToDrink = function(callback:Void->Void) {
@@ -179,11 +179,8 @@ class PlayState extends FlxState {
       actionAnimation.playEat();
     }
     player.requestToToilet = function(callback:Void->Void) {
-      toiletSound.play();
-      blackScreen.revive();
-      var timer = new FlxTimer();
-      timer.start(0.3, function(t) {
-        blackScreen.kill();
+      fadeBlackScreen(0.3, 1, function() {
+        toiletSound.play();
         callback();
         GameData.data.toiletedToday = true;
       });
@@ -192,6 +189,22 @@ class PlayState extends FlxState {
       callback();
       newsReader.showNews();
     }
+  }
+
+  function fadeBlackScreen(fadeDuration:Float, blackDuration:Float, onFinished:Void -> Void, onBlack:Void -> Void = null) {
+    blackScreen.revive();
+    FlxSpriteUtil.fadeIn(blackScreen, fadeDuration, true, function(t) {
+      if (onBlack == null) { return; }
+      onBlack();
+    });
+    var timer = new FlxTimer();
+    timer.start(blackDuration, function(t) {
+      FlxSpriteUtil.fadeOut(blackScreen, fadeDuration, function(t) {
+        blackScreen.kill();
+        blackScreen.alpha = 1;
+        onFinished();
+      });
+    });
   }
 
   override public function update(elapsed:Float):Void {
@@ -226,13 +239,13 @@ class PlayState extends FlxState {
     updateStatuses(elapsed);
 
     var _currentDay = getElapsedDays(totalElapsed);
-    if (_currentDay != currentDay) {
-      resetDayState();
-      currentDay = _currentDay;
-    }
 
     GameData.data.elapsed = totalElapsed;
-    GameData.save();
+
+    if (_currentDay != currentDay) {
+      currentDay = _currentDay;
+      resetDayState();
+    }
   }
 
   function detectObjects() {
@@ -321,8 +334,8 @@ class PlayState extends FlxState {
       titleScreen.fadeOut(0.5);
     });
 
-
     FlxG.log.add("Day:" + getElapsedDays(GameData.data.elapsed));
+    GameData.save();
   }
 
   function gameover() {
@@ -344,22 +357,20 @@ class PlayState extends FlxState {
   }
 
   function setupWatch() {
-    if (GameConfig.debugMode) {
-      FlxG.watch.add(GameData.data, 'toilet');
-      FlxG.watch.add(GameData.data, 'tiredness');
-      FlxG.watch.add(GameData.data, 'food');
-      FlxG.watch.add(GameData.data, 'water');
+    FlxG.watch.add(GameData.data, 'toilet');
+    FlxG.watch.add(GameData.data, 'tiredness');
+    FlxG.watch.add(GameData.data, 'food');
+    FlxG.watch.add(GameData.data, 'water');
 
-      FlxG.watch.add(GameData.data, 'toiletedToday');
-      FlxG.watch.add(GameData.data, 'sleptToday');
-      FlxG.watch.add(GameData.data, 'ateToday');
-      FlxG.watch.add(GameData.data, 'drankToday');
+    FlxG.watch.add(GameData.data, 'toiletedToday');
+    FlxG.watch.add(GameData.data, 'sleptToday');
+    FlxG.watch.add(GameData.data, 'ateToday');
+    FlxG.watch.add(GameData.data, 'drankToday');
 
 //      for(obj in lifeObjects) {
 //        obj.hitbox.alpha = 0.5;
 //        add(obj.hitbox);
 //      }
-    }
   }
 
 }

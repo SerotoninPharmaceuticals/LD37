@@ -28,19 +28,19 @@ class StatusBar extends FlxSprite {
 
   public function updateValue(value:Float) {
     var ligthUpCount = Math.ceil(statusDotCount * value / total);
-    for(i in 0...statusDotCount) {
+    for (i in 0...statusDotCount) {
       if (i < ligthUpCount) {
         FlxSpriteUtil.drawRect(this,
-          i * (statusDotWidth + statusDotSpace), 0,
-          statusDotWidth, statusDotHeight,
-          white
+        i * (statusDotWidth + statusDotSpace), 0,
+        statusDotWidth, statusDotHeight,
+        white
         );
 
       } else {
         FlxSpriteUtil.drawRect(this,
-          i * (statusDotWidth + statusDotSpace), 0,
-          statusDotWidth, statusDotHeight,
-          gray
+        i * (statusDotWidth + statusDotSpace), 0,
+        statusDotWidth, statusDotHeight,
+        gray
         );
       }
     }
