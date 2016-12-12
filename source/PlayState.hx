@@ -323,7 +323,7 @@ class PlayState extends FlxState {
     }
 
     blackScreen.revive();
-    FlxSpriteUtil.fadeIn(blackScreen, 0.5);
+    FlxSpriteUtil.fadeIn(blackScreen, 0.5, true);
     titleScreen.showDay();
     titleScreen.fadeIn(0.5);
     var timer = new FlxTimer();
@@ -357,6 +357,7 @@ class PlayState extends FlxState {
   function finishGame() {
     isGameFinished = true;
     door.open();
+    wall.open();
   }
 
   function getElapsedToday(totalElapsed:Float):Float {

@@ -65,6 +65,6 @@ class TitleScreen extends FlxTypedGroup<FlxText> {
   }
 
   public function fadeIn(duration:Float) {
-    FlxSpriteUtil.fadeIn(title, duration);
+    FlxSpriteUtil.fadeIn(title, duration, true);
   }
 }
