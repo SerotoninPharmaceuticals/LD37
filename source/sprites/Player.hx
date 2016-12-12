@@ -30,12 +30,10 @@ class Player extends FlxSprite {
   public function new(X:Float = 0, Y:Float = 0, _isSleeping = false, _sleepElapsed = 0) {
     super(X, Y);
 
-    loadGraphic("assets/images/player.png", true, 16, 16);
-    setFacingFlip(FlxObject.LEFT, false, false);
-    setFacingFlip(FlxObject.RIGHT, true, false);
-    animation.add("d", [0, 1, 0, 2], 6, false);
-    animation.add("lr", [3, 4, 3, 5], 6, false);
-    animation.add("u", [6, 7, 6, 8], 6, false);
+    loadGraphic("assets/images/animation_player.png", true, 22, 22);
+    animation.add("walk", [0, 1, 2, 3, 4, 5], 5, false);
+    animation.add("eat_and_drink", [6, 7, 8, 9, 10, 11], 5, false);
+    animation.add("read_and_toilet", [12, 13, 14, 15, 16, 17], 5, false);
     drag.x = drag.y = 1600;
     setSize(8, 14);
     offset.set(4, 2);
@@ -95,21 +93,11 @@ class Player extends FlxSprite {
 
       velocity.set(speed, 0);
       velocity.rotate(FlxPoint.weak(0, 0), mA);
+      angle = mA + 90;
 
       if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE) {
         _sndStep.play();
-
-        switch (facing)
-        {
-          case FlxObject.LEFT, FlxObject.RIGHT:
-            animation.play("lr");
-
-          case FlxObject.UP:
-            animation.play("u");
-
-          case FlxObject.DOWN:
-            animation.play("d");
-        }
+        animation.play("walk");
       }
     }
     else if (animation.curAnim != null) {
@@ -125,13 +113,13 @@ class Player extends FlxSprite {
         wakeup();
       }
     } else if (isEating) {
-      // TODO
+      animation.play("eat_and_drink");
     } else if (isDrinking) {
-      // TODO
+      animation.play("eat_and_drink");
     } else if (isToileting) {
-      // TODO
+      animation.play("read_and_toilet");
     } else if (isReading) {
-      // TODO
+      animation.play("read_and_toilet");
     } else {
       movement();
     }
