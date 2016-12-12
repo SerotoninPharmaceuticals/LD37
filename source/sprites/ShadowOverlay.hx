@@ -1,4 +1,5 @@
 package sprites;
+import flixel.util.FlxSpriteUtil;
 import flixel.FlxG;
 import flixel.util.FlxColor;
 import openfl.display.BlendMode;
@@ -9,6 +10,7 @@ class ShadowOverlay extends FlxSprite {
   var alphaCount = 0;
   var percentToday:Float = 0;
   var bothFade:Bool = false;
+  var isOpened = false;
 
   public function new(_alphaList:Array<Float>, w = 84, h = 84) {
     super();
@@ -21,6 +23,7 @@ class ShadowOverlay extends FlxSprite {
   }
 
   override public function update(elapsed:Float) {
+    if (isOpened) { return; }
     percentToday = GameData.getElapsedToday() / GameConfig.elapsedEachDay;
 
     var index = getAlphaIndex();
@@ -29,6 +32,11 @@ class ShadowOverlay extends FlxSprite {
 
     var nextPercent = percentToday * alphaCount - Math.floor(percentToday * alphaCount);
     alpha = prevAlpha * (1 - nextPercent) + nextAlpha * nextPercent;
+  }
+
+  public function open() {
+    isOpened = true;
+    FlxSpriteUtil.fadeOut(this, 2);
   }
 
   function getAlphaIndex():Int {

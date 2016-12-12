@@ -358,6 +358,11 @@ class PlayState extends FlxState {
     isGameFinished = true;
     door.open();
     wall.open();
+    var timer = new FlxTimer();
+    timer.start(1.5, function(t) {
+      shadowOverlay.open();
+      lightOverlay.open();
+    });
   }
 
   function getElapsedToday(totalElapsed:Float):Float {

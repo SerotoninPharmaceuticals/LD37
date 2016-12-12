@@ -1,4 +1,5 @@
 package sprites;
+import flixel.util.FlxSpriteUtil;
 import flixel.FlxG;
 import openfl.display.BlendMode;
 import flixel.FlxSprite;
@@ -11,6 +12,7 @@ class RoomOverlay extends FlxSpriteGroup {
   var frameCount:Int = 0;
   var percentToday:Float = 0;
   var bothFade:Bool = false;
+  var isOpened = false;
 
   public function new(img:String, w = 84, h = 84, _bothFade:Bool = false, blend:BlendMode = null) {
     super();
@@ -37,6 +39,8 @@ class RoomOverlay extends FlxSpriteGroup {
   }
 
   override public function update(elapsed:Float) {
+    if (isOpened) { return; }
+
     percentToday = GameData.getElapsedToday() / GameConfig.elapsedEachDay;
     currSprite.animation.frameIndex = getFrameIndex();
     currSprite.alpha = (1 - percentToday) * frameCount - Math.floor((1 - percentToday) * frameCount);
@@ -45,6 +49,12 @@ class RoomOverlay extends FlxSpriteGroup {
     if (bothFade) {
       nextSprite.alpha = 1 - currSprite.alpha;
     }
+  }
+
+  public function open() {
+    isOpened = true;
+    FlxSpriteUtil.fadeOut(currSprite, 2);
+    FlxSpriteUtil.fadeOut(nextSprite, 2);
   }
 
   function getFrameIndex():Int {
