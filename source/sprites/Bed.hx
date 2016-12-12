@@ -7,7 +7,7 @@ class Bed extends LifeObject {
   public var bedHead:FlxSprite;
   public function new() {
     super(GameConfig.bed);
-    bedHead = new FlxSprite(x + 1, y + 4);
+    bedHead = new FlxSprite(x + 1, y + 6);
     bedHead.loadGraphic("assets/images/player_sleeping.png");
     bedHead.kill();
   }
