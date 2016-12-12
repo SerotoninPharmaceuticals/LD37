@@ -12,11 +12,11 @@ class NewsReader extends FlxTypedGroup<LanguageGenerator> {
   var title:LanguageGenerator;
   var body:LanguageGenerator;
   var rand = new FlxRandom();
-  var paperSound:FlxSound;
+  var buttonSound:FlxSound;
 
   public function new() {
     super();
-    paperSound = FlxG.sound.load("assets/sounds/paper.wav");
+    buttonSound = FlxG.sound.load("assets/sounds/button.wav");
   }
 
   public function showNews() {
@@ -30,7 +30,7 @@ class NewsReader extends FlxTypedGroup<LanguageGenerator> {
     add(title);
     add(body);
 
-    paperSound.play();
+    buttonSound.play();
     Glitch.showUpGitch(title);
     Glitch.showUpGitch(body);
 
