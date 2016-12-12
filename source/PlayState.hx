@@ -34,7 +34,8 @@ class PlayState extends FlxState {
   var nearbyObject:FlxSprite;
   var toiletSound:FlxSound;
   var ambientSound:FlxSound;
-
+  var pressSound: FlxSound;
+  
   var blackScreen:FlxSprite;
   var titleScreen:TitleScreen;
 
@@ -142,6 +143,7 @@ class PlayState extends FlxState {
     #if flash
     toiletSound = FlxG.sound.load("assets/sounds/toilet.mp3", 0.8);
     ambientSound = FlxG.sound.load("assets/sounds/bg.mp3", 1, true);
+    pressSound = FlxG.sound.load("assets/sounds/keypress.mp3", 1);
     #else
     toiletSound = FlxG.sound.load("assets/sounds/toilet.ogg", 0.8);
     ambientSound = FlxG.sound.load("assets/sounds/bg.ogg", 1, true);
@@ -210,6 +212,7 @@ class PlayState extends FlxState {
     if (isStarting) {
       titleScreen.updateWhenPause(elapsed);
       if (FlxG.keys.anyJustPressed([X])) {
+        pressSound.play();
         blackScreen.kill();
         titleScreen.hideInStartScreen();
         isStarting = false;
