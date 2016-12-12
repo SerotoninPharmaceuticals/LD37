@@ -138,7 +138,7 @@ class GameConfig {
 
   public static var water:LifeObjectConfig = {
     x: 3,
-    y: 40,
+    y: 41,
     hitboxOffsetX: 2,
 	hitboxOffsetY: 1,
     luminosityOffsetY: -2,
