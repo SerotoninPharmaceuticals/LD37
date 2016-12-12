@@ -310,6 +310,8 @@ class PlayState extends FlxState {
   }
 
   function gameover() {
+    blackScreen.kill();
+    titleScreen.kill();
     var gameoverScreen = new FlxSprite();
     gameoverScreen.loadGraphic("assets/images/gameover.png");
     gameoverScreen.screenCenter();
