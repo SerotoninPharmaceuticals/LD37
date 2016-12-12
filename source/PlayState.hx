@@ -1,5 +1,6 @@
 package;
 
+import flixel.text.FlxText;
 import sprites.FinishedScreen;
 import sprites.Door;
 import flixel.util.FlxSpriteUtil;
@@ -196,8 +197,8 @@ class PlayState extends FlxState {
       });
     }
     player.requestToRead = function(callback:Void->Void) {
-      callback();
       newsReader.showNews();
+      callback();
     }
   }
 

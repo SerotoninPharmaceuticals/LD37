@@ -20,7 +20,14 @@ class NewsReader extends FlxTypedGroup<LanguageGenerator> {
 
   public function showNews() {
     if (body != null) { return; }
+    buttonSound.play();
+    var timer = new FlxTimer();
+    timer.start(0.65, function(t) {
+      showNewsText();
+    });
+  }
 
+  public function showNewsText() {
     var day = Std.int(GameData.getElapsedDays());
     var rand = new FlxRandom(day);
     title = new LanguageGenerator(GameConfig.newsReaderX + 12, GameConfig.newsReaderY, 1, day, rand.int(45, 85));
@@ -30,7 +37,6 @@ class NewsReader extends FlxTypedGroup<LanguageGenerator> {
     add(title);
     add(body);
 
-    buttonSound.play();
     Glitch.showUpGlitch(title);
     Glitch.showUpGlitch(body);
 
