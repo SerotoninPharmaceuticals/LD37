@@ -111,6 +111,7 @@ class PlayState extends FlxState {
     add(colorOverlay);
 
     add(player);
+    add(bed.bedHead);
 
     add(shadowOverlay);
     add(lightOverlay);
@@ -151,12 +152,13 @@ class PlayState extends FlxState {
     player.requestSleep = function(callback:Void->Void) {
       fadeBlackScreen(0.3, 1, function() {
         callback();
-        player.setPosition(bed.x + bed.width / 2, bed.y + bed.height / 2);
         GameData.data.sleptToday = true;
+      }, function() {
+        bed.goBed(player);
       });
     }
     player.requestWakeup = function(callback:Void->Void) {
-      player.setPosition(bed.x + bed.width / 2 - player.width / 2, bed.y + bed.height + 5);
+      bed.leaveBed(player);
       callback();
     }
     player.requestToDrink = function(callback:Void->Void) {
@@ -189,15 +191,18 @@ class PlayState extends FlxState {
     }
   }
 
-  function fadeBlackScreen(fadeDuration:Float, blackDuration:Float, callback:Void -> Void) {
+  function fadeBlackScreen(fadeDuration:Float, blackDuration:Float, onFinished:Void -> Void, onBlack:Void -> Void = null) {
     blackScreen.revive();
-    FlxSpriteUtil.fadeIn(blackScreen, fadeDuration);
+    FlxSpriteUtil.fadeIn(blackScreen, fadeDuration, true, function(t) {
+      if (onBlack == null) { return; }
+      onBlack();
+    });
     var timer = new FlxTimer();
     timer.start(blackDuration, function(t) {
       FlxSpriteUtil.fadeOut(blackScreen, fadeDuration, function(t) {
         blackScreen.kill();
         blackScreen.alpha = 1;
-        callback();
+        onFinished();
       });
     });
   }

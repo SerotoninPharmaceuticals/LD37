@@ -111,7 +111,7 @@ class GameConfig {
 
   public static var bed:LifeObjectConfig = {
     x: 3,
-    y: 3,
+    y: 4,
     hitboxOffsetX: 0,
     hitboxOffsetY: 2,
     luminosityOffsetX: 8,

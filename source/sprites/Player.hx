@@ -11,10 +11,8 @@ import flixel.system.FlxSound;
 
 class Player extends FlxSprite {
   public var speed:Float = 65;
-  private var _sndStep:FlxSound;
 
   public var isSleeping = false;
-  public var sleepElapsed:Float = 0;
   public var isEating = false;
   public var isDrinking = false;
   public var isToileting = false;
@@ -28,7 +26,7 @@ class Player extends FlxSprite {
   public var requestToRead:(Void -> Void) -> Void;
   public var requestToToilet:(Void -> Void) -> Void;
 
-  public function new(X:Float = 0, Y:Float = 0, _isSleeping = false, _sleepElapsed = 0) {
+  public function new(X:Float = 0, Y:Float = 0) {
     super(X, Y);
 
     loadGraphic("assets/images/animation_player.png", true, 22, 22);
@@ -38,12 +36,6 @@ class Player extends FlxSprite {
     drag.x = drag.y = 1600;
     setSize(14, 14);
     offset.set(4, 4);
-    _sndStep = FlxG.sound.load("assets/sounds/step.wav");
-
-    if (_isSleeping) {
-      sleep(_sleepElapsed);
-    }
-
   }
 
   private function movement():Void {
@@ -96,7 +88,6 @@ class Player extends FlxSprite {
       angle = mA + 90;
 
       if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE) {
-        //_sndStep.play();
         animation.play("walk");
       }
     }
@@ -108,10 +99,6 @@ class Player extends FlxSprite {
 
   override public function update(elapsed:Float):Void {
     if (isSleeping) {
-      sleepElapsed += elapsed;
-      if (needWakeup()) {
-        wakeup();
-      }
     } else if (isEating) {
       animation.play("eat_and_drink");
     } else if (isDrinking) {
@@ -130,22 +117,20 @@ class Player extends FlxSprite {
     return isSleeping || isEating || isDrinking || isToileting || isReading || isRequesting;
   }
 
-  public function sleep(_sleepElapsed:Float = 0) {
+  public function sleep() {
     isSleeping = true;
     requestSleep(function() {
-      sleepElapsed = _sleepElapsed;
+      var timer = new FlxTimer();
+      timer.start(GameConfig.sleepingDuration, function(t) {
+        wakeup();
+      });
     });
   }
 
   public function wakeup() {
     requestWakeup(function() {
       isSleeping = false;
-      sleepElapsed = 0;
     });
-  }
-
-  function needWakeup():Bool {
-    return sleepElapsed > GameConfig.sleepingDuration;
   }
 
   public function eat() {
