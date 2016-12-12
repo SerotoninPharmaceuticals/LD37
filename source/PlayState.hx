@@ -160,8 +160,11 @@ class PlayState extends FlxState {
       });
     }
     player.requestWakeup = function(callback:Void->Void) {
-      bed.leaveBed(player);
-      callback();
+      fadeBlackScreen(0.3, 1, function() {
+        callback();
+      }, function() {
+        bed.leaveBed(player);
+      });
     }
     player.requestToDrink = function(callback:Void->Void) {
       water.turnOffLuminosity();

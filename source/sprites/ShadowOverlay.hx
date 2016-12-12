@@ -1,6 +1,5 @@
 package sprites;
 import flixel.util.FlxSpriteUtil;
-import flixel.FlxG;
 import flixel.util.FlxColor;
 import openfl.display.BlendMode;
 import flixel.FlxSprite;

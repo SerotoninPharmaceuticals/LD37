@@ -31,9 +31,6 @@ class RoomOverlay extends FlxSpriteGroup {
 
     bothFade = _bothFade;
 
-//    currSprite.x -= 100;
-//    nextSprite.y += 100;
-
     frameCount = currSprite.animation.frames;
     currSprite.animation.frameIndex = getFrameIndex();
   }
