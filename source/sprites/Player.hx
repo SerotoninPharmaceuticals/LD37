@@ -12,6 +12,9 @@ import flixel.system.FlxSound;
 class Player extends FlxSprite {
   public var speed:Float = 65;
   private var _sndStep:FlxSound;
+  private var _bedSound:FlxSound;
+  private var _drinkSound:FlxSound;
+  private var _eatSound:FlxSound;
 
   public var isSleeping = false;
   public var sleepElapsed:Float = 0;
@@ -39,6 +42,9 @@ class Player extends FlxSprite {
     setSize(14, 14);
     offset.set(4, 4);
     _sndStep = FlxG.sound.load("assets/sounds/step.wav");
+    _bedSound = FlxG.sound.load("assets/sounds/bed.wav");
+    _drinkSound = FlxG.sound.load("assets/sounds/drink.wav");
+    _eatSound  = FlxG.sound.load("assets/sounds/eat.wav");
 
     if (_isSleeping) {
       sleep(_sleepElapsed);
@@ -113,9 +119,7 @@ class Player extends FlxSprite {
         wakeup();
       }
     } else if (isEating) {
-      animation.play("eat_and_drink");
     } else if (isDrinking) {
-      animation.play("eat_and_drink");
     } else if (isToileting) {
       animation.play("read_and_toilet");
     } else if (isReading) {
@@ -132,12 +136,14 @@ class Player extends FlxSprite {
 
   public function sleep(_sleepElapsed:Float = 0) {
     isSleeping = true;
+    _bedSound.play();
     requestSleep(function() {
       sleepElapsed = _sleepElapsed;
     });
   }
 
   public function wakeup() {
+    _bedSound.play();
     requestWakeup(function() {
       isSleeping = false;
       sleepElapsed = 0;
@@ -151,6 +157,8 @@ class Player extends FlxSprite {
     isRequesting = true;
     requestToEat(function() {
       isEating = true;
+      _eatSound.play();
+      animation.play("eat_and_drink");
       var timer = new FlxTimer();
       FlxG.log.add(GameConfig.eatingDuration);
       timer.start(GameConfig.eatingDuration, function(t) {
@@ -161,6 +169,8 @@ class Player extends FlxSprite {
   public function drink() {
     isRequesting = true;
     requestToDrink(function() {
+      _drinkSound.play();
+      animation.play("eat_and_drink");
       isDrinking = true;
       var timer = new FlxTimer();
       timer.start(GameConfig.drinkingDuration, function(t) {
