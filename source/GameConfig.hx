@@ -42,7 +42,7 @@ class GameConfig {
   public static var statusDotHeight = 5;
   public static var statusDotWidth = 2;
   public static var statusDotSpace = 2;
-  public static var statusDotCount = 12;
+  public static var statusDotCount = 13;
   public static var newsReaderWidth = 160;
 
   // Position
@@ -56,7 +56,7 @@ class GameConfig {
   public static var playerX = roomX + roomWidth / 2 + 4;
   public static var playerY = roomY + roomHeight / 2 + 4;
 
-  public static var dashboardX = roomRight + 9;
+  public static var dashboardX = roomRight + 8;
   public static var dashboardY = roomImgY + 3;
 
   public static var animationX = dashboardX;
