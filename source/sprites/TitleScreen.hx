@@ -35,18 +35,10 @@ class TitleScreen extends FlxTypedGroup<FlxText> {
     add(subtitle1);
   }
 
-  override public function update(elspsed) {
-    var a = title.alpha;
-    a = Glitch.continuousGlitchAlpha(a, 0);
-    title.alpha = a;
-    subtitle.alpha = a;
-    subtitle1.alpha = a;
-  }
-
-  public function updateWhenPause(elspsed) {
-    var a = title.alpha;
-    a = Glitch.continuousGlitchAlpha(a);
-    title.alpha = a;
+  var totalElapsed:Float = 0;
+  public function updateWhenPause(elapsed:Float) {
+    totalElapsed += elapsed;
+    var a = totalElapsed % 1 > 0.5 ? 0 : 1;
     subtitle.alpha = a;
     subtitle1.alpha = a;
   }

@@ -83,10 +83,6 @@ class GameData {
 
   // Including today.
   static public function getLeftDays():Int {
-    FlxG.log.add(data.elapsed);
-    FlxG.log.add( GameConfig.elapsedEachDay);
-
-    FlxG.log.add(data.elapsed / GameConfig.elapsedEachDay);
     return Math.ceil(GameConfig.totalDays - data.elapsed / GameConfig.elapsedEachDay);
   }
 
