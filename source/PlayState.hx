@@ -174,7 +174,7 @@ class PlayState extends FlxState {
       });
     }
     player.requestWakeup = function(callback:Void->Void) {
-      fadeBlackScreen(0.2, 0.8, function() {
+      if(!isGameOver) fadeBlackScreen(0.2, 0.8, function() {
         callback();
       }, function() {
         bed.leaveBed(player);
@@ -192,7 +192,7 @@ class PlayState extends FlxState {
     }
     player.requestToToilet = function(callback:Void->Void) {
       fadeBlackScreen(0.3, 0.6, function() {
-        toiletSound.play();
+        if(!isGameOver) toiletSound.play();
         callback();
         GameData.data.toiletedToday = true;
       });
@@ -237,6 +237,7 @@ class PlayState extends FlxState {
         pressSound.play();
         var timer = new FlxTimer();
         timer.start(1, function(t){
+          isGameOver = false;
           GameData.reset();
           FlxG.resetGame();
           });
@@ -374,6 +375,7 @@ class PlayState extends FlxState {
   }
 
   function gameover() {
+    isGameOver = true;
     blackScreen.kill();
     titleScreen.kill();
     var gameoverScreen = new FlxSprite();
@@ -382,7 +384,6 @@ class PlayState extends FlxState {
     add(gameoverScreen);
     FlxSpriteUtil.fadeIn(gameoverScreen, 0.3, true, function(t) {
       dashboard.gameover();
-      isGameOver = true;
     });
   }
 

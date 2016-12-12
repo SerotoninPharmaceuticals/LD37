@@ -109,8 +109,8 @@ class Dashboard extends FlxSpriteGroup {
       (GameConfig.statusDotWidth + GameConfig.statusDotWidth) * GameConfig.statusDotCount,
       GameConfig.statusLineHeight,
       GameConfig.statusRed);
-    redOverlay.alpha = 0.5;
-    redOverlay.blend = BlendMode.DARKEN;
+    redOverlay.alpha = 1;
+    redOverlay.blend = BlendMode.MULTIPLY;
     add(redOverlay);
   }
 }
