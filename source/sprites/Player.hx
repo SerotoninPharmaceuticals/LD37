@@ -36,8 +36,8 @@ class Player extends FlxSprite {
     animation.add("eat_and_drink", [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 5, false);
     animation.add("read_and_toilet", [6, 7, 8, 15, 16, 17], 5, false);
     drag.x = drag.y = 1600;
-    setSize(15, 15);
-    offset.set(5, 5);
+    setSize(14, 14);
+    offset.set(4, 4);
     _sndStep = FlxG.sound.load("assets/sounds/step.wav");
 
     if (_isSleeping) {
