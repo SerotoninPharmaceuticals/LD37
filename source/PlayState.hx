@@ -382,6 +382,7 @@ class PlayState extends FlxState {
 
     remove(titleScreen);
     GameData.reset();
+//    GameData.save();
     titleScreen = new TitleScreen();
     titleScreen.fadeOut(0.01);
     add(titleScreen);
