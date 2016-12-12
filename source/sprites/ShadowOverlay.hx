@@ -29,8 +29,6 @@ class ShadowOverlay extends FlxSprite {
 
     var nextPercent = percentToday * alphaCount - Math.floor(percentToday * alphaCount);
     alpha = prevAlpha * (1 - nextPercent) + nextAlpha * nextPercent;
-    FlxG.watch.addQuick("shadowAlpha", alpha);
-    FlxG.watch.addQuick("prevAlphaStage", prevAlpha);
   }
 
   function getAlphaIndex():Int {

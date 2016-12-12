@@ -30,7 +30,7 @@ class GameConfig {
 
   // Time
   public static var elapsedEachDay:Float = debugMode ? 2 : 60;
-  public static var totalDays:Int = 36523;
+  public static var totalDays:Int = debugMode ? 2 : 36523;
 
   // Size
   public static var roomImgWidth = 84;

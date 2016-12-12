@@ -1,5 +1,7 @@
 package;
 
+import flash.ui.GameInputFinger;
+import sprites.Door;
 import flixel.util.FlxSpriteUtil;
 import sprites.TitleScreen;
 import sprites.NewsReader;
@@ -27,6 +29,7 @@ class PlayState extends FlxState {
   var isStarting = true;
   var isPausing = false;
   var isGameOver = false;
+  var isGameFinished = false;
   var currentDay = 0;
   var nearbyObject:FlxSprite;
   var toiletSound:FlxSound;
@@ -45,6 +48,7 @@ class PlayState extends FlxState {
   var dashboard:Dashboard;
   var lifeObjects:FlxTypedGroup<LifeObject>;
   var newsReader:NewsReader;
+  var door:Door;
 
   var colorOverlay:RoomOverlay;
   var shadowOverlay:ShadowOverlay;
@@ -69,6 +73,7 @@ class PlayState extends FlxState {
 
     dashboard = new Dashboard();
     newsReader = new NewsReader();
+    door = new Door();
 
     bed = new Bed();
     bed.canAction = function():Bool { return bed.checkFacing(player) && !player.getIsBusy(); }
@@ -104,7 +109,10 @@ class PlayState extends FlxState {
 
     loadPlayer();
 
+    add(wall);
+
     add(colorOverlay);
+    add(door);
 
     add(player);
     add(bed.bedHead);
@@ -127,7 +135,6 @@ class PlayState extends FlxState {
     add(blackScreen);
     add(titleScreen);
 
-    add(wall);
     setupWatch();
   }
 
@@ -224,15 +231,23 @@ class PlayState extends FlxState {
     }
 
     detectObjects();
-    updateStatuses(elapsed);
 
-    var _currentDay = getElapsedDays(totalElapsed);
+    if (!isGameFinished) {
+      updateStatuses(elapsed);
 
-    GameData.data.elapsed = totalElapsed;
+      var _currentDay = getElapsedDays(totalElapsed);
 
-    if (_currentDay != currentDay) {
-      currentDay = _currentDay;
-      resetDayState();
+      GameData.data.elapsed = totalElapsed;
+
+      if (_currentDay != currentDay) {
+        currentDay = _currentDay;
+        if (currentDay == GameConfig.totalDays) {
+          finishedGame();
+          FlxG.log.add("Game finished");
+        } else {
+          resetDayState();
+        }
+      }
     }
   }
 
@@ -337,6 +352,11 @@ class PlayState extends FlxState {
       dashboard.gameover();
       isGameOver = true;
     });
+  }
+
+  function finishedGame() {
+    isGameFinished = true;
+    door.open();
   }
 
   function getElapsedToday(totalElapsed:Float):Float {
