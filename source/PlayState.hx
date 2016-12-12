@@ -345,7 +345,9 @@ class PlayState extends FlxState {
     gameoverScreen.loadGraphic("assets/images/gameover.png");
     gameoverScreen.screenCenter();
     add(gameoverScreen);
-    isGameOver = true;
+    FlxSpriteUtil.fadeIn(gameoverScreen, 0.3, true, function(t) {
+      isGameOver = true;
+    });
   }
 
   function getElapsedToday(totalElapsed:Float):Float {
