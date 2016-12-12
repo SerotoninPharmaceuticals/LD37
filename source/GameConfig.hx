@@ -23,7 +23,7 @@ class GameConfig {
 
   // Color
   public static var textWhite = FlxColor.WHITE;
-  public static var textGray = FlxColor.GRAY;
+  public static var textGray:FlxColor = 0xFF313131;
   public static var blackScreen:FlxColor = 0xFF101010;
   public static var shadowOverlay:FlxColor = 0xFF1E1F20;
 
@@ -37,11 +37,11 @@ class GameConfig {
   public static var roomWidth = 80;
   public static var roomHeight = 79;
   public static var statusLineHeight = 15;
-  public static var statusTitleLineHeight = 5;
+  public static var statusTitleLineHeight = 4;
   public static var statusDotHeight = 5;
   public static var statusDotWidth = 2;
   public static var statusDotSpace = 2;
-  public static var statusDotCount = 10;
+  public static var statusDotCount = 12;
   public static var newsReaderWidth = 160;
 
   // Position
@@ -55,8 +55,8 @@ class GameConfig {
   public static var playerX = roomX + roomWidth / 2 + 4;
   public static var playerY = roomY + roomHeight / 2 + 4;
 
-  public static var dashboardX = roomRight + 6;
-  public static var dashboardY = roomImgY;
+  public static var dashboardX = roomRight + 9;
+  public static var dashboardY = roomImgY + 3;
 
   public static var animationX = dashboardX;
   public static var animationY = dashboardY + statusLineHeight * 4 + 3;
