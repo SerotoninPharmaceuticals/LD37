@@ -27,7 +27,7 @@ class StatusBar extends FlxSprite {
   }
 
   public function updateValue(value:Float) {
-    var ligthUpCount = Math.floor(statusDotCount * value / total);
+    var ligthUpCount = Math.ceil(statusDotCount * value / total);
     for(i in 0...statusDotCount) {
       if (i < ligthUpCount) {
         FlxSpriteUtil.drawRect(this,

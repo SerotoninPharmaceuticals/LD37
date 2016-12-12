@@ -26,6 +26,7 @@ import flixel.system.FlxSound;
 
 class PlayState extends FlxState {
   var isPausing = true;
+  var isGameOver = false;
   var currentDay = 0;
   var nearbyObject:FlxSprite;
   var toiletSound:FlxSound;
@@ -197,6 +198,13 @@ class PlayState extends FlxState {
       }
       return;
     }
+    if (isGameOver) {
+      if (FlxG.keys.anyJustPressed([R])) {
+        GameData.reset();
+        FlxG.resetGame();
+      }
+      return;
+    }
 
     super.update(elapsed);
     var totalElapsed = GameData.data.elapsed;
@@ -244,21 +252,39 @@ class PlayState extends FlxState {
 
   function updateStatuses(elapsed:Float) {
     var elapsedInDay = elapsed / GameConfig.elapsedEachDay;
+    var food = GameData.data.food;
+    var tiredness = GameData.data.tiredness;
+    var water = GameData.data.water;
+    var toilet = GameData.data.toilet;
 
     // Food
-    GameData.data.food -= elapsedInDay * GameConfig.foodReduceEachDay;
-    GameData.data.tiredness -= elapsedInDay * GameConfig.tirednessReduceEachDay;
-    GameData.data.water -= elapsedInDay * GameConfig.waterReduceEachDay;
-    GameData.data.toilet -= elapsedInDay * GameConfig.toiletReduceEachDay;
+     food -= elapsedInDay * GameConfig.foodReduceEachDay;
+     tiredness -= elapsedInDay * GameConfig.tirednessReduceEachDay;
+     water -= elapsedInDay * GameConfig.waterReduceEachDay;
+     toilet -= elapsedInDay * GameConfig.toiletReduceEachDay;
 
     if (player.isEating) {
-      GameData.data.food += elapsedInDay * GameConfig.foodGainWhenEatingInDay;
+      food += elapsedInDay * GameConfig.foodGainWhenEatingInDay;
     } else if (player.isSleeping){
-      GameData.data.tiredness += elapsedInDay * GameConfig.tirednessGainWhenSleepInDay;
+      tiredness += elapsedInDay * GameConfig.tirednessGainWhenSleepInDay;
     } else if (player.isDrinking){
-      GameData.data.water += elapsedInDay * GameConfig.waterGainWhenDrinkingInDay;
+      water += elapsedInDay * GameConfig.waterGainWhenDrinkingInDay;
     } else if (player.isToileting){
-      GameData.data.toilet += elapsedInDay * GameConfig.toiletGainWhenToiletingInDay;
+      toilet += elapsedInDay * GameConfig.toiletGainWhenToiletingInDay;
+    }
+
+    food = Math.max(-1, Math.min(GameConfig.initialFood, food));
+    water = Math.max(-1, Math.min(GameConfig.initialWater, water));
+    tiredness = Math.max(-1, Math.min(GameConfig.initialTiredness, tiredness));
+    toilet = Math.max(-1, Math.min(GameConfig.initialToilet, toilet));
+
+    GameData.data.food = food;
+    GameData.data.tiredness = tiredness;
+    GameData.data.water = water;
+    GameData.data.toilet = toilet;
+
+    if (food == -1 || water == -1 || tiredness == -1 || toilet == -1) {
+      gameover();
     }
   }
   function resetDayState() {
@@ -281,6 +307,14 @@ class PlayState extends FlxState {
 
 
     FlxG.log.add("Day:" + getElapsedDays(GameData.data.elapsed));
+  }
+
+  function gameover() {
+    var gameoverScreen = new FlxSprite();
+    gameoverScreen.loadGraphic("assets/images/gameover.png");
+    gameoverScreen.screenCenter();
+    add(gameoverScreen);
+    isGameOver = true;
   }
 
   function getElapsedToday(totalElapsed:Float):Float {

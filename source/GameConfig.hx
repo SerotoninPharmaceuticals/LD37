@@ -65,7 +65,7 @@ class GameConfig {
   // - food
   public static var foodTitleGeneratorSeed:Int = 105;
   public static var initialFood:Float = 10;
-  public static var foodReduceEachDay:Float = 1;
+  public static var foodReduceEachDay:Float = 5;
   static var _foodGainEachEating:Float = 2;
   static var _eatingHour:Float = 0.3;
   public static var eatingDuration:Float = elapsedEachDay * _eatingHour / 24;
@@ -74,7 +74,7 @@ class GameConfig {
   // - bed
   public static var tirednessTitleGeneratorSeed:Int = 99;
   public static var initialTiredness:Float = 10;
-  public static var tirednessReduceEachDay:Float = 1;
+  public static var tirednessReduceEachDay:Float = 6;
   static var _tirednessGainEachSleep:Float = 2;
   static var _sleepHour:Float = 3;
   public static var sleepingDuration:Float = elapsedEachDay * _sleepHour / 24;
@@ -82,7 +82,7 @@ class GameConfig {
 
   // - water
   public static var initialWater:Float = 10;
-  public static var waterReduceEachDay:Float = 1;
+  public static var waterReduceEachDay:Float = 7;
   static var _waterGainEachDrinking:Float = 2;
   static var _drinkHour:Float = 0.3;
   public static var waterTitleGeneratorSeed:Int = 80;
@@ -92,11 +92,11 @@ class GameConfig {
   // - toilet
   public static var toiletTitleGeneratorSeed:Int = 120;
   public static var initialToilet:Float = 10;
-  public static var toiletReduceEachDay:Float = 1;
-  static var _toiletGainEachDrinking:Float = 2;
+  public static var toiletReduceEachDay:Float = 3;
+  static var _toiletGainEachToilting:Float = 2;
   static var _toiletHour:Float = 0.3;
   public static var toiletingDuration:Float = elapsedEachDay * _sleepHour / 24;
-  public static var toiletGainWhenToiletingInDay:Float = _toiletGainEachDrinking / toiletingDuration * elapsedEachDay;
+  public static var toiletGainWhenToiletingInDay:Float = _toiletGainEachToilting / toiletingDuration * elapsedEachDay;
 
 
   // - reading
