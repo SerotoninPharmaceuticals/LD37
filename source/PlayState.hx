@@ -7,7 +7,6 @@ import sprites.ShadowOverlay;
 import flixel.util.FlxTimer;
 import openfl.display.BlendMode;
 import sprites.RoomOverlay;
-import sprites.ActionAnimation;
 import GameData;
 import sprites.Newspaper;
 import sprites.Toilet;
@@ -45,7 +44,6 @@ class PlayState extends FlxState {
   var newspaper:Newspaper;
   var dashboard:Dashboard;
   var lifeObjects:FlxTypedGroup<LifeObject>;
-  var actionAnimation:ActionAnimation;
   var newsReader:NewsReader;
 
   var colorOverlay:RoomOverlay;
@@ -94,8 +92,6 @@ class PlayState extends FlxState {
     lifeObjects.add(newspaper);
     lifeObjects.add(bed);
 
-    actionAnimation = new ActionAnimation();
-
     colorOverlay = new RoomOverlay("assets/images/roomAmbientColor.png");
     shadowOverlay = new ShadowOverlay([
       0.80, 0.80, 0.78, 0.78, 0.75, 0.70,
@@ -126,7 +122,6 @@ class PlayState extends FlxState {
     add(newspaper);
 
     add(dashboard);
-    add(actionAnimation);
     add(newsReader);
 
     add(blackScreen);
@@ -162,21 +157,14 @@ class PlayState extends FlxState {
       callback();
     }
     player.requestToDrink = function(callback:Void->Void) {
-      actionAnimation.animation.finishCallback = function(name:String) {
-        actionAnimation.animation.finishCallback = null;
-        water.turnOffLuminosity();
-        callback();
-        GameData.data.drankToday = true;
-      }
-      actionAnimation.playDrink();
+      water.turnOffLuminosity();
+      callback();
+      GameData.data.drankToday = true;
     }
     player.requestToEat = function(callback:Void->Void) {
-      actionAnimation.animation.finishCallback = function(name:String) {
-        food.turnOffLuminosity();
-        callback();
-        GameData.data.ateToday = true;
-      }
-      actionAnimation.playEat();
+      food.turnOffLuminosity();
+      callback();
+      GameData.data.ateToday = true;
     }
     player.requestToToilet = function(callback:Void->Void) {
       fadeBlackScreen(0.3, 1, function() {
