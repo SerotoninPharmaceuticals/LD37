@@ -70,8 +70,8 @@ class PlayState extends FlxState {
 
     currentDay = getElapsedDays(GameData.data.elapsed);
 
-    blackScreen = new FlxSprite(GameConfig.roomImgX, GameConfig.roomImgY);
-    blackScreen.makeGraphic(GameConfig.roomImgWidth, GameConfig.roomImgHeight, GameConfig.blackScreen);
+    blackScreen = new FlxSprite(GameConfig.roomImgX + 4, GameConfig.roomImgY + 4);
+    blackScreen.makeGraphic(GameConfig.roomImgWidth - 8, GameConfig.roomImgHeight - 8, GameConfig.blackScreen);
     titleScreen = new TitleScreen();
 
     wall = new Wall();
@@ -226,12 +226,14 @@ class PlayState extends FlxState {
         pressSound.play();
         blackScreen.kill();
         titleScreen.hideInStartScreen();
+        titleScreen.hideInStartScreen();
         isStarting = false;
       }
       return;
     }
     if (isGameOver) {
       if (FlxG.keys.anyJustPressed([R])) {
+        pressSound.play();
         GameData.reset();
         FlxG.resetGame();
       }
