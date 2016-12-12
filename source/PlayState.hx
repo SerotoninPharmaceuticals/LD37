@@ -106,7 +106,6 @@ class PlayState extends FlxState {
 
     loadPlayer();
 
-    add(wall);
     add(colorOverlay);
 
     add(player);
@@ -129,6 +128,8 @@ class PlayState extends FlxState {
 
     add(blackScreen);
     add(titleScreen);
+
+    add(wall);
     setupWatch();
   }
 

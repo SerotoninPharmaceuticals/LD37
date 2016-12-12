@@ -13,24 +13,23 @@ class Wall extends FlxSpriteGroup {
 
     var topWall = new FlxSprite(left, top);
     topWall.makeGraphic(GameConfig.roomWidth + 2, 1);
-    topWall.alpha = 0;
     add(topWall);
 
     var bottomWall = new FlxSprite(left, bottom);
     bottomWall.makeGraphic(GameConfig.roomWidth + 2, 1);
-    bottomWall.alpha = 0;
     add(bottomWall);
 
     var leftWall = new FlxSprite(left, top);
     leftWall.makeGraphic(1, GameConfig.roomHeight + 2);
-    leftWall.alpha = 0;
     add(leftWall);
 
     var rightWall = new FlxSprite(right, top);
     rightWall.makeGraphic(1, GameConfig.roomHeight + 2);
-    rightWall.alpha = 0;
     add(rightWall);
 
+    if (!GameConfig.debugMode) {
+      topWall.alpha = bottomWall.alpha = leftWall.alpha = rightWall.alpha = 0;
+    }
     topWall.immovable = leftWall.immovable = rightWall.immovable = bottomWall.immovable = true;
   }
 }
