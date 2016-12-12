@@ -147,9 +147,15 @@ class PlayState extends FlxState {
   function loadPlayer() {
     player = new Player(GameConfig.playerX, GameConfig.playerY);
     player.requestSleep = function(callback:Void->Void) {
-      player.setPosition(bed.x + bed.width / 2, bed.y + bed.height / 2);
+      blackScreen.revive();
+      var timer = new FlxTimer();
+
+      timer.start(0.3, function(t) {
+        blackScreen.kill();
+        callback();
+        player.setPosition(bed.x + bed.width / 2, bed.y + bed.height / 2);
+      });
       GameData.data.sleptToday = true;
-      callback();
     }
     player.requestWakeup = function(callback:Void->Void) {
       player.setPosition(bed.x + bed.width / 2 - player.width / 2, bed.y + bed.height + 5);
@@ -173,8 +179,8 @@ class PlayState extends FlxState {
       actionAnimation.playEat();
     }
     player.requestToToilet = function(callback:Void->Void) {
-      blackScreen.revive();
       toiletSound.play();
+      blackScreen.revive();
       var timer = new FlxTimer();
       timer.start(0.3, function(t) {
         blackScreen.kill();
@@ -193,7 +199,7 @@ class PlayState extends FlxState {
     if (isStarting) {
       titleScreen.updateWhenPause(elapsed);
       if (FlxG.keys.anyJustPressed([X])) {
-        blackScreen.alpha = 0;
+        blackScreen.kill();
         titleScreen.hideInStartScreen();
         isStarting = false;
       }
@@ -282,7 +288,12 @@ class PlayState extends FlxState {
     GameData.data.water = water;
     GameData.data.toilet = toilet;
 
-    if (food == -1 || water == -1 || tiredness == -1 || toilet == -1) {
+    if (
+      food <= GameConfig.statusValueToDie ||
+      water <= GameConfig.statusValueToDie ||
+      tiredness <= GameConfig.statusValueToDie ||
+      toilet <= GameConfig.statusValueToDie
+    ) {
       gameover();
     }
   }
@@ -295,6 +306,7 @@ class PlayState extends FlxState {
       obj.turnOnLuminosity();
     }
 
+    blackScreen.revive();
     FlxSpriteUtil.fadeIn(blackScreen, 0.5);
     titleScreen.showDay();
     titleScreen.fadeIn(0.5);
@@ -302,7 +314,10 @@ class PlayState extends FlxState {
     isPausing = true;
     timer.start(2, function(t) {
       isPausing = false;
-      FlxSpriteUtil.fadeOut(blackScreen, 0.5);
+      FlxSpriteUtil.fadeOut(blackScreen, 0.5, function(t) {
+        blackScreen.kill();
+        blackScreen.alpha = 1;
+      });
       titleScreen.fadeOut(0.5);
     });
 

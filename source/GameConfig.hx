@@ -95,11 +95,13 @@ class GameConfig {
   // - toilet
   public static var toiletTitleGeneratorSeed:Int = 120;
   public static var initialToilet:Float = 10;
-  public static var toiletReduceEachDay:Float = 3;
-  static var _toiletGainEachToilting:Float = 2;
+  public static var toiletReduceEachDay:Float = 2;
+  static var _toiletGainEachToilting:Float = 3;
   static var _toiletHour:Float = 0.3;
   public static var toiletingDuration:Float = elapsedEachDay * _sleepHour / 24;
   public static var toiletGainWhenToiletingInElapsed:Float = _toiletGainEachToilting / toiletingDuration;
+
+  public static var statusValueToDie = -0.1;
 
 
   // - reading
