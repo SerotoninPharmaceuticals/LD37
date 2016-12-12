@@ -76,6 +76,8 @@ class Dashboard extends FlxSpriteGroup {
     );
     add(foodStatus);
     lines ++;
+
+    update(0);
   }
 
   override public function update(elapsed:Float) {

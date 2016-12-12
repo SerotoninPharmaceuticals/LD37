@@ -19,7 +19,7 @@ typedef LifeObjectConfig = {
 
 
 class GameConfig {
-  public static var debugMode:Bool = true;
+  public static var debugMode:Bool = false;
 
   // Color
   public static var textWhite = FlxColor.WHITE;
