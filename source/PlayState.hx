@@ -104,8 +104,6 @@ class PlayState extends FlxState {
 
     lightOverlay = new RoomOverlay("assets/images/roomLighting.png", 84, 84, true, BlendMode.OVERLAY);
 
-    setupWatch();
-
     loadPlayer();
 
     add(wall);
@@ -131,6 +129,7 @@ class PlayState extends FlxState {
 
     add(blackScreen);
     add(titleScreen);
+    setupWatch();
   }
 
   function loadSound() {

@@ -38,7 +38,6 @@ class Player extends FlxSprite {
     drag.x = drag.y = 1600;
     setSize(15, 15);
     offset.set(5, 5);
-
     _sndStep = FlxG.sound.load("assets/sounds/step.wav");
 
     if (_isSleeping) {

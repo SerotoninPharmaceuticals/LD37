@@ -9,7 +9,7 @@ class Wall extends FlxSpriteGroup {
     var left = GameConfig.roomX - 1;
     var right = GameConfig.roomRight;
     var top = GameConfig.roomY - 1;
-    var bottom = GameConfig.roomBottom;
+    var bottom = GameConfig.roomBottom - 1;
 
     var topWall = new FlxSprite(left, top);
     topWall.makeGraphic(GameConfig.roomWidth + 2, 1);

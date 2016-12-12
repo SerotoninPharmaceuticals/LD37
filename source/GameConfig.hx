@@ -112,8 +112,8 @@ class GameConfig {
   public static var bed:LifeObjectConfig = {
     x: 3,
     y: 3,
-    hitboxOffsetX: 8,
-    hitboxOffsetY: 4,
+    hitboxOffsetX: 0,
+    hitboxOffsetY: 2,
     luminosityOffsetX: 8,
     luminosityOffsetY: 4,
     normal: "assets/images/bed_highlight.png",
@@ -125,7 +125,8 @@ class GameConfig {
   public static var food:LifeObjectConfig = {
     x: 28,
     y: 73,
-    hitboxOffsetY: -5,
+    hitboxOffsetX: -1,
+    hitboxOffsetY: -2,
 	luminosityOffsetX: -1,
     luminosityOffsetY: -3,
     normal: "assets/images/food_highlight.png",
@@ -138,7 +139,8 @@ class GameConfig {
   public static var water:LifeObjectConfig = {
     x: 3,
     y: 40,
-    hitboxOffsetX: 4,
+    hitboxOffsetX: 2,
+	hitboxOffsetY: 1,
     luminosityOffsetY: -2,
     normal: "assets/images/water_highlight.png",
     hitbox: "assets/images/water_highlight.png",
