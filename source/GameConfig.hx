@@ -71,7 +71,7 @@ class GameConfig {
   public static var foodReduceEachDay:Float = 3;
   static var _foodGainEachEating:Float = 3;
   static var _eatingHour:Float = 0.3;
-  public static var eatingDuration:Float = elapsedEachDay * _eatingHour / 24;
+  public static var eatingDuration:Float = 2.4;
   public static var foodGainWhenEatingInElapsed:Float = _foodGainEachEating / eatingDuration;
 
   // - bed
@@ -79,7 +79,7 @@ class GameConfig {
   public static var initialTiredness:Float = 10;
   public static var tirednessReduceEachDay:Float = 2;
   static var _tirednessGainEachSleep:Float = 2;
-  static var _sleepHour:Float = 3;
+  static var _sleepHour:Float = 8;
   public static var sleepingDuration:Float = elapsedEachDay * _sleepHour / 24;
   public static var tirednessGainWhenSleepInElapsed:Float = _tirednessGainEachSleep / sleepingDuration;
 
@@ -89,7 +89,7 @@ class GameConfig {
   static var _waterGainEachDrinking:Float = 2;
   static var _drinkHour:Float = 0.3;
   public static var waterTitleGeneratorSeed:Int = 80;
-  public static var drinkingDuration:Float = elapsedEachDay * _sleepHour / 24;
+  public static var drinkingDuration:Float = 2.4;
   public static var waterGainWhenDrinkingInElapsed:Float = _waterGainEachDrinking / drinkingDuration;
 
   // - toilet
@@ -125,7 +125,7 @@ class GameConfig {
   public static var food:LifeObjectConfig = {
     x: 28,
     y: 73,
-    hitboxOffsetY: 0,
+    hitboxOffsetY: -5,
 	luminosityOffsetX: -1,
     luminosityOffsetY: -3,
     normal: "assets/images/food_highlight.png",
