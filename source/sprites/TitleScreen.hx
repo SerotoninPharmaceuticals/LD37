@@ -55,6 +55,7 @@ class TitleScreen extends FlxTypedGroup<FlxText> {
     subtitle1.kill();
     title.screenCenter();
     title.x += 1;
+    title.y = titleY;
     title.text = GameData.getLeftDays() + "";
   }
 

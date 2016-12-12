@@ -361,9 +361,7 @@ class PlayState extends FlxState {
     titleScreen.showDay();
     titleScreen.fadeIn(0.5);
     var timer = new FlxTimer();
-    isPausing = true;
-    timer.start(2, function(t) {
-      isPausing = false;
+    timer.start(1.5, function(t) {
       FlxSpriteUtil.fadeOut(blackScreen, 0.5, function(t) {
         blackScreen.kill();
         blackScreen.alpha = 1;
