@@ -381,6 +381,7 @@ class PlayState extends FlxState {
     isGameOver = true;
     FlxSpriteUtil.fadeIn(gameoverScreen, 0.3, true, function(t) {
       player.kill();
+      player.isGameOver = true;
       dashboard.gameover();
     });
   }

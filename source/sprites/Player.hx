@@ -29,6 +29,8 @@ class Player extends FlxSprite {
   public var requestToRead:(Void -> Void) -> Void;
   public var requestToToilet:(Void -> Void) -> Void;
 
+  public var isGameOver = false;
+
   public function new(X:Float = 0, Y:Float = 0) {
     super(X, Y);
 
@@ -140,6 +142,7 @@ class Player extends FlxSprite {
   }
 
   public function wakeup() {
+    if (isGameOver) { return; }
     _bedSound.play();
     requestWakeup(function() {
       isSleeping = false;
