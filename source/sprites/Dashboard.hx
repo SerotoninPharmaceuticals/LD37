@@ -15,6 +15,9 @@ class Dashboard extends FlxSpriteGroup {
 
   var toiletTitle:LanguageGenerator;
   var toiletStatus:StatusBar;
+  
+  var existTitle:LanguageGenerator;
+  var existStatus:StatusBar;
 
   public function new() {
     super();
@@ -78,6 +81,20 @@ class Dashboard extends FlxSpriteGroup {
     );
     add(foodStatus);
     lines ++;
+	
+    // existence
+    existTitle = new LanguageGenerator(
+    GameConfig.dashboardX,
+    GameConfig.dashboardY + GameConfig.statusLineHeight * lines,
+    1,
+    GameConfig.existTitleGeneratorSeed
+    );
+    add(existTitle);
+    existStatus = new StatusBar(
+    GameConfig.dashboardX, GameConfig.dashboardY + GameConfig.statusLineHeight * lines + GameConfig.statusTitleLineHeight, GameConfig.initialExist
+    );
+    add(existStatus);
+    lines ++;
 
     update(0);
   }
@@ -87,6 +104,7 @@ class Dashboard extends FlxSpriteGroup {
     tirednessStatus.updateValue(GameData.data.tiredness);
     waterStatus.updateValue(GameData.data.water);
     toiletStatus.updateValue(GameData.data.toilet);
+    existStatus.updateValue(GameConfig.currentExist);
   }
 
   public function gameover() {

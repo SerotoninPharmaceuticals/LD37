@@ -57,7 +57,7 @@ class GameConfig {
   public static var playerY = roomY + roomHeight / 2 + 4;
 
   public static var dashboardX = roomRight + 8;
-  public static var dashboardY = roomImgY + 4;
+  public static var dashboardY = roomImgY + 6;
 
   public static var animationX = dashboardX;
   public static var animationY = dashboardY + statusLineHeight * 4 + 3;
@@ -100,7 +100,14 @@ class GameConfig {
   static var _toiletHour:Float = 0.3;
   public static var toiletingDuration:Float = 1.2;
   public static var toiletGainWhenToiletingInElapsed:Float = _toiletGainEachToilting / toiletingDuration;
+  
+  // - existence
+  public static var existTitleGeneratorSeed:Int = 142;
+  public static var initialExist:Float = 10;
+  public static var currentExist:Float = 1 + Math.random() * 8;
+  public static var existingDuration:Float = 2;
 
+  
   public static var statusValueToDie = -0.1;
 
   public static var ambientSounds = [

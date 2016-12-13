@@ -60,6 +60,9 @@ class PlayState extends FlxState {
   var shadowOverlay:ShadowOverlay;
   var lightOverlay:RoomOverlay;
   var colliders: Array<FlxSprite>;
+  
+  var existChange:Float;
+  var isExisting = false;
 
   override public function create():Void {
     FlxG.mouse.useSystemCursor = true;
@@ -333,7 +336,11 @@ class PlayState extends FlxState {
     } else if (player.isToileting){
       toilet += elapsed * GameConfig.toiletGainWhenToiletingInElapsed;
     }
-
+    
+    if (isExisting){
+      GameConfig.currentExist -= elapsed * existChange / GameConfig.existingDuration;
+    }
+	
     food = Math.max(-1, Math.min(GameConfig.initialFood, food));
     water = Math.max(-1, Math.min(GameConfig.initialWater, water));
     tiredness = Math.max(-1, Math.min(GameConfig.initialTiredness, tiredness));
@@ -385,7 +392,6 @@ class PlayState extends FlxState {
     add(gameoverScreen);
     isGameOver = true;
     FlxSpriteUtil.fadeIn(gameoverScreen, 0.3, true, function(t) {
-      player.kill();
       player.isGameOver = true;
       dashboard.gameover();
     });
@@ -417,6 +423,12 @@ class PlayState extends FlxState {
       FlxG.log.add(delay);
       timer.start(delay, function(t) {
         ambientSound.play();
+        isExisting = true;
+        existChange = GameConfig.currentExist - (1 + Math.random() * 8);
+        var timer = new FlxTimer();
+        timer.start(GameConfig.existingDuration, function(t) {
+          isExisting = false;
+        });
       });
     }
   }
