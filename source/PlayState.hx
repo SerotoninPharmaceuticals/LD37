@@ -159,6 +159,7 @@ class PlayState extends FlxState {
     #else
     toiletSound = FlxG.sound.load("assets/sounds/toilet.ogg", 0.8);
     ambientSound = FlxG.sound.load("assets/sounds/bg.ogg", 1, true);
+    pressSound = FlxG.sound.load("assets/sounds/keypress.ogg", 1);
     #end
     ambientSound.play();
   }
