@@ -238,11 +238,9 @@ class PlayState extends FlxState {
         pressSound.play();
         var timer = new FlxTimer();
         timer.start(1, function(t){
-          isGameOver = false;
-          GameData.reset();
           FlxG.resetGame();
-          });
-        }
+        });
+      }
       return;
     }
     if (isGameFinished) {
@@ -376,7 +374,6 @@ class PlayState extends FlxState {
   }
 
   function gameover() {
-    isGameOver = true;
     blackScreen.kill();
     titleScreen.kill();
     var gameoverScreen = new FlxSprite();
@@ -384,6 +381,8 @@ class PlayState extends FlxState {
     gameoverScreen.screenCenter();
     add(gameoverScreen);
     FlxSpriteUtil.fadeIn(gameoverScreen, 0.3, true, function(t) {
+      isGameOver = true;
+      player.kill();
       dashboard.gameover();
     });
   }
