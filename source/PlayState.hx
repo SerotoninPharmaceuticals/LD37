@@ -1,5 +1,6 @@
 package;
 
+import flixel.text.FlxText;
 import sprites.FinishedScreen;
 import sprites.Door;
 import flixel.util.FlxSpriteUtil;
@@ -156,7 +157,7 @@ class PlayState extends FlxState {
     toiletSound = FlxG.sound.load("assets/sounds/toilet.mp3", 0.8);
     ambientSound = FlxG.sound.load("assets/sounds/bg.mp3", 1, true);
     pressSound = FlxG.sound.load("assets/sounds/keypress.mp3", 1);
-	doorSound = FlxG.sound.load("assets/sounds/dooropen.mp3", 0.65);
+    doorSound = FlxG.sound.load("assets/sounds/dooropen.mp3", 0.65);
     #else
     toiletSound = FlxG.sound.load("assets/sounds/toilet.ogg", 0.8);
     ambientSound = FlxG.sound.load("assets/sounds/bg.ogg", 1, true);
@@ -368,6 +369,8 @@ class PlayState extends FlxState {
       titleScreen.fadeOut(0.5);
     });
 
+    setupAmbientSoundForToday();
+
     FlxG.log.add("Day:" + getElapsedDays(GameData.data.elapsed));
     GameData.save();
   }
@@ -391,7 +394,7 @@ class PlayState extends FlxState {
   function finishGame() {
     isGameFinished = true;
     door.open();
-	doorSound.play();
+    doorSound.play();
     wall.open();
     var timer = new FlxTimer();
     timer.start(1.5, function(t) {
@@ -399,6 +402,25 @@ class PlayState extends FlxState {
       lightOverlay.open();
     });
   }
+
+  function setupAmbientSoundForToday() {
+    var random = Math.random();
+    FlxG.log.add(random);
+    if (random < 0.35) {
+      FlxG.log.add("will play sound at:");
+      var ambientSound = FlxG.sound.load(
+        GameConfig.ambientSounds[Math.round(Math.random() * (GameConfig.ambientSounds.length - 1))],
+        0.8
+      );
+      var timer = new FlxTimer();
+      var delay = (Math.random() * 0.5 + 0.2) * GameConfig.elapsedEachDay;
+      FlxG.log.add(delay);
+      timer.start(delay, function(t) {
+        ambientSound.play();
+      });
+    }
+  }
+
   function showFinishedTitle() {
     var screen = new FinishedScreen();
     add(screen);

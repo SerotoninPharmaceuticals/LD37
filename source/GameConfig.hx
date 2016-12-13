@@ -103,6 +103,15 @@ class GameConfig {
 
   public static var statusValueToDie = -0.1;
 
+  public static var ambientSounds = [
+    "assets/sounds/ambient1.mp3",
+    "assets/sounds/ambient2.mp3",
+    "assets/sounds/ambient3.mp3",
+    "assets/sounds/ambient4.mp3",
+    "assets/sounds/ambient5.mp3",
+    "assets/sounds/ambient6.mp3"
+  ];
+
 
   // - reading
 //  static var _readingHour:Float = 0.3;
