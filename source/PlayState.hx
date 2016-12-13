@@ -1,6 +1,5 @@
 package;
 
-import flixel.text.FlxText;
 import sprites.FinishedScreen;
 import sprites.Door;
 import flixel.util.FlxSpriteUtil;
@@ -228,7 +227,6 @@ class PlayState extends FlxState {
         pressSound.play();
         blackScreen.kill();
         titleScreen.hideInStartScreen();
-        titleScreen.hideInStartScreen();
         isStarting = false;
       }
       return;
@@ -236,8 +234,13 @@ class PlayState extends FlxState {
     if (isGameOver) {
       if (FlxG.keys.anyJustPressed([R])) {
         pressSound.play();
+        var hideGameoverScreen = new FlxSprite(blackScreen.x, blackScreen.y);
+        hideGameoverScreen.loadGraphicFromSprite(blackScreen);
+        add(hideGameoverScreen);
+        FlxSpriteUtil.fadeIn(hideGameoverScreen, 0.6, true);
         var timer = new FlxTimer();
-        timer.start(1, function(t){
+        timer.start(0.8, function(t) {
+          GameData.reset();
           FlxG.resetGame();
         });
       }
@@ -374,14 +377,15 @@ class PlayState extends FlxState {
   }
 
   function gameover() {
+    FlxG.log.add("over");
     blackScreen.kill();
     titleScreen.kill();
-    var gameoverScreen = new FlxSprite();
+    gameoverScreen = new FlxSprite();
     gameoverScreen.loadGraphic("assets/images/gameover.png");
     gameoverScreen.screenCenter();
     add(gameoverScreen);
+    isGameOver = true;
     FlxSpriteUtil.fadeIn(gameoverScreen, 0.3, true, function(t) {
-      isGameOver = true;
       player.kill();
       dashboard.gameover();
     });

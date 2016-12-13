@@ -29,7 +29,7 @@ class GameConfig {
   public static var statusRed:FlxColor = 0xFFFF0000;
 
   // Time
-  public static var elapsedEachDay:Float = debugMode ? 3 : 72;
+  public static var elapsedEachDay:Float = debugMode ? 10 : 72;
   public static var totalDays:Int = debugMode ? 3 : 36523;
 
   // Size
