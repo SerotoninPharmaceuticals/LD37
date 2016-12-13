@@ -140,7 +140,6 @@ class Player extends FlxSprite {
   }
 
   public function wakeup() {
-    if (!alive) { return; }
     _bedSound.play();
     requestWakeup(function() {
       isSleeping = false;
