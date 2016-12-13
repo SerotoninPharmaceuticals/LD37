@@ -1,18 +1,24 @@
 package sprites;
 
+import flixel.group.FlxSpriteGroup;
+import flixel.FlxSprite;
 import flixel.util.FlxSpriteUtil;
 import flixel.text.FlxText;
-import flixel.group.FlxGroup.FlxTypedGroup;
 
-class TitleScreen extends FlxTypedGroup<FlxText> {
+class TitleScreen extends FlxSpriteGroup {
   var title:FlxText;
   var subtitle:FlxText;
   var subtitle1:FlxText;
   var titleY = GameConfig.roomImgY + 26;
   var subtitleY = GameConfig.roomImgY + 48;
+  var blackScreen:FlxSprite;
 
   public function new() {
     super();
+    blackScreen = new FlxSprite(GameConfig.roomImgX + 4, GameConfig.roomImgY + 4);
+    blackScreen.makeGraphic(GameConfig.roomImgWidth - 8, GameConfig.roomImgHeight - 8, GameConfig.blackScreen);
+    add(blackScreen);
+
     title = new FlxText(0, 0, GameConfig.roomImgWidth, GameData.getLeftDays() + "");
     title.setFormat("assets/font.ttf", 12, GameConfig.textWhite, FlxTextAlign.CENTER);
     title.screenCenter();
@@ -48,6 +54,7 @@ class TitleScreen extends FlxTypedGroup<FlxText> {
     title.alpha = 0;
     subtitle.kill();
     subtitle1.kill();
+    blackScreen.alpha = 0;
   }
 
   public function showDay() {
@@ -63,11 +70,13 @@ class TitleScreen extends FlxTypedGroup<FlxText> {
     FlxSpriteUtil.fadeOut(title, duration);
     FlxSpriteUtil.fadeOut(subtitle, duration);
     FlxSpriteUtil.fadeOut(subtitle1, duration);
+    FlxSpriteUtil.fadeOut(blackScreen, duration);
   }
 
   public function fadeIn(duration:Float) {
     FlxSpriteUtil.fadeIn(title, duration, true);
     FlxSpriteUtil.fadeIn(subtitle, duration, true);
     FlxSpriteUtil.fadeIn(subtitle1, duration, true);
+    FlxSpriteUtil.fadeIn(blackScreen, duration, true);
   }
 }

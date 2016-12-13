@@ -359,16 +359,10 @@ class PlayState extends FlxState {
       obj.turnOnLuminosity();
     }
 
-    blackScreen.revive();
-    FlxSpriteUtil.fadeIn(blackScreen, 0.5, true);
     titleScreen.showDay();
     titleScreen.fadeIn(0.5);
     var timer = new FlxTimer();
     timer.start(1.5, function(t) {
-      FlxSpriteUtil.fadeOut(blackScreen, 0.5, function(t) {
-        blackScreen.kill();
-        blackScreen.alpha = 1;
-      });
       titleScreen.fadeOut(0.5);
     });
 
