@@ -37,6 +37,7 @@ class PlayState extends FlxState {
   var toiletSound:FlxSound;
   var ambientSound:FlxSound;
   var pressSound: FlxSound;
+  var doorSound: FlxSound;
   
   var blackScreen:FlxSprite;
   var titleScreen:TitleScreen;
@@ -155,6 +156,7 @@ class PlayState extends FlxState {
     toiletSound = FlxG.sound.load("assets/sounds/toilet.mp3", 0.8);
     ambientSound = FlxG.sound.load("assets/sounds/bg.mp3", 1, true);
     pressSound = FlxG.sound.load("assets/sounds/keypress.mp3", 1);
+	doorSound = FlxG.sound.load("assets/sounds/dooropen.mp3", 0.65);
     #else
     toiletSound = FlxG.sound.load("assets/sounds/toilet.ogg", 0.8);
     ambientSound = FlxG.sound.load("assets/sounds/bg.ogg", 1, true);
@@ -389,6 +391,7 @@ class PlayState extends FlxState {
   function finishGame() {
     isGameFinished = true;
     door.open();
+	doorSound.play();
     wall.open();
     var timer = new FlxTimer();
     timer.start(1.5, function(t) {
